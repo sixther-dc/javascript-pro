@@ -1,0 +1,12 @@
+{
+  "name": "my-own-angularjs",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-testem": "^0.5.22",
+    "jquery": "^3.3.1",
+    "ladash": "^1.2.0",
+    "sinon": "^7.1.1"
+  }
+}

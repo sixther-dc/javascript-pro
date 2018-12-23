@@ -1,0 +1,22 @@
+dirty_checking:  data watching,  data  bingding
+scope:
+1, $watch, $digest, and $apply
+    watcher是一个数组
+    digest判断wacher的值是否改变来决定是否调用listener函数
+    兼容第一次digest时的场景
+    angularjs的性能取决你你有多少个watcher，以及每个watch函数的性能
+    digest不应该主动调用，应该被动通知??????
+    watch一个对象或者数组的时候需要开关来开启，因为这将会执行深拷贝，浪费执行时间以及运行内存
+
+
+
+2, Scope inheritance   继承
+3, Efficient dirty-checking for collections – arrays and objects.
+4, The event system – $on, $emit, and $broadcast.
+
+
+
+
+
+Q:
+1, grunt内部的程序如何通过vscode来调试。

@@ -1,0 +1,26 @@
+<nz-layout class="layout">
+    <nz-header>
+      <div class="logo"></div>
+      <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
+        <li nz-menu-item><a routerLink="/dashboard"><i nz-icon type="dashboard"></i>Dashboard</a></li>
+        <li nz-menu-item><a routerLink="/service/heroes"><i nz-icon type="appstore"></i>英雄列表</a></li>
+        <li nz-menu-item><a routerLink="/service/man"><i nz-icon type="appstore"></i>英雄列表</a></li>
+        <!-- <li nz-menu-item>
+            <nz-select [(ngModel)]="lang === translate.currentLang" (ngModelChange)="translate.use($event)" >
+                <nz-option *ngFor="let lang of translate.getLangs()" [nzValue]="lang" [nzLabel]="lang"> 
+                </nz-option>
+            </nz-select>
+        </li> -->
+      </ul>
+    </nz-header>
+    <nz-select [(ngModel)]="translate.currentLang" (ngModelChange)="changeLang($event)" >
+        <nz-option *ngFor="let lang of supportLan" [nzValue]="lang.value" [nzLabel]="lang.desc"> 
+        </nz-option>
+    </nz-select>
+    <nz-content style="padding:0 50px;">
+      <div style="background:#fff; padding: 24px; min-height: 280px;">
+          <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer style="text-align: center;">Sixther Design ©2018 Implement By Angular</nz-footer>
+</nz-layout>

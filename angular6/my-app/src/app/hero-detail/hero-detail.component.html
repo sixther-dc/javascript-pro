@@ -1,0 +1,15 @@
+<div *ngIf="hero">
+  <div style="background: #ECECEC;padding:30px;">
+    <nz-card style="width:300px;" [nzBordered]="false" nzTitle="{{hero.cname}}" [nzExtra]="extraTemplate">
+      <p><span>编号:</span>  {{hero.ename}}</p>
+      <p><span>伴生皮肤:</span>  {{hero.title}}</p>
+      <p><span>皮肤列表:</span>  {{hero.skin_name}}</p>
+    </nz-card>
+  </div>
+  <ng-template #extraTemplate>
+  </ng-template>
+</div>
+<br />
+<div>
+  <button nz-button nzType="primary" (click)="goBack()" ><i nz-icon type="left"></i>返回</button>
+</div>

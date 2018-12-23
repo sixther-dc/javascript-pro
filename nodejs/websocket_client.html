@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <script src="socket.io.js"></script>
+</head>
+<script>
+    /*
+    var ws = new WebSocket('ws://localhost:3000');
+    ws.onopen(function (event) {
+        ws.send('news');
+    });
+    ws.onmessage(function (event) {
+        console.log(event.data);
+    });
+
+    ws.onclose = function (event) {
+        console.log('websocket closed');
+    }
+    */
+    var socket = io('http://localhost:3000');
+    socket.on('news', function (data) {       //on为设置news事件，定义socket收到news事件执行的操作，后面emit为像另一端发射一个事件
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+    });
+</script>
+
+<body>
+</body>
+
+</html>
