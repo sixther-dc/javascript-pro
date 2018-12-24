@@ -1,4 +1,3 @@
-# testNg
-requireJs+angularJs+ui-router.js组成的一个小项目
-注意，没有包括第三方js库
-使用第三库只需在testNg下建立一个js文件夹，用以放入需要的第三方js库即可
+angularjs概念：
+控制器函数什么时候执行？
+当解析html的时候,它的ng-controller遇到什么控制器,它就去实例化哪个控制器.这个时候,控制器里面的代码才会被执行到,服务等依赖也在这个时间被注入.

@@ -1,7 +1,13 @@
-define(['fruitProvider/controller/apple/appleList.js', 'fruitProvider/controller/pear/pearList.js',
-    'fruitProvider/service/apple', 'fruitProvider/service/pear'], function (appleListCtrl, pearListCtrl, appleService, pearService) {
+define([
+    'fruitProvider/controller/apple/appleList.js',
+    'fruitProvider/controller/pear/pearList.js',
+    'fruitProvider/service/apple', 
+    'fruitProvider/service/pear',
+    'angular',
+    'uirouter'
+], function (appleListCtrl, pearListCtrl, appleService, pearService, angular, uirouter) {
     //依赖路由文件
-    var fruit = angular.module("fruit", ['ui.router']);
+    var fruit = angular.module("fruit", [uirouter]);
     //添加路由，自己的路由自己管理
     fruit.config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("home");

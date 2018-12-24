@@ -2,7 +2,8 @@
 define(function () {
     var pearService = ['backend', function (backend) {
         this.getPearList = function () {
-            var data = backend.get();
+            // var data = backend.get();
+            var data;
             if (data==null){
                 data = ["pear1", "pear2", "pear3"];
             }

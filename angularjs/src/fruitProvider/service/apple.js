@@ -2,7 +2,8 @@
 define(function () {
     var appleService = ['backend', function (backend) {
         this.getAppleList = function () {
-            var data = backend.get();
+            // var data = backend.get();
+            var data;
             if (data==null){
                 data = ["apple1", "apple2", "apple3"];
             }

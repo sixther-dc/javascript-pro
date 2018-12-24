@@ -1,0 +1,27 @@
+{
+    "name": "webapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "dependencies": {
+        "webpack-cli": "^3.1.2",
+        "webpack": "^4.26.0"
+    },
+    "devDependencies": {
+        "exports-loader": "^0.7.0",
+        "express": "^4.16.4",
+        "html-webpack-plugin": "^3.2.0",
+        "open": "0.0.5",
+        "webpack-dev-middleware": "^3.4.0",
+        "webpack-hot-middleware": "^2.24.3"
+    },
+    "scripts": {
+        "test": "echo 'Error: no test specified' ",
+        "start": "node script/start.js"
+    },
+    "author": "",
+    "license": "ISC"
+}
