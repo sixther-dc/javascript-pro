@@ -14,12 +14,12 @@ define([
         $stateProvider
             .state('appleList', {
                 url: '/appleList',
-                templateUrl: 'fruitProvider/view/apple/appleList.html',
+                template: require('fruitProvider/view/apple/appleList.html'),
                 controller: 'appleListCtrl'
             })
             .state('pearList', {
                 url: '/pearList',
-                templateUrl: 'fruitProvider/view/pear/pearList.html',
+                template: require('fruitProvider/view/pear/pearList.html'),
                 controller: 'pearListCtrl'
             });
     });

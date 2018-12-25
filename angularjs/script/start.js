@@ -6,7 +6,7 @@ const express = require('express');
 const open = require('open');
 
 const app = express();
-const compiler = webpack(webpackConfig);
+const compiler = webpack(webpackConfig());
 
 app.use(webpackDevMiddleware(compiler, {
 
