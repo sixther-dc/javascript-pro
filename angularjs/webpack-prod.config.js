@@ -7,7 +7,7 @@ module.exports = function() {
     return {
         //支持多条打包路径
         entry: { 
-            home : ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true', './main.js']
+            home : './main.js'
         },
         mode: 'development',
         // mode: 'production',
@@ -16,7 +16,7 @@ module.exports = function() {
             //这里的name就是每条entry的key值，默认为main
             filename: '[name].js',
             path: path.resolve(__dirname, 'dist'),
-            sourceMapFilename: '[file].map'
+            // sourceMapFilename: '[file].map'
             //libraryTarget: 'var',
             //library: 'xxxx',
         },
@@ -49,9 +49,7 @@ module.exports = function() {
                 template: './index.html',
                 filename: 'index.html',
                 inject: 'true'
-            }),
-            //实现实时刷新浏览器
-            new webpack.HotModuleReplacementPlugin(),
+            })
         ],
         //将全局模块导出为conmmonjs格式
         module: {

@@ -7,8 +7,9 @@
         "lib": "lib"
     },
     "dependencies": {
-        "webpack-cli": "^3.1.2",
-        "webpack": "^4.26.0"
+        "clean-webpack-plugin": "^1.0.0",
+        "webpack": "^4.26.0",
+        "webpack-cli": "^3.1.2"
     },
     "devDependencies": {
         "exports-loader": "^0.7.0",
