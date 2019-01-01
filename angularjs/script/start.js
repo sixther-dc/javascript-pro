@@ -4,6 +4,9 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('../webpack.config.js');
 const express = require('express');
 const open = require('open');
+const path = require('path');
+const apiMocker = require('mocker-api');
+
 
 const app = express();
 const compiler = webpack(webpackConfig());
@@ -11,6 +14,8 @@ const compiler = webpack(webpackConfig());
 app.use(webpackDevMiddleware(compiler, {
 
 }));
+
+apiMocker(app, path.resolve('./src/mock/index.js'))
 
 app.use(webpackHotMiddleware(compiler, {
     log: console.log, 

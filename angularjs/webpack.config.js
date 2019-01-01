@@ -33,9 +33,7 @@ module.exports = function() {
                 "jquery" : path.resolve(__dirname, 'src/lib/jquery-3.3.1.min'),
                 "uirouter" : path.resolve(__dirname, 'src/lib/angular-ui-router'),
                 "framework": path.resolve(__dirname, 'src/framework'),
-                "fruitProvider": path.resolve(__dirname, 'src/fruitProvider'),
-                "backend": path.resolve(__dirname, 'src/systemService'),
-
+                "heroProvider": path.resolve(__dirname, 'src/heroProvider')            
             }
         },
         plugins: [
