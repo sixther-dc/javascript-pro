@@ -10,7 +10,7 @@ define([
     var hero = angular.module("hero", [uirouter]);
     //添加路由，自己的路由自己管理
     hero.config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/kpl/ist");
+        $urlRouterProvider.otherwise("/kpl/list");
         $stateProvider
             .state('kplList', {
                 url: '/kpl/list',
@@ -26,6 +26,10 @@ define([
                 url: '/kpl/{id}',
                 template: require('heroProvider/view/kpl/kpl_hero.html'),
                 controller: 'kplHeroCtrl'
+            })
+            .state('testcss', {
+                url: '/testcss',
+                template: require('heroProvider/view/csstest.html'),
             });
     });
     //添加服务

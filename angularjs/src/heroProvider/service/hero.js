@@ -1,5 +1,6 @@
 //得到kpl列表
 define(function () {
+    //TODO: scope不能被注入到service中去
     var service = ["$http", "$q", function($http, $q) {
         this.getkplList = function () {
             var def = $q.defer()

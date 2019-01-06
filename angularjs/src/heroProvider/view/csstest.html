@@ -1,0 +1,301 @@
+<!-- 包含在两个div只内 -->
+<style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        ul {
+            list-style: none; 
+        }
+        /* 直接子元素选择器 */
+         div > span {
+            background-color: greenyellow
+        }
+
+        /* 父子选择器，不限选择器类型，不限层级  浏览器会自右向左寻找元素 */
+        /* 权重 1 + 1 + 1 + 1 = 4 */
+        div div div span {
+            background-color: fuchsia;
+        }
+
+        /* 并列选择器 */
+        /* 权重 1 + 10 = 11 */
+        span.demo {
+            background-color: aqua
+        }
+
+        /* 分组选择器 */
+        div, span{
+            background-color: cornsilk;
+            /* 浏览器默认字体大小为16 , 此处是设置的高*/
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000000;
+            border: 1px;
+        }
+
+        #bold{
+            width: 0px;
+            height: 0px;
+            border: 100px solid black;
+            border-left-color: blueviolet;
+            border-right-color: #f40;
+            border-top-color: yellow;
+            border-bottom-color: black;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            
+        }
+ 
+        #gradient {
+            width: 200px;
+            height: 200px;
+            /* 透明度 */
+            opacity: 0.5;
+            /* background: linear-gradient(green, #ffffff)  默认从上到下*/
+            background: -webkit-linear-gradient(right bottom,red, yellow, green);
+        }
+        #simple-gradient{
+            width: 200px;
+            height: 40px;
+            /* 百分号表示颜色的起始位置 */
+            background: -webkit-linear-gradient(left, green 0%, green 50%, #ffffff 50%, #ffffff 100%);
+
+        }
+        #radial-gradient{
+            /* 绝对定位，脱离原来位置，单独一层, 相对于有最近的有定位的父级进行定位，如果没有，则相对于文档定位*/
+            /* position: absolute; */
+            /* 保留原来位置进行定位 也是分层，但是原来的位置不会被其他元素占掉, 相对于原来的位置定位*/
+            /* position: relative; */
+
+            /* TODO: 参照物 */
+            /* 用relative作为参照物，用absolute进行定位 */
+
+            /* fixed 固定定位 跟absolute类似但是参照物是屏幕 */
+            width: 200px;
+            height: 200px;
+            background: -webkit-radial-gradient(top right, transparent 0%, transparent 70%, green 70%, green 100%);
+        }
+        .circle1,
+        .circle2,
+        .circle3,
+        .circle4,
+        .circle5{
+            width: 50px;
+            height: 50px;
+            border: 3px solid;
+            border-radius: 50%
+        }
+
+        .five-circle {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -100px;
+            margin-top: -50px;
+        }
+        .plat {
+            position: relative;
+            /* width: 200px;
+            height: 100px; */
+        }
+
+        .circle1 {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border-color: red
+        }
+
+        .circle2 {
+            position: absolute;
+            top: 0px;
+            left: 60px;
+            border-color: green
+        }
+
+        .circle3 {
+            position: absolute;
+            top: 0px;
+            left: 120px;
+            border-color: blue
+        }
+
+        .circle4 {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            border-color: purple
+        }
+
+        .circle5 {
+            position: absolute;
+            top: 30px;
+            left: 90px;
+            border-color: fuchsia
+        }
+
+
+        .font,
+        .font-circle{
+            width: 120px; 
+            height: 120px; 
+            background-color: brown; 
+            /* text-align: center */
+            overflow: hidden;
+            /* 溢出盒子的部分隐藏展示 */
+        }
+        .font {
+            background-color: yellowgreen; 
+            border-radius: 0%; 
+            line-height: 16px;
+            /* 单行文本的line-height等于容器高度可以实现文本垂直居中 */
+            text-indent: 2em   /* 首行缩进 em = 1 * font-size */
+        }
+
+
+        .font-circle { 
+            background-color: brown; 
+            border-radius: 50%; 
+        }
+
+        .a-like {
+            background-color: transparent;
+            color: rgb(0, 0, 238);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .a-like:hover {
+            display: block;
+            background-color: greenyellow;
+            text-decoration: none;
+            font-size: 20px;
+            color:indianred;
+            border-radius: 10px;
+            height: 100px;
+        }
+        .fix-center{
+            /* 标准的居中 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+        }
+</style> 
+<!-- 有单词分隔符，即空格或者回车，才会换行 -->
+<hr>
+<div class="font-circle">
+    ;sldfdsalfj;lsjlfjsf;dlsdfjsjflsj;dlfj;sfjs;lfj;sajf;ljsa;lkfja english not enter
+</div>  
+<div class="font">
+    很帅很帅很帅很帅很帅很帅很帅很帅很帅很帅很帅很帅
+</div> 
+<div>
+    <span class="demo">123</span>
+</div>
+<div>
+    <strong>   
+        <span>456</span>
+    </strong>
+</div>
+<p>边框用法</p>
+<div id="bold"></div>
+<p>渐变三色加透明</p>
+<div id="gradient"></div>
+<p>简单渐变</p>
+<div id="simple-gradient"></div>
+<p>径向渐变</p>
+<div id="radial-gradient"></div>
+<p>五环</p>
+<div class="five-circle">
+    <div class="plat">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+        <div class="circle5"></div>
+    </div>
+</div>
+<span class="a-like">www.baidu.com</span>
+<div class="fix-center"></div>
+<p>两栏布局1(一个固定一个自适应)</p>
+<div class="right"></div>
+<div class="left"></div>
+<style>
+    .right {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        right: 0px;
+        background-color: black;
+        opacity: 0.5;
+    }
+
+    .left {
+        height: 100px;
+        background-color: yellow;
+        margin-right: 100px;
+    }
+</style>
+<p>两栏布局2(两个都自适应)</p>
+<div class="test1">
+    <div class="right2"></div>
+    <div class="left2"></div>
+</div>
+<style>
+    .test1 {
+        position: relative;
+        height: 100px;
+        background-color: aqua
+    }
+    .left2 {
+        position: absolute;
+        width: 80%;
+        background: yellow;
+        height: 100px;
+    }
+
+    .right2 {
+        position: absolute;
+        right: 0px;
+        width: 20%;
+        background-color: black;
+        height: 100px;
+        opacity: 0.5;
+
+    }
+</style>
+<p>浮动模型</p>
+<div class="test2">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+    <div class="box">6</div>
+    <div class="box">7</div>
+    <div class="box">8</div>
+    <div class="box">9</div>
+</div>
+<style>
+    .test2{
+        border: 1px solid black;
+        overflow: hidden;
+        /* 给元素触发bfc效果，让其可以看见触发了浮动流效果的元素 */
+    }
+
+    .box{
+        float: left;
+        color: #ffffff;
+        width: 100px;
+        height: 100px;
+        background-color: black;
+    }
+</style>

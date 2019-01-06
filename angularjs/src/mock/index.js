@@ -36,7 +36,6 @@ const proxy = {
     'GET /api/kpl/:id': (req, res) => {
         const { id } = req.params
         const heroInfo = getKplHero(id);
-        console.log(heroInfo);
         return res.json({
             data: heroInfo
         })
