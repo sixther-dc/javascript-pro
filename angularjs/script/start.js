@@ -17,6 +17,8 @@ app.use(webpackDevMiddleware(compiler, {
 
 apiMocker(app, path.resolve('./src/mock/index.js'))
 
+app.use('/static', express.static('./src/assets'))
+
 app.use(webpackHotMiddleware(compiler, {
     log: console.log, 
     path: '/__webpack_hmr', 

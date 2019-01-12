@@ -1,22 +1,31 @@
 <!-- 包含在两个div只内 -->
 <style>
-        * {
-            padding: 0px;
-            margin: 0px;
+        p {
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            color:teal;
+            font-weight: bold
         }
-        ul {
-            list-style: none; 
+        
+        p::before {
+            display: inline-block;
+            content: "#";
+            color: rebeccapurple;
+            height: 50px;
+            width: 30px;
+            margin-left: 10px
         }
         /* 直接子元素选择器 */
-         div > span {
+         /* div > span {
             background-color: greenyellow
         }
 
         /* 父子选择器，不限选择器类型，不限层级  浏览器会自右向左寻找元素 */
         /* 权重 1 + 1 + 1 + 1 = 4 */
-        div div div span {
+        /* div div div span {
             background-color: fuchsia;
-        }
+        }  */
 
         /* 并列选择器 */
         /* 权重 1 + 10 = 11 */
@@ -25,14 +34,15 @@
         }
 
         /* 分组选择器 */
-        div, span{
+        /* 浏览器默认字体大小为16 , 此处是设置的高*/
+
+        /* div, span{
             background-color: cornsilk;
-            /* 浏览器默认字体大小为16 , 此处是设置的高*/
             font-size: 14px;
             font-family: Arial, Helvetica, sans-serif;
             color: #000000;
             border: 1px;
-        }
+        } */
 
         #bold{
             width: 0px;
@@ -190,7 +200,6 @@
         }
 </style> 
 <!-- 有单词分隔符，即空格或者回车，才会换行 -->
-<hr>
 <div class="font-circle">
     ;sldfdsalfj;lsjlfjsf;dlsdfjsjflsj;dlfj;sfjs;lfj;sajf;ljsa;lkfja english not enter
 </div>  
@@ -297,5 +306,60 @@
         width: 100px;
         height: 100px;
         background-color: black;
+    }
+</style>
+<p>文字溢出容器,单行文本使用text-overflow属性，多行一般采用服务端计算实现</p>
+<div>
+    <span class="test3">
+        窗前明月光，疑是地上霜，举头望明月，低头思故乡
+    </span>
+</div>
+<!-- 为什么text-overflow在div元素中不生效 -->
+<!-- 只有设置在最近的块级元素上才生效 -->
+<style>
+    .test3 {
+        width: 100px;
+        border: 1px solid black;
+        /* 文字垂直居中显示 */
+        height: 30px;
+        line-height: 30px;
+        /* 让文本失去换行功能 */
+        white-space: nowrap;
+        overflow: hidden;
+        /* 超出文本打点显示 */
+        text-overflow: ellipsis;
+        display: block;
+    }
+</style>
+<p>背景图片</p>
+<div class="test4">
+    
+</div>
+
+<style>
+    .test4 {
+        width: 200px;
+        height: 200px;
+        background-image: url("/static/images/diaochan.jpg");
+        background-size: 100px 100px;
+        /* 设置图片不重复 */
+        background-repeat: no-repeat;
+        background-position: 100px 100px;
+    }
+</style>
+<p>图片代替文字, css去掉后依然可以工作</p>
+<a href="https://pvp.qq.com/" target="_blank" class="test5">
+    王者荣耀
+</a>
+<style>
+    .test5 {
+        display: inline-block;
+        width: 526px;
+        height:320px;
+        background-image: url("/static/images/diaochan.jpg");
+        background-size:526px 320px;
+        text-indent: 526px;
+        white-space: nowrap;
+        overflow: hidden;
     }
 </style>

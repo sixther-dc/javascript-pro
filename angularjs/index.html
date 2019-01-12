@@ -14,13 +14,57 @@
 
     <!-- <script src="home.js"></script> -->
 </head>
-<body ng-controller="testController">  
-    <div>
-        <a ui-sref="kplList">获取KPL列表</a>
-        <a ui-sref="lplList">获取LPL列表</a>
-        <a ui-sref="testcss">css学习页面</a>
-        <div ui-view></div>
+<body ng-controller="testController">
+    <div class="topbar-wrapper">
+        <div class="topbar">
+            <a class="nav-item" ui-sref="kplList">获取KPL列表</a>
+            <a class="nav-item" ui-sref="lplList">获取LPL列表</a>
+            <a class="nav-item" ui-sref="testcss">css学习页面</a>
+        </div>
     </div>
-
+    <div ui-view id="content"></div>
 </body>
+
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+        font-size: 14px;
+        font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+    }
+    ul {
+        list-style-type: none
+    }
+    .topbar-wrapper {
+        height: 50px;
+        background-color: #252a2f;
+    }
+    .topbar{
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+    .nav-item {
+        color: #ffffff;
+        text-decoration: none;
+        float: left;
+        line-height: 50px;
+        padding-right: 30px;
+        /* background-color: #333333; */
+        /* 可以明显的测出来background-color不会生效早margin上面 */
+    }
+
+    .nav-item:hover {
+        background-color: #333333;
+    }
+
+    #content {
+        width: 1200px;
+        margin: 20px auto 0px;
+        background-color: #edf0f3;
+        border: none;
+        padding: 10px;
+    }
+</style>
+
 </html>
