@@ -2,10 +2,11 @@ define([
     'heroProvider/controller/kpl/kplList.js',
     'heroProvider/controller/kpl/kplHero.js',
     'heroProvider/controller/lpl/lplList.js',
+    'heroProvider/controller/jstest.js',
     'heroProvider/service/hero', 
     'angular',
     'uirouter'
-], function (kplListCtrl, kplHeroCtrl, lplListCtrl, heroService, angular, uirouter) {
+], function (kplListCtrl, kplHeroCtrl, lplListCtrl, jsTestCtrl, heroService, angular, uirouter) {
     //依赖路由文件
     var hero = angular.module("hero", [uirouter]);
     //添加路由，自己的路由自己管理
@@ -30,6 +31,12 @@ define([
             .state('testcss', {
                 url: '/testcss',
                 template: require('heroProvider/view/csstest.html'),
+            })
+            .state('testjs', {
+                url: '/testjs',
+                template: require('heroProvider/view/jstest.html'),
+                controller: "jsTestCtrl"
+
             });
     });
     //添加服务
@@ -39,6 +46,8 @@ define([
     hero.controller("kplListCtrl", kplListCtrl);
     hero.controller("kplHeroCtrl", kplHeroCtrl);
     hero.controller("lplListCtrl" ,lplListCtrl);
+    hero.controller("jsTestCtrl" ,jsTestCtrl);
+
 
     //返回该模块
     return hero;

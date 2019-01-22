@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+
+</head>
+<body>
+    <p>js Test</p>
+</body>
+
+<script>
+    (function(){
+        console.log("test");
+    }())
+
+    // 只有表达式才能被执行符号执行， + - ！()  都可以将函数变为表达式    
+    + function test(a) {
+        console.log("可以执行么" + a)
+    }("test")
+</script>
+
+</html>
