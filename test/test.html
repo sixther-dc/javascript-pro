@@ -18,6 +18,218 @@
     + function test(a) {
         console.log("可以执行么" + a)
     }("test")
+
+    //闭包1
+    function aa(){
+        var a=[];
+        //TODO: 这里加var跟不加var有本质的区别啊
+        //FIX: 还是有区别的，因为下面的for循环又将i重新赋值了，其实就是公用了一个GO
+        for(i=0; i<10; i++) {
+            // a[i] = function() {
+            //     console.log(i)
+            // }    
+            //使用立即执行函数可以解决AO公用的问题
+            (function(x){
+                a[i] = function(){
+                    console.log(x);
+                }
+            }(i))
+        }
+        return a;
+    }
+
+    var myArr = aa();
+    for (var j=0; j<10; j++) {
+        myArr[j]();
+    }
+
+    //闭包2 对象1.0版本
+    function test() {
+        var food = "apple";
+        var obj = {
+            eatFoot : function(){
+                if (food != "") {
+                    console.log("I am eating " + food);
+                    food = "";
+                } else {
+                    console.log("empty");
+                }
+            },
+
+            pushFood: function(myFood) {
+                food = myFood;
+            }
+        }
+        return obj;
+    }
+
+    var person = test();
+    person.eatFoot();
+    person.eatFoot();
+    person.pushFood("banana");
+    person.eatFoot();
+
+    //作用域
+    // AO {
+    //     a: undefined   先找变量声明，值为undefile
+    //     a: function(){}  找函数声明赋值给a
+    // }
+    function test1() {
+        console.log(a);
+        var a = 10;
+        //该赋值是发生在执行时刻
+        //函数的声明发生的预编译期
+        function a() {
+            console.log("ttt");
+        }
+        console.log(a);
+    }
+
+    test1();
+    //f类型是啥  number
+    var f = (
+        function f(){
+            return "1"
+        },
+        function g(){
+            return 2
+        }
+    )();
+    console.log(typeof(f));
+
+    var x = 1;
+    //括号  表达式  定义后消失 
+    // var x = function ffffff() {}也是表达式
+    if (function ffff() {}) {
+        x += typeof ffff
+    }
+    console.log(x);
+
+    // 对象
+    var deng = {
+        name: "deng",
+        age: "30",
+        health: 100,
+        smoking: function(){
+            console.log("I am smoking");
+            // deng.health --;
+            this.health --;
+        },
+        drink: function(){
+            console.log("I am drinking a little");
+            this.health ++;
+        }
+    }
+    console.log(deng.health);
+
+
+    function Car(color){
+        //这里的this指的是windows
+        // new之后   var this = {}   AO: {this:{color: undefined}}
+        this.color = color;
+        this.name = "cat";
+        console.log(this);
+        return {}  //可以显示的改变返回, 但是这里只能是对象类型的值
+        //return this
+    }
+
+    //new出来的东西都是对象
+    // Car();
+    var bmw = new Car("red");
+    console.log(bmw.name);
+    console.log(bmw.color);
+    // bmw();
+
+
+    //包装类
+    //统计字符串字节长度
+    function bytesLength(str) {
+        var count = str.length;
+        for(var i=0; i < str.length; i++) {
+            if (str.charCodeAt(i) > 255) {
+                count ++;
+            }
+        }
+        return count;
+    }
+    console.log(bytesLength("abcd段超"));
+
+    //原型
+    //该构造函数构造出对象的公有祖先
+    //Person.prototype = {} 祖先
+    //通过对象是不能修改原型的
+    Pperson.prototype = {
+        name: "cat",
+        age: 20
+    }
+    function Pperson() {
+        // var this = {
+        //     __proto__ : Ppersion.prototype
+        // }
+        // 每次new的时候都会执行这个过程
+        this.color = "red"
+    }
+
+    var p1 = new Pperson();
+
+    Pperson.prototype = {
+        name: "dog",
+        age: 100 
+    }
+    var p2 = new Pperson();
+    //p1.constructor
+
+    //p1.__proto__  就是Ppersion.prototype
+
+
+    //原型链   console中可以看到原型也有__proto__
+    //原型链的连接点就是__proto__, 跟作用域链的连接点是AO是一个道理
+    //谁调用this就是谁
+    // Object.create(原型)
+    var a = Object.create({
+        name: "createObject"
+    });
+
+    var b = Object.create(null);  //不会继承自Object
+
+    //call apply
+    //call改变this指向
+    function testCall(){
+        // var this = obj
+        console.log("I am test Call");
+        this.name = "name";
+    }
+
+    var obj = {}
+    testCall.call()
+    testCall.call(obj)  //指定this为obj, 用来加工对象
+
+    Person.prototype = {
+        eat: function() {
+            console.log("I am person eat function");
+        }
+    }
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Student.prototype = {
+        eat: function() {
+            console.log("I am student eat function");
+        }
+    }
+    function Student(name, age, grade) {
+        //用Persion来加工这里的this
+        //借用别人的函数来实现自己的功能
+        // Person.call(this, name, age);
+        // TODO: call跟apply的区别
+        Person.apply(this, [name, age]);
+        this.grade = grade;
+    }
+
+    var a = new Student("duan", 13, 2008);
+ 
 </script>
 
 </html>
