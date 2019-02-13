@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Test</title>
+    <style>
+
+    </style>
+</head>
+<body>
+</body>
+
+<script>   
+
+    //1， 闭包实现class
+    // function Person(firstName, lastName, age) {
+    //     var _firstName = firstName;
+    //     var _lastName = lastName;
+    //     this.age = age;
+        
+    //     this.sayHello = function(){
+    //         console.log("Hello, " + _firstName + " " + _lastName)
+    //     }
+    // }
+
+    // var a = new Person("duan", "chao");
+
+    //2， 原型链实现class
+    //也就是圣杯模式
+
+    // function Person(name) {
+    //     this.name = name;
+    //     this.sex = "mm";
+    // }
+    // Person.prototype.sayHello = function(){
+    //     console.log("Hello " + this.name)
+    // }
+
+    // function Man(name, age) {
+    //     Person.call(this, name);
+    //     this.age = age;
+    // }
+    // Man.prototype = new Person();
+    // // Persion空new出来是一个对象{
+    // //     "name" : undefined,
+    // //     "sex" : "mm",
+    // //     __proto__ {
+    // //         sayHello: function
+    // //     }
+    // // }
+
+    // // 缺点是Man的prototype上也多了name跟sex的定义
+
+    // var a = new Man("duan", 18);
+
+    //3, 甘露模式
+    var Person = {
+        Create: function(firstName){
+            this.firstName = firstName;            
+        },
+        //该方法可以实现类似JAVA中的类变量, 证明了一件事情，原型是所有对象所共享的
+        age: [],
+        sayHello: function() {
+            console.log("Hello " + this.firstName)
+        },
+        // groupUp: function(){
+        //     Person.age ++;
+        //     return Person.age;
+        // }
+
+        //注意this上的属性到底是对象的还是原型的,很重要
+        groupUp: function(){
+            this.age.push("3");
+            return this.age;
+        }
+    };
+    // function anyfunc(){
+    //     Person.Create.call(this, "duan");
+    // };
+
+    // anyfunc.prototype = Person;
+    // var a = new anyfunc();
+
+    function New(aClass, params) {
+        function _new(){
+            aClass.Create.apply(this, params)
+        }
+        _new.prototype = aClass;
+        return new _new()
+    };
+
+    var a = New(Person, ["duan"]);
+    var b = New(Person, ["chao"]);
+
+</script>

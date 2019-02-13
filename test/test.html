@@ -10,6 +10,7 @@
 </body>
 
 <script>
+    // "use strict";
     (function(){
         console.log("test");
     }())
@@ -31,7 +32,7 @@
             //使用立即执行函数可以解决AO公用的问题
             (function(x){
                 a[i] = function(){
-                    console.log(x);
+                    // console.log(x);
                 }
             }(i))
         }
@@ -224,12 +225,212 @@
         //借用别人的函数来实现自己的功能
         // Person.call(this, name, age);
         // TODO: call跟apply的区别
+        // FIXED: 只是参数格式不一样
         Person.apply(this, [name, age]);
         this.grade = grade;
     }
 
     var a = new Student("duan", 13, 2008);
- 
+
+    //继承
+    Father.prototype.lastName = "zhang";
+    function Father() {}
+
+    function Son() {}
+
+    var father = new Father();
+    // 简单的原型赋值   父与字公用一个原型
+    // function inhrent(Target, Origin) {
+    //     Target.prototype = Origin.prototype
+    // }
+
+    // SON可以自己修改自己的原型, 圣杯模式
+    // function inhrent(Target, Origin) {
+    //     function F() {};
+    //     F.prototype = Origin.prototype;
+    //     //原型链继承，此时的SON的原型可以随意添加
+    //     Son.prototype = new F();
+    //     Target.prototype.constuctor = Target;
+    // }
+
+    //高级写法，立即执行函数，闭包
+    // 闭包的作用，模块化开发，防止污染全局变量
+    var inhrent = (function(){
+        var F = function(){};
+        return function(Target, Origin) {
+            F.prototype = Origin.prototype;
+            Target.prototype = new F();
+            Target.prototype.constuctor = Target;
+        }
+    }())
+
+    inhrent(Son, Father);
+    Son.prototype.name = "cici";
+    var father = new Father();
+    var son = new Son(); 
+
+    // 模拟连续调用
+    var BB = {
+        xx: function() {
+            console.log("I am xx");
+            return this;
+        },
+
+        yy: function() {
+            console.log("I am yy")
+            return this;
+        }
+    }
+
+    // BB.xx().yy()
+    
+    // 遍历  枚举
+    // TODO: 函数跟对象都有__proto__, 有什么联系
+    // FIXED: 说错了，前者应该是构造函数new出来的对象，其实也是对象
+    var a = {
+        x: "x",
+        y: "y",
+        __proto__ : {
+            lastName : "deng"
+        }
+    }
+    //专门来遍历对象用的
+    for (i in a) {
+        // a.hasOwnProperty(i);  //排除原型的属性
+        // i in a  //不排除原型的属性
+        console.log(i);
+        console.log(a[i]);
+    }
+    // A instance B
+    // A 是不是B构造函数构造出来的
+    // 看A对象的原型链上有没有B的原型
+    Object.prototype.toString.call([])
+    Object.prototype.toString.call(123)
+
+    // 深拷贝
+    var obj = {
+        name: "zhang",
+        car: ["benz", "volvo", "bmw"],
+        wife: {
+            name: "wang",
+            asset: ["visa", "house"]
+        }
+    }
+
+    function deepClone(target, origin) {
+        var arrStr = "[object Array]";
+        var toStr = Object.prototype.toString;
+        for (prop in origin) {
+            if (origin.hasOwnProperty(prop)) {
+                if (typeof(origin[prop]) == "object") {
+                    if (toStr.call(origin[prop]) == arrStr ) {
+                        target[prop] = [];
+                    } else {
+                        target[prop] = {};
+                    }
+                    deepClone(target[prop], origin[prop]);
+                } else {
+                    target[prop] = origin[prop];
+                }
+            }
+        }
+    }
+
+    var obj1 = {};
+    deepClone(obj1, obj);
+
+    // 数组
+
+    var tArr = new Array(1,2,13,3,4,5,6);
+    tArr.push(7);
+    var a = tArr.pop()  //剪切数组最后一位返回
+    tArr.unshift(10) //在数组前面添加元素，跟push相反
+    tArr.shift()  //剪切数组第一位，跟pop相反
+    // splice
+    // splice(从第几位开始，切去多少位， 在切口处添加数据)   用来替换数组的内容
+    // 可实现在任意位置插入元素
+    tArr.sort()  //默认按照字符串排序
+    //按照数字排序
+    tArr.sort(function(a, b){
+        return a - b
+        // return (a > b ? 1 : -1)
+    })
+
+    //给有序数组乱序
+    var a = [1, 2, 3, 4, 5, 6];
+    a.sort(function(a,b){
+        // return (Math.ceil(Math.random() * 2) - 1.5)
+        return (Math.random() - 0.5)
+    })
+
+    // 不改变原数组的方法
+    // concat join  toString
+    // slice(2, 3)   从2到3
+    // slice(4)   从4到最后
+    // slice()   将类数组转换为数组
+
+
+    // 数组去重
+    Array.prototype.unique = function(){
+        var tmpObj = {};
+        var resArry = [];
+        for (var i=0; i < this.length; i++) {
+            if (tmpObj[this[i]] == undefined) {
+                resArry.push(this[i]);
+                tmpObj[this[i]] = i;
+            }
+        }
+        return resArry;
+    }
+    var a = [1,1,1,2,2,"a","b","a","b"];
+
+
+    //实现类变量(这方法实现不了)
+    //new出来的对象的原型不公用
+    function Duan() {
+        this.say = function() {
+            this.i++;
+            //写法等于 this.i = this.i + 1,所以此时的i是在对象上的，而不是在原型上
+            console.log(this.i);
+        }
+    }
+    Duan.prototype.i=9;
+
+    //第一个只出现一次的字母
+    function getLetterOnceFirst(str) {
+        var tmpArr = str.split("");
+        tmpArr.reverse();
+        var tmpObj = {};
+        var letter;
+        for (var i=0; i<tmpArr.length; i++) {
+            tmpObj[tmpArr[i]] =  tmpObj[tmpArr[i]] || 0;
+            tmpObj[tmpArr[i]] ++;
+            if (tmpObj[tmpArr[i]] == 1){
+                letter = tmpArr[i];
+            } 
+        }
+        return letter
+    }
+
+    var str="qwruoqroauouepoqueopurwuqopbryeqoepruqwrqpupowuqr";
+    console.log(getLetterOnceFirst(str));
+
+
+    //ES3  ES5
+    //现代浏览器是用的是ES3 + ES5的新增方法执行代码的（默认）
+    // 启动es5的方法
+    // "use strict";
+    // with不能用， 变量使用前必须声明
+    // function test(){
+    //     "use strict";
+    //     console.log(arguments.callee())
+    // }
+    // test();
+    // eval() 可以把字符串当做代码来执行， 但是会改变作用域
+
+
+    // - 转驼峰的字符串转换算法    纯算法，  正则
 </script>
+
 
 </html>

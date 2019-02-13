@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom Test</title>
+    <style>
+        ul {
+            list-style: none;
+            width: 200px;
+            height: 200px;
+        }
+        li {
+            box-sizing: border-box;
+            float: left;
+            width: 10px;
+            height: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+</body>
+
+<script>
+    var div = document.createElement('div');
+    // document.body.appendChild(div);
+    div.style.width = "100px";
+    div.style.height = "100px";
+    div.style.backgroundColor = "red";
+    div.style.position = "absolute";
+    div.style.left = "0";
+    div.style.top = "0";    
+    //元素加速运动
+    // var speed = 1;
+    // var timer = setInterval(function(){
+    //     speed += speed / 7;
+    //     div.style.left = parseInt(div.style.left) + speed + "px";
+    //     div.style.top = parseInt(div.style.top) + speed + "px";
+    //     if (parseInt(div.style.left) > 300 || parseInt(div.style.top) > 300) {
+    //         clearInterval(timer);
+    //     }
+    // },100)
+
+    //上下左右控制元素
+    var speed = 5;
+    document.onkeydown = function(e){
+        switch(e.which) {
+            case 38:
+                div.style.top = parseInt(div.style.top) - 5 + "px";
+                break
+            case 40:
+                speed += speed/8;
+                div.style.top = parseInt(div.style.top) + speed + "px";
+                break
+            case 37:
+                div.style.left = parseInt(div.style.left) - 5 + "px";
+                break
+            case 39:
+                div.style.left = parseInt(div.style.left) + 5 + "px";
+                break             
+        }
+    }
+
+    //涂鸦板
+    
+    var ul = document.createElement('ul');
+    document.body.appendChild(ul);
+    for (var i=0; i < 400; i++) {
+        var li = document.createElement('li');
+        li.setAttribute("img-data", 0);
+        ul.appendChild(li);
+    }
+
+    ul.onmouseover = function(e) {
+        var event = e || window.event;
+        var target = event.target || event.srcEvent;
+        target.style.backgroundColor = "rgb(0, 255, " + target.getAttribute("img-data") + ")";
+        target.setAttribute("img-data", parseInt(target.getAttribute("img-data")) + 20); 
+    }
+
+    // TODO: 实现InsertBefore   标签逆序
+</script>
+</html>
