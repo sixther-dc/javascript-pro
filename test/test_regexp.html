@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reg Test</title>
+</head>
+
+<body>
+
+    
+</body>
+
+<script>
+    var str = "asfas\nsdfsaf";
+    var table = [
+        {"name":"duan", "sex": 14},
+        {"name": "chao", "sex": function(){}}
+    ];
+    
+
+    var reg1 = /abc/i;
+    //i 忽略大小写
+    //g golbal 全局匹配
+    //m 多行匹配
+    var reg2 = new RegExp("abc", "g");
+
+    var str = "abcabcabcabc"
+    reg1.test(str) //true
+    str.match(reg2); //返回数组
+
+    // 多行匹配
+    var reg3 = /^a/gm;
+    var str3 = "asfas\naaa";
+    str3.match(reg3);
+
+    // 表达式 []代表一位, 表达式里面的^代表 非
+    // 按照asic码来排的
+    var reg4 = /[0-9][0-9][0-9]/g;
+    var str4 = "345323252352352345";
+    str4.match(reg4);
+
+    // 表达式()
+    var reg5 = /(abc|bcd)[0-9]/g;
+    var str5 = "abc2fcdaf";
+    str5.match(reg5);
+
+    // 元字符
+    // . 除了换行符号，以及行结束符  \r\n
+    var reg6 =  /段超/g;
+    var str6 = "段超";
+    str6.match(reg6);
+
+
+    //检验一个字符串收尾是否含有字符串  或
+    var reg7 = /^\d|\d$/;
+    var reg8 = /^\d[\s\S]\d$/;   //首尾都有
+
+
+    //exec方法
+    //执行一次找一个
+    var reg9 = /abc/g;
+    var str9 = "abcasdfafabc";
+
+    // 游标
+    // 不加g的话游标是不动的， 加g后游标会生效
+    console.log(reg9.lastIndex);
+    console.log(reg9.test(str9));
+    console.log(reg9.lastIndex);
+    console.log(reg9.test(str9));
+    console.log(reg9.lastIndex);
+    console.log(reg9.test(str9));
+    console.log(reg9.lastIndex);
+    console.log(reg9.test(str9));
+
+
+    // 子表达式 匹配AABB
+    var reg10 = /(\w)\1(\w)\2/g;
+    var str10 = "aabbccdd";
+    console.log(str10.match(reg10));
+
+    console.log(reg10.exec(str10));  //打印配置的值，以及子表达式的值
+    console.log(reg10.exec(str10));  //打印配置的值，以及子表达式的值
+
+    // string.seach   返回-1或者其他（位置）
+    // string.split(reg)  按照reg来拆分字符串
+
+    // string.replace
+    var reg11 = /(\w)\1(\w)\2/g;
+    var str11 = "aabbccdd";
+    console.log(str11.replace(reg11, "$2$2$1$1"));
+
+    console.log(str11.replace(reg11, function($, $1, $2, $3){
+        return $2 + $2 + $1 + $1 + $1 
+    }));
+
+
+    //-转小驼峰
+    var str12 = "the-first-num";
+    var reg12 = /-(\w)/g;
+    console.log(str12.replace(reg12, function($, $1){
+        return $1.toUpperCase();
+    }));
+
+    //小驼峰转-
+    var str13 = "theFirstNum";
+    var reg13 = /([A-Z])/g;
+    console.log(str13.replace(reg13, function($, $1){
+        console.log($1);
+        return "-" + $1.toLowerCase();
+    }));
+
+    //查查字符串  正向预差
+    
+    var str13 = "abaaaa";
+    var reg13 = /a(?=b)/g;
+    var reg14 = /a(?!b)/g;
+    console.log(str13.match(reg13));
+    console.log(str13.match(reg14));
+
+    //非贪婪匹配  问号 ?
+    var str15 = "adafasfasf";
+    var reg15 = /\w+?/;
+    console.log(str15.match(reg15));
+
+    // 获取region
+    var str999 = "sdfsfsd&region=cn&local=cb&region=cnn"  //获取出cn
+    var reg999 = /region=(\w+)/g;
+    console.log(str999.match(reg999));
+    console.log(reg999.exec(str999)[1]);
+
+
+
+
+</script>
+
+</html>

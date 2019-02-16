@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Event Test</title>
+    <style>
+        .drag {
+            width: 100px;
+            height: 100px;
+            background-color: chocolate;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div class="drag"></div>
+</body>
+
+<script>
+    var ulEle = document.getElementsByTagName("ul")[0];
+    var liCol = document.getElementsByTagName("li");
+    length = liCol.length;
+    for (var i = 0; i < length; i++) {
+        (function (i) {
+            // liCol[i].addEventListener("click", function(){
+            //     console.log(i);
+            //     console.log(this);
+            // }, false)
+            addEvent(liCol[i], "click", test);
+        }(i))
+    };
+
+    //事件委托
+    addEvent(ulEle, "click", function (e) {
+        console.log(e.target.innerText + " from ul ele");
+    })
+
+    function test(e) {
+        //记录事件发生时候的状态
+        console.log(e);
+        console.log(e.target.innerText);
+        // e.stopPropagation(2);
+        // 取消冒泡
+        console.log(this);
+    }
+
+    function addEvent(ele, type, handle) {
+        if (ele.addEventListener) {
+            ele.addEventListener(type, handle, false)
+        } else if (ele.attachEvent) {
+            ele.attachEvent('on' + type, function () {
+                handle.call(ele);
+            })
+        } else {
+            ele["on" + type] = handle;
+        }
+    }
+
+    document.onclick = function () {
+        console.log("你闲的啊");
+    }
+    //解除事件
+    // div.onclick = null; 
+
+
+    // 事件处理模型 
+    // 二选一，只能处理一个模型
+    // 冒泡 子元素设置的事件，会往上冒泡到所有的父级元素  自底向上
+    // 捕获  只有chrome实现                         自上向底
+    // ele.addEventListener(type, handle, true)
+    // 执行顺序跟冒泡相反
+    // 先捕获 后冒泡
+
+
+    // 取消冒泡
+
+    // 取消默认事件
+
+    document.oncontextmenu = function (e) {
+        var event = e || window.event;
+        console.log("a");
+        //取消默认事件
+        // return false;
+        event.preventDefault();
+        //IE
+        //e.returnValue = false;
+    }
+
+    // 事件源对象 , 触发事件源的dom对象, 有啥用
+    // 事件委托 依赖事件源对象
+
+    // 拖拽   
+
+    var dragEle = document.getElementsByClassName("drag")[0];
+
+    function drag(ele) {
+        ele.onmousedown = function () {
+            document.onmousemove = function (e) {
+                var event = e || window.event;
+                ele.style.left = event.pageX - parseInt(getComputedStyle(ele, null).width) / 2 + "px";
+                ele.style.top = event.pageY - parseInt(getComputedStyle(ele, null).height) / 2 + "px";
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+    }
+    drag(dragEle);
+
+    // mouseover / mouseenter   鼠标移入
+    // mouseout / mouseleave    鼠标移入
+
+
+    // 键盘类事件
+    // keydown keypress keyup
+    // keydown 基本等于keypress   keypress只支持字符类案件
+    document.onkeydown = function(e) {
+        console.log(e);
+        console.log("keydown")
+    };
+    //监控字符类按键
+    document.onkeypress = function(e) {
+        console.log(String.fromCharCode(e.charCode));
+        console.log("keypress")
+    };
+    // document.onkeyup = function() {
+    //     console.log("keyup")
+    // };
+
+    // scorll   滚动条事件   用来兼容IE6的fix定位
+    // load   domtree解析完成，资源下载完成后执行， 慢
+
+
+    // dom树解析    深度优先原则
+    // reflow  dom操作会引起render tree的重新绘制， 增 删   宽高变化
+    // repaint 重绘   修改颜色   影响较小
+
+    // 异步加载js
+    // defer = "defer"  IE可用，等到整个页面解析完毕后成型，domtree解析后
+    // async= "async"   W3C标准方法    加载完就执行
+    // 按需加载
+
+    // var script = document.createElement("script");
+
+    // //如果要执行1.js里面的函数，则要等1.js完全下载完毕才可以
+    // //所以什么时候执行是一个问题，some tips   onload事件
+    // //先绑定事件确保万无一失
+    // script.onload = function() {
+    //     console.log("test_array.js 下载完毕");
+    // }
+    // script.src = "test_array.js";
+    // // 此时系统就会去下载1.js
+    // document.body.appendChild(script);
+    //此时会执行1.js
+
+    function lazyLoad(url, callback) {
+        var script = document.createElement("script");
+        script.onload = function() {
+            callback();
+        };
+        script.src = url;
+        document.body.appendChild(script);
+    }
+
+    lazyLoad("test_array.js", function(){
+        test();
+    })
+
+    // js时间线
+
+    document.onreadystatechange = function(){
+        console.log(document.readyState);
+    };
+    // dom树解析完毕后事件，相当于jquery的 $(document).ready(function(){})
+    document.addEventListener("DOMContentLoaded", function(){
+        console.log(document.readyState);
+        console.log("a");
+    }, false)
+</script> 

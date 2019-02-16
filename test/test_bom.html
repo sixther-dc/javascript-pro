@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOM Test</title>
+    <style>
+        #test {
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div id="test"></div>
+</body>
+
+<script>
+    //滚动条的位置
+    console.log(window.pageXOffset);
+    console.log(window.pageYOffset);
+
+    //IE8以及一下这两个有一个一定可以, 另外一个一定不可以, 相加即可
+    document.body.scrollLeft;
+    document.documentElement.scrollLeft;
+
+    // 可视区尺寸
+    console.log(window.innerHeight);
+    console.log(window.innerWidth);
+
+    //获取文档类型，标准模式，还是混杂模式
+    document.compatMode;
+
+    //查看元素的几何尺寸
+    var div = document.getElementById("test");
+    console.log(div.getBoundingClientRect());
+
+    // 改变行间样式， 无兼容问题
+    // 只有style可以写入
+    div.style.borderRadius = "50%";
+
+    //获取当前元素展示的一切css的显示值, 显示的是最终的值
+    // IE9以下不兼容
+    console.log(window.getComputedStyle(div, null));
+    // 获取伪元素的样式值
+    // console.log(window.getComputedStyle(div, "after"));
+    // 改变伪元素的可以通过修改class来实现
+
+
+    //IE9以下
+    // div.currentStyle
+
+    // TODO: 搞一个轮播图
+    // TODO: 搞一个二级菜单
+    // TODO: 搞一个瀑布流
+    // TODO: 搞一个扫雷
+    // TODO: 搞一个贪食蛇
+
+</script>

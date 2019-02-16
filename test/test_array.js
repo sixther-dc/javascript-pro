@@ -6,3 +6,7 @@ kplHeroList.find(function(x){
         return x;
     }
 })
+
+function test() {
+    console.log("I am test from test_array.js");
+}
