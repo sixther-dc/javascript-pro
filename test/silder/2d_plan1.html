@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2D Slider</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            /* height: 10000px; */
+        }
+        .wrapper{
+            font-size: 0px;
+            height: 300px;
+            position: relative;
+            width: 400px;
+            left: 50%;
+            top: 200px;
+            margin-left: -200px;
+        }
+
+        img {
+            width: 400px;
+            height: 300px;
+            /* 独立一层，所以可实现图片重叠 */
+            position: absolute;
+            border-radius: 10px;
+            opacity: 0;
+            /* 设置过度属性 */
+            transition: opacity 2s;
+        }
+        .icon {
+            width: 10px;
+            height: 10px;
+            margin: 5px;
+            /* margin-right: 10px; */
+            background-color: aqua;
+            border-radius: 50%;
+            display: inline-block;
+            background-color: #fff;
+            
+        }
+        .iconwrapper {
+            text-align: center;
+            /* 也可以设置文本间距，但是上下的间距也会放大 */
+            /* font-size: 10px; */
+            width: 400px;
+            /* padding-left: 0; */
+            position: absolute;
+            /* left: 50%; */
+            top: 90%;
+            /* margin-left: -200px; */
+        }
+
+        ul {
+            padding-inline-start: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <img src="../images/0.jpeg" alt="">
+        <img src="../images/1.jpeg" alt="">
+        <img src="../images/2.jpeg" alt="">
+        <img src="../images/3.jpeg" alt="">
+        <img src="../images/4.jpeg" alt="">
+        <ul class="iconwrapper">
+                <li class="icon"></li>
+                <li class="icon"></li>
+                <li class="icon"></li>
+                <li class="icon"></li>
+                <li class="icon"></li>
+        </ul>
+    </div>
+</body>
+<script src="2d_plan1.js"></script>
+</html>

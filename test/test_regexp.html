@@ -123,6 +123,17 @@
     var str15 = "adafasfasf";
     var reg15 = /\w+?/;
     console.log(str15.match(reg15));
+ 
+    // 字符串去重
+    var str16 = "aaaadddddccccfffff";
+    var reg16 = /(\w)\1*/g;
+    console.log(str16.replace(reg16, "$1"));
+
+    // 科学计数法  找空
+    // \B匹配非单词边界
+    var str17 = "1000000000000000";
+    var reg17 = /(?=(\B)(\d{3})+$)/g;
+    console.log(str17.replace(reg17, ","))
 
     // 获取region
     var str999 = "sdfsfsd&region=cn&local=cb&region=cnn"  //获取出cn
