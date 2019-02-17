@@ -54,11 +54,13 @@ function bindEvent() {
 }
 
 function autoPlay() {
-    if (curDisplay == imgLen - 1) {
-        curDisplay = 0;
-    } else {
-        curDisplay++;
-    }
+    // if (curDisplay == imgLen - 1) {
+    //     curDisplay = 0;
+    // } else {
+    //     curDisplay++;
+    // }
+    curDisplay = curDisplay%imgLen;
+    curDisplay ++;
     // curDisplay = ++index%imgLen;
     move();
 }
