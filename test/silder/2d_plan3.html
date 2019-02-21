@@ -1,0 +1,273 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewprot" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>轮播图</title>
+        <style type="text/css">
+            *{
+              margin: 0;
+              padding: 0;
+              list-style: none;
+            }
+            
+            .wrapper {
+              position: relative;
+              margin: 100px auto;
+              width: 500px;
+              height: 250px;
+              overflow: hidden;
+            }
+            
+            .wrapper .sliderPage {
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 500%;
+              height: 100%;
+              font-size: 0;
+            }
+            .wrapper .sliderPage .item{
+              float: left;
+              width: 20%;
+              height: 100%;
+              box-sizing: border-box;
+              border: 1px solid black;
+              text-align: center;
+              font: bold 20px/250px "微软雅黑";
+              background-color: red;
+              background-size: 100% 100%;
+            }
+            
+            .wrapper .btnLeft,
+            .wrapper .btnRight{
+              position: absolute;
+              top: 50%;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              font: bold 15px/40px "微软雅黑";
+              background-color: #000;
+              opacity: 0.1;
+              text-align: center;
+              transform: translateY(-50%);
+              color: white;
+              cursor: pointer;
+            }
+            
+            .wrapper .btnLeft:hover,
+          .wrapper .btnRight:hover{
+            opacity: 1;
+          }
+            
+            .wrapper .btnLeft {
+              left: 15px;
+            }
+            .wrapper .btnRight {
+              right: 15px;
+            }
+            
+            .wrapper .clickSpan {
+              position: absolute;
+              bottom: 15px;
+              width: 100%;
+              text-align: center;
+            }
+            
+            .wrapper .clickSpan span{
+              display: inline-block;
+              margin-left: 10px;
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              background-color: #fff;
+              cursor: pointer;
+            }
+            
+            .wrapper .clickSpan .active{
+              background-color: purple;  
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        
+        <div class="wrapper">
+          
+        </div>
+        
+        <script type="text/javascript">
+          Element.prototype.createSliderPage = function (urlArray) {
+            function getStyle (dom,attr) {
+            if(dom.currentStyle){
+              return dom.currentStyle[attr];
+            }else{
+              return window.getComputedStyle(dom,null)[attr];
+            }
+          }
+          function move (dom,cssOption,callback) {
+            var ispeed;
+            var flags = {};
+            var target = {};
+            dom.timer = setInterval(function () {
+            var stop = true;
+            for(var attr in cssOption) {
+              if(attr == 'opacity'){
+                var iCur = parseFloat(getStyle(dom,attr)) * 100;
+                if(!flags[attr]) {// 只是为了只执行一次。
+                  target[attr] = cssOption[attr] * 100;
+                  flags[attr] = true;
+                }
+              }else{
+                var iCur = parseInt(getStyle(dom,attr));
+                target[attr] = cssOption[attr];
+              }
+            ispeed = (target[attr] - iCur) / 7;
+            ispeed = ispeed > 0 ? Math.ceil(ispeed) : Math.floor(ispeed);
+            if (target[attr] - iCur !== 0) {
+              stop = false;
+              if (attr == 'opacity') {
+                dom.style[attr] = (iCur + ispeed) / 100;
+              } else{
+                dom.style[attr] = iCur + ispeed + 'px';               
+              }
+            }
+              if(stop){
+                clearInterval(dom.timer);
+                typeof(callback)=="function" ? callback() : '';
+              }
+            }
+            
+            },30);
+          }
+            
+            var self = this;
+            self.innerHTML = `
+          <ul class="sliderPage">
+            <li class="item"></li>
+            <li class="item"></li>
+            <li class="item"></li>
+            <li class="item"></li>
+            <li class="item"></li>
+          </ul>
+          
+          <div class="btnLeft"><</div>
+          <div class="btnRight">></div>
+          
+          <div class="clickSpan">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+            `;
+            
+            
+          var sliderPage = document.getElementsByClassName('sliderPage')[0];
+          var sliderWidth = sliderPage.children[0].offsetWidth;
+          var sliderNum = sliderPage.children.length - 1;
+          var btnLeft = document.getElementsByClassName('btnLeft')[0];
+          var btnRight = document.getElementsByClassName('btnRight')[0];
+          var spanArray = document.getElementsByClassName('clickSpan')[0].getElementsByTagName('span');
+          var index = 0;
+          var timer = null;
+          var childLi = sliderPage.children;
+          
+          
+          function setBackImg (childLi,urlArray) {
+            var len = childLi.length;
+            for(var i = 0; i < len - 1;i++){
+              childLi[i].style.backgroundImage = 'url(' + urlArray[i] + ')';
+            }
+              childLi[len - 1].style.backgroundImage = 'url(' + urlArray[0] + ')';// 多出来的一张.
+          }
+          setBackImg(childLi,urlArray);
+          
+          
+          //下面点的样式.
+          function changeSliderItem (index) {
+            for(var i = 0;i < sliderNum;i++) {
+              spanArray[i].className = '';
+            }
+            if(index == spanArray.length){index = 0}
+            spanArray[index].className = 'active';
+          }
+          
+          
+          var autoMove = (function () {
+            var direction = 'toLeft';
+            var flag = true;
+            var index = 0;
+          return function (direction1,index1) {
+            clearTimeout(timer);
+            direction = direction1 || direction;
+            index = typeof(index1) == 'undefined' ? index : index1;
+            if(flag){
+              flag = false;
+              if (direction == 'toLeft') {
+                if(sliderPage.offsetLeft == -sliderWidth * sliderNum){
+                  sliderPage.style.left = '0px';
+                  index = 0;
+                }
+                index++;
+                move(sliderPage,{left:-index*sliderWidth},function () {
+                  timer = setTimeout(autoMove,1000);
+                  flag = true;
+                  console.log(index);
+                  changeSliderItem(index);
+                });
+              } else if (direction == 'toRight') {
+                if(sliderPage.offsetLeft == 0){
+                  sliderPage.style.left = -sliderWidth * sliderNum + 'px';
+                  index = sliderNum;
+                }
+                index--;
+                move(sliderPage,{left:-index*sliderWidth},function () {
+                  timer = setTimeout(autoMove,1000);
+                  flag = true;
+                  console.log(index);
+                  changeSliderItem(index);
+                });
+              }
+            }
+          }
+          })()
+          
+          btnRight.onclick = function (e) {
+            autoMove('toLeft');
+          }
+          btnLeft.onclick = function (e) {
+            autoMove('toRight');
+          }
+          for(var i = 0; i < spanArray.length;i++) {
+            (function (j) {
+              spanArray[j].onclick = function (e) {
+                 autoMove(undefined,j);
+                };
+            })(i)
+          }
+          
+          
+          
+          timer = setTimeout(autoMove,1000);
+          }
+          
+          var wrapper = document.getElementsByClassName('wrapper')[0];
+          var arr = ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536495201542&di=caa80aeed06e785bb35e091df8284e9f&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0117e2571b8b246ac72538120dd8a4.jpg%401280w_1l_2o_100sh.jpg',
+                     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536495201541&di=d3217fee2cc6bd96e101b42a07af4cda&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01f09e577b85450000012e7e182cf0.jpg%401280w_1l_2o_100sh.jpg',
+                     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536495201541&di=ebc247049a8668f7e21b50c1d00e4616&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0125fd5770dfa50000018c1b486f15.jpg%401280w_1l_2o_100sh.jpg',
+                     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536495201541&di=7e291e8eed1f1ab36acf1ba8be46b765&imgtype=0&src=http%3A%2F%2Fpic2.52pk.com%2Ffiles%2F160216%2F5329500_160443_1.png'];
+          wrapper.createSliderPage(arr);
+          
+          
+          
+          
+          
+          
+          
+          
+        </script>
+    </body>
+</html>
