@@ -4,5 +4,6 @@ module.exports = {
         filename: "prod/[name].[hash:5].bundle.js",
         publicPath: "/"
     },
-    devtool: "source-map"
+    devtool: "source-map",
+    mode: "production"
 }

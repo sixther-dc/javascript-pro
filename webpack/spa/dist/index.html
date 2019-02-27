@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SPA</title>
-<link href="/style/main.b49be.css" rel="stylesheet"></head>
+<link href="/style/main.d1acd.css" rel="stylesheet"></head>
 <body>
     <h1 class="test">Hello, world</h1>
     <div id="app"></div>
-<script type="text/javascript" src="/prod/main.b49be.bundle.js"></script></body>
+    <div ng-controller="testController as home">
+        <h1>Hello, {{home.name}}</h1>
+    </div>
+<script type="text/javascript" src="/prod/main.d1acd.bundle.js"></script></body>
 </html>
