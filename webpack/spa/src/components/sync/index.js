@@ -2,7 +2,7 @@ import {isArray} from "lodash-es";
 import item from './sync.css';
 //需要style-loader加持 
 
-function sync(){
+function mySync(){
     document.getElementById("app").innerHTML = `<h1 class=${item.test}>Hello, World</h1>`
     console.log("I am sync function");
 }
@@ -14,4 +14,4 @@ function misArray(args) {
     console.log("I use a function from lodash-es duanchao");
 }
 
-export {sync, misArray};
+export {mySync, misArray};

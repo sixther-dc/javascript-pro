@@ -1,4 +1,8 @@
-import {sync} from './components/sync';
+import {mySync} from './components/sync';
 
-sync();
+import {func1} from "./lib/test";
+
+console.log(func1);
+
+mySync();
 
