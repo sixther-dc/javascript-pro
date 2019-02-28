@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SPA</title>
-<link href="/style/main.d1acd.css" rel="stylesheet"></head>
+<link href="/style/main.937b1.css" rel="stylesheet"></head>
 <body>
     <h1 class="test">Hello, world</h1>
     <div id="app"></div>
-    <div ng-controller="testController as home">
+    <div ng-controller="homeController as home">
         <h1>Hello, {{home.name}}</h1>
+        <button ng-click="home.myClick()">点我</button>
     </div>
-<script type="text/javascript" src="/prod/main.d1acd.bundle.js"></script></body>
+    <h1>Hello, {{$root.test}}</h1>
+    <div ng-if="$root.flag">
+        测试flag
+    </div>
+<script type="text/javascript" src="/prod/main.937b1.bundle.js"></script></body>
 </html>

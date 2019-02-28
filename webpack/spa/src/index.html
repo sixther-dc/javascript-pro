@@ -9,8 +9,13 @@
 <body>
     <h1 class="test">Hello, world</h1>
     <div id="app"></div>
-    <div ng-controller="testController as home">
+    <div ng-controller="homeController as home">
         <h1>Hello, {{home.name}}</h1>
+        <button ng-click="home.myClick()">点我</button>
+    </div>
+    <h1>Hello, {{$root.test}}</h1>
+    <div ng-if="$root.flag">
+        测试flag
     </div>
 </body>
 </html>
