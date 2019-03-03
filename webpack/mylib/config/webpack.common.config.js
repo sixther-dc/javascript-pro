@@ -10,10 +10,27 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require("webpack-merge");
 const argv = require("yargs-parser")(process.argv.slice(2));
 const __mode = argv.mode || "development";
+console.log("启动模式: ", __mode);
 const modeFlag = (__mode == "production" ? true : false); 
-const __mergeConfig = require(`./config/webpack.${__mode}.js`);
-console.log("寻找文件: ", glob.sync(path.join(__dirname, './src/*.html')))
+const __mergeConfig = require(`./webpack.${__mode}.js`);
+console.log("寻找文件: ", glob.sync(path.join(__dirname, '../src/*.html')))
 webpackConfig = {
+    optimization:{  //优化
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
+                }
+            }
+        }
+    },
+    externals: [
+        {
+            angular: 'angular', 
+        }
+    ],
     module: {
         rules: [{
             test: /\.css$/,
@@ -40,11 +57,16 @@ webpackConfig = {
         }]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin([
+            path.join(__dirname, '../dist'),
+            path.join(__dirname, '../package')
+        ], {
+            'root': path.join(__dirname, '..')
+        }),
         // new webpackDeepScopePlugin(),
         new PurifyCSSPlugin({
             // Give paths to parse for rules. These should be absolute!
-            paths: glob.sync(path.join(__dirname, './src/*.html')),
+            paths: glob.sync(path.join(__dirname, '../src/*.html')),
         }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output

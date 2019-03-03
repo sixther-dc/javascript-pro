@@ -1,16 +1,19 @@
-import {
-	mySync
-} from './components/sync';
-import {
-	func1
-} from "./lib/test";
+// import {
+// 	mySync
+// } from './components/sync';
+// import {
+// 	func1
+// } from "./lib/test";
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import routing from './app.config';
 import aModule from "./amodule";
+// import  stdata  from "@sixther/st/stdata";
+import {stdata} from "@sixther/st";
+// console.log(func1);
+// mySync();
 
-console.log(func1);
-mySync();
+import directive1 from "./directive1";
 
 class homeController {
 	constructor($rootScope, $scope) {
@@ -34,6 +37,7 @@ class homeController {
 homeController.$inject = ["$rootScope", "$scope"]
 
 //angularjs webapp sample
-angular.module('app', [aModule.name, uirouter])
+angular.module('app', [aModule.name, uirouter, stdata.name])
 	.config(routing)
 	.controller("homeController", homeController)
+	.directive("directive1", directive1)
