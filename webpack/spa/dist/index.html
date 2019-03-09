@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SPA</title>
+<link href="/style/main_t.a2368.css" rel="stylesheet"></head>
+<body>
+    <h1 class="test">Hello, world</h1>
+    <div id="app"></div>
+    <com1>
+        <p>{{ $root.version }}</p>
+    </com1>
+    <div ng-controller="homeController as home">
+        <h1>Hello, {{home.name}}</h1>
+        <button ng-click="home.myClick()">点我</button>
+
+        <directive1 title='title'>
+            我是正文
+        </directive1>
+    </div>
+    <h1>Hello, {{$root.test}}</h1>
+    <div ng-if="$root.flag">
+        测试flag
+    </div>
+<script type="text/javascript" src="/1.js"></script><script type="text/javascript" src="/prod/t.bundle.js"></script></body>
+</html>

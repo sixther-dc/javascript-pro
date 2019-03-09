@@ -9,11 +9,20 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require("webpack-merge");
 const argv = require("yargs-parser")(process.argv.slice(2));
+
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
+
+
 const __mode = argv.mode || "development";
 const modeFlag = (__mode == "production" ? true : false);
 const __mergeConfig = require(`./webpack.${__mode}.js`);
 console.log("寻找文件: ", glob.sync(path.join(__dirname, '../src/*.html')))
 webpackConfig = {
+    entry: {
+        main_t: "./src/index.js"
+        // style: "./src/style.js"
+    },
     optimization: { //优化
         splitChunks: {
             cacheGroups: {
@@ -46,7 +55,10 @@ webpackConfig = {
                     //规范化解决方案 BEM
                     {
                         // loader: "css-loader?modules&localIdentName=[name]-[local]-[hash:base64:5]"
-                        loader: "css-loader"
+                        loader: "css-loader",
+                        options: {
+                            import: true
+                        }
                     }
                 ]
             },
@@ -68,10 +80,10 @@ webpackConfig = {
             'root': path.join(__dirname, '..')
         }),
         // new webpackDeepScopePlugin(),
-        new PurifyCSSPlugin({
-            // Give paths to parse for rules. These should be absolute!
-            paths: glob.sync(path.join(__dirname, '../src/*.html')),
-        }),
+        // new PurifyCSSPlugin({
+        //     // Give paths to parse for rules. These should be absolute!
+        //     paths: glob.sync(path.join(__dirname, '../src/*.html')),
+        // }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
@@ -85,4 +97,4 @@ webpackConfig = {
     ]
 }
 
-module.exports = merge(webpackConfig, __mergeConfig);
+module.exports = smp.wrap(merge(webpackConfig, __mergeConfig));

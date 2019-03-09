@@ -57,12 +57,12 @@ webpackConfig = {
         }]
     },
     plugins: [
-        new CleanWebpackPlugin([
-            path.join(__dirname, '../dist'),
-            path.join(__dirname, '../package')
-        ], {
-            'root': path.join(__dirname, '..')
-        }),
+        // new CleanWebpackPlugin([
+        //     path.join(__dirname, '../dist'),
+        //     path.join(__dirname, '../package')
+        // ], {
+        //     'root': path.join(__dirname, '..')
+        // }),
         // new webpackDeepScopePlugin(),
         new PurifyCSSPlugin({
             // Give paths to parse for rules. These should be absolute!

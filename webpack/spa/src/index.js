@@ -13,6 +13,10 @@ import {stdata} from "@sixther/st";
 // console.log(func1);
 // mySync();
 
+import "./index.css";
+// "dist/css/bootstrap.css"
+// import "bootstrap/dist/css/bootstrap.css";
+
 import directive1 from "./directive1";
 
 class homeController {

@@ -68,7 +68,7 @@ console.log(installedChunks, 'iiiiiiiii');
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		0: 0
+/******/ 		"stdata": 0
 /******/ 	};
 /******/
 /******/ 	var deferredModules = [];
@@ -159,24 +159,22 @@ console.log(installedChunks, 'iiiiiiiii');
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([3,2]);
+/******/ 	deferredModules.push(["./src/stdata.js","vendors"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 3:
+/***/ "./src/component1.js":
+/*!***************************!*\
+  !*** ./src/component1.js ***!
+  \***************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/angular/index.js
-var angular = __webpack_require__(0);
-var angular_default = /*#__PURE__*/__webpack_require__.n(angular);
-
-// CONCATENATED MODULE: ./src/component1.js
 class comController {
     constructor($rootScope) {
         $rootScope.name = "mylib";
@@ -186,22 +184,36 @@ class comController {
 
 comController.$inject = ["$rootScope"]
 
-/* harmony default export */ var component1 = ({
+/* harmony default export */ __webpack_exports__["default"] = ({
     controller: comController
 });
-// CONCATENATED MODULE: ./src/stdata.js
+
+/***/ }),
+
+/***/ "./src/stdata.js":
+/*!***********************!*\
+  !*** ./src/stdata.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var angular__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! angular */ "./node_modules/angular/index.js");
+/* harmony import */ var angular__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(angular__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _component1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component1 */ "./src/component1.js");
 
 
 
 //angularjs webapp sample
-const cfdata = angular_default.a.module('stdata', [])
-    .component('com1', component1);
+const cfdata = angular__WEBPACK_IMPORTED_MODULE_0___default.a.module('stdata', [])
+    .component('com1', _component1__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
-/* harmony default export */ var stdata = __webpack_exports__["default"] = (cfdata);
+/* harmony default export */ __webpack_exports__["default"] = (cfdata);
 
 
 /***/ })
 
 /******/ });
 });
-//# sourceMappingURL=stdata.js.map
+//# sourceMappingURL=stdata1.js.map

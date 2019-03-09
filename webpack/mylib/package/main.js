@@ -9,6 +9,6 @@
 // exports.stui = stui;
 // exports.sttest = sttest;
 // export {stdata, stui, sttest};
-export {default as stdata} from "./stdata";
+export {default as stdata} from "./stdata1";
 export {default as stui} from "./stui";
 export {default as sttest} from "./sttest";
