@@ -1,3 +1,4 @@
+const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
     output: {
         //path:    默认为dist
@@ -9,8 +10,21 @@ module.exports = {
         publicPath: "/"
     },
     optimization: {
-        //设置要不要混淆
-        minimize: true
+        minimizer: [
+          new TerserPlugin({
+            terserOptions: {
+                parallel: 4,
+            },
+            chunkFilter: (chunk) => {
+                // Exclude uglification for the `vendor` chunk
+                if (chunk.name === 'stcommon') {
+                  return false;
+                }
+      
+                return true;
+              },
+          }),
+        ],
     },
     // devtool: "source-map",
     mode: "production"

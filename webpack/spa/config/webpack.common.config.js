@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require("webpack-merge");
 const argv = require("yargs-parser")(process.argv.slice(2));
+const dcPlugin = require("../src/lib/myplugin/dcPlugin");
 
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
@@ -29,8 +30,25 @@ webpackConfig = {
                 commons: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "vendors",
+                    filename: "prod/vendor.js",
                     chunks: "all"
-                }
+                },
+                stdata: {
+                    test: /stdata/,
+                    name: "stdata",
+                    filename: "prod/stdata.js",
+                    chunks: "all",
+                    enforce: true
+                    //Tells webpack to ignore splitChunks.minSize, splitChunks.minChunks, splitChunks.maxAsyncRequests and splitChunks.maxInitialRequests options
+                },
+                stcommon: {
+                    test: /stcommon/,
+                    name: "stcommon",
+                    filename: "prod/stcommon.js",
+                    chunks: "all",
+                    enforce: true
+                },
+
             }
         }
     },
@@ -59,21 +77,30 @@ webpackConfig = {
                         options: {
                             import: true
                         }
+                    },
+                    {
+                        loader: path.resolve("./src/lib/myloader/index")
                     }
                 ]
             },
             {
                 test: /\.(html)$/,
-                use: {
-                    loader: 'html-loader',
-                    options: {
-                        attrs: [':data-src']
+                use: [
+                    {
+                        loader: 'html-loader',
+                        options: {
+                            attrs: [':data-src']
+                        }
+                    },
+                    {
+                        loader: path.resolve("./src/lib/myloader/index")
                     }
-                }
+                ]
             }
         ]
     },
     plugins: [
+        new dcPlugin(),
         new CleanWebpackPlugin([
             path.join(__dirname, '../dist')
         ], {

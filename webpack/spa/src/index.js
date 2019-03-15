@@ -8,8 +8,8 @@ import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import routing from './app.config';
 import aModule from "./amodule";
-// import  stdata  from "@sixther/st/stdata";
-import {stdata} from "@sixther/st";
+import '@sixther/st/stcommon';
+import stdata from "@sixther/st/stdata";
 // console.log(func1);
 // mySync();
 

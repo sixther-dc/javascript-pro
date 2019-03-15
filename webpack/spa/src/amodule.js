@@ -3,7 +3,7 @@ import angular from 'angular';
 
 class testController {
     constructor() {
-      this.name = '段超';
+      this.name = 'zhangximeng';
     }
 }
   
