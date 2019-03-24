@@ -5,3 +5,39 @@ npm install --save-dev speed-measure-webpack-plugin
 4， 让开发面板更好看   webpack-dashboard
 
 上线阶段
+
+代码混淆
+SET MAP Object
+缩减babel-polifill
+https://cdn.polyfill.io/v2/polyfill.min.js
+提取公共代码
+
+mainfest插件， 离线缓存
+
+分析打包  bundlesize   github
+http://webpack.github.io/analyse/
+
+package.json  dev:chart
+
+test  exclude include
+
+nano  修复css
+
+
+最后的loader对先调用
+传入的原始的资源
+中间的loader执行的时候传入的是上一个loader的执行结果
+loader异步  this.async()    this.callback()
+
+
+整体运行流程
+
+compoliler   run 产生了compolition   
+compolition  代表了资源的构建
+chunk  分析模块简的依赖关系
+module  --> 这里执行loader 解析不认识的代码
+Parse  负责处理依赖
+template 
+
+
+生成代码分析

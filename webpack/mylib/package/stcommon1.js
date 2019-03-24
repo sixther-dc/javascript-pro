@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("angular"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(["angular"], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
-		exports["stdata"] = factory(require("angular"));
+		exports["stcommon"] = factory();
 	else
-		root["stdata"] = factory(root["angular"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_angular__) {
+		root["stcommon"] = factory();
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -91,70 +91,24 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/stdata.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/stcommon.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/component1.js":
-/*!***************************!*\
-  !*** ./src/component1.js ***!
-  \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-class comController {
-    constructor($rootScope) {
-        $rootScope.name = "mylib";
-        $rootScope.version = "1.0.0";
-	};
-}
-
-comController.$inject = ["$rootScope"]
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    controller: comController
-});
-
-/***/ }),
-
-/***/ "./src/stdata.js":
-/*!***********************!*\
-  !*** ./src/stdata.js ***!
-  \***********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var angular__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! angular */ "angular");
-/* harmony import */ var angular__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(angular__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _component1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component1 */ "./src/component1.js");
-
-
-
-//angularjs webapp sample
-const cfdata = angular__WEBPACK_IMPORTED_MODULE_0___default.a.module('stdata', [])
-    .component('com1', _component1__WEBPACK_IMPORTED_MODULE_1__["default"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (cfdata);
-
-
-/***/ }),
-
-/***/ "angular":
-/*!**************************!*\
-  !*** external "angular" ***!
-  \**************************/
+/***/ "./src/stcommon.js":
+/*!*************************!*\
+  !*** ./src/stcommon.js ***!
+  \*************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_angular__;
+(function(){
+    windows.url = "www.duanchao.com";
+})()
 
 /***/ })
 
 /******/ });
 });
-//# sourceMappingURL=stdata1.js.map
+//# sourceMappingURL=stcommon1.js.map

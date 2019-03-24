@@ -8,7 +8,7 @@ scope:
     digest不应该主动调用，应该被动通知??????
     watch一个对象或者数组的时候需要开关来开启，因为这将会执行深拷贝，浪费执行时间以及运行内存
 
-
+$apply  It is considered the standard way to integrate external libraries to Angular.
 
 2, Scope inheritance   继承
 3, Efficient dirty-checking for collections – arrays and objects.

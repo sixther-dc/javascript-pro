@@ -1,8 +1,11 @@
+var _ = require('lodash/core');
+
 function initWatchVal(){}
 
 function Scope() {
     this.$$watchers = [];
     this.$$lastDirtyWatch = null;
+    this.$$asyncQueue = [];
 }
 Scope.prototype.$watch = function(watchFn, listenerFn, valueEq){
     var watcher = {
@@ -14,14 +17,17 @@ Scope.prototype.$watch = function(watchFn, listenerFn, valueEq){
     };
 
     this.$$watchers.push(watcher);
+    //兼容嵌套watch的场景
+    this.$$lastDirtyWatch = null;
 };
 
-Scope.prototype.$$areEqual = function(newValue, oldValue, valueEq){
+ Scope.prototype.$$areEqual = function(newValue, oldValue, valueEq){
     if (valueEq) {
         return _.isEqual(newValue, oldValue);
     } else {
-        //针对数组或者对象的对比
-        return newValue === oldValue;
+        return newValue === oldValue ||
+        (typeof newValue === 'number' && typeof oldValue === 'number' &&
+               isNaN(newValue) && isNaN(oldValue));
     }
 };
 
@@ -59,6 +65,10 @@ Scope.prototype.$digest = function() {
     this.$$lastDirtyWatch = null;
     var dirty;
     do {
+        while(this.$$asyncQueue.length) {
+            var asyncTask = this.$$asyncQueue.shift();
+            this.$eval(asyncTask.expression);
+        }
         dirty = this.$digestOnce();
         //写法值得学习
         if (dirty && !(ttl--)) {
@@ -66,3 +76,25 @@ Scope.prototype.$digest = function() {
         }
     } while(dirty);
 };
+
+//为表达式铺垫
+Scope.prototype.$eval = function(expr, arg){
+    return expr(this, arg)
+}
+
+//用来在angular框架之外执行某些事情，比如setTimeout
+Scope.prototype.$apply = function(expr) {
+    try {
+        return this.$eval(expr)
+    } finally {
+        this.$digest();
+    }
+}
+
+Scope.prototype.$evalAsync = function(expr){
+    this.$$asyncQueue.push({
+        scope: this,
+        expression: expr
+    })
+}
+module.exports = Scope;
