@@ -20,3 +20,9 @@ $apply  It is considered the standard way to integrate external libraries to Ang
 
 Q:
 1, grunt内部的程序如何通过vscode来调试。
+
+
+Scope
+表达式 过滤器
+模块 依赖注入
+指令

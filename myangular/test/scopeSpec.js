@@ -237,7 +237,7 @@ describe("Scope", function () {
         })
 
         //$timeout会开启新一轮的digest，而evalAsync则不会
-        it("$evalAsync在一个digest周期内延迟执行, 更灵活的$timeout", function(){
+        it("$evalAsync在一个digest周期内延迟执行, 更稳妥的$timeout", function(){
             scope.aValue = "aa";
             scope.asyncEvaluated = false;
             scope.asyncEvaluatedImmediately = false;
@@ -253,11 +253,120 @@ describe("Scope", function () {
             )
 
             //执行了两次digentonce函数，第一次调用了evalAsync添加进了任务队列
-            //第二次执行任务队列中的任务， 但由于检测到dirty watch就是笨watch
+            //第二次   执行任务队列中的任务， 但由于检测到dirty watch就是本watch
             //故第二次的listener函数没有被执行
             scope.$digest();
             expect(scope.asyncEvaluatedImmediately).to.be.equal(false);
             expect(scope.asyncEvaluated).to.be.equal(true);
         })
+
+        it("在scope不在任何phase中执行evalAsync, 会发起一次digest", function(){
+            scope.aValue = "abc";
+            scope.counter = 0;
+            scope.$watch(
+                function(scope) {return scope.aValue},
+                function(newValue, oldValue, scope) {
+                    scope.counter ++;
+                }                
+            );
+            //异步执行一个空函数
+            scope.$evalAsync(function(scope){});
+            expect(scope.counter).to.be.equal(0);
+            setTimeout(function(){
+                expect(scope.counter).to.be.equal(1);
+            }, 100);
+        })
+
+        it("$$postDigest函数在digest后执行, 并且只执行一次", function() {
+            scope.counter = 0;
+            scope.$$postDigest(function() {
+                scope.counter ++
+            });
+
+            scope.$digest();
+            expect(scope.counter).to.be.equal(1);
+            scope.$digest();
+            //postDigest注册进去后，执行一次便会被删除
+            expect(scope.counter).to.be.equal(1);
+        })
+
+        it("$$postDigest如果改变了scope上的值,不会引发下一次digest", function() {
+            scope.aValue = "one";
+            scope.$$postDigest(function() {
+                scope.aValue = "two"
+            });
+
+            scope.$watch(
+                function(scope) {
+                    return scope.aValue
+                },
+                function(newValue, oldValue, scope){
+                    scope.watchValue = newValue
+                }
+            )
+            scope.$digest();
+            expect(scope.watchValue).to.be.equals("one");
+            scope.$digest();
+            expect(scope.watchValue).to.be.equals("two");
+        })
+
+        //异常处理
+        //$watch函数中, 任何一个watch的watch异常不会影响后续watch的执行
+        //evalAsync, applyAsync, postDigest函数的异常不会影响digest的调用
+
+        //注销watch
+        //$watch函数返回一个函数, 用来注销本次watch
+        it("$watch函数返回一个函数, 用来注销本次watch", function() {
+            scope.aValue = "one";
+            scope.counter = 0;
+            var destoryWatch = scope.$watch(
+                function(scope) {return scope.aValue},
+                function(newValue, oldValue, scope) {
+                    scope.counter ++
+                }
+            )
+
+            scope.$digest();
+            expect(scope.counter).to.be.equals(1);
+            scope.aValue = "two";
+            scope.$digest();
+            expect(scope.counter).to.be.equals(2);
+            destoryWatch();
+            scope.aValue = "thress";
+            expect(scope.counter).to.be.equals(2);
+        })
+
+
+        it("允许在digest过程中注销watch", function() {
+            scope.aValue = "one";
+            var watchCalls = [];
+            scope.$watch(
+                function(){
+                    watchCalls.push('first');
+                    return scope.aValue;
+                }
+            );
+            var destoryWatch = scope.$watch(
+                function(){
+                    watchCalls.push('second');
+                    destoryWatch();
+                    return scope.aValue;
+                }
+            );
+            scope.$watch(
+                function(){
+                    watchCalls.push('third');
+                    return scope.aValue;
+                }
+            )
+
+            scope.$digest();
+            expect(watchCalls).to.be.equals(["first", "second", "third", "first", "third"]);
+        })
+
+         //applyAsync用在$http服务中
+         //evalAsync用在watchGroup中
+         //目的只有一个，就是少触发digest
+         
     });
 });
