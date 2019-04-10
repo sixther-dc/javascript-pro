@@ -12,7 +12,7 @@ function Scope() {
     this.$$postDigestQueue = [];
     this.$$children = [];
     this.$root = this;
-
+    this.$$listeners = {};
 }
 
 //清除phase
@@ -51,6 +51,8 @@ Scope.prototype.$new = function (isolated) {
     // var child = Object.create(this);
     child.$$watchers = [];
     child.$$children = [];
+    //每个子scope都有自己的listeners
+    child.$$listeners = {};
     child.$parent = this;
     return child;
 };
@@ -209,32 +211,50 @@ Scope.prototype.$watchCollection = function (watchFn, listenerFn) {
     var newValue,
         oldValue;
     var changeCount = 0;
+    var trackVeryOldValue = (listenerFn.length > 1);
+    var veryOldValue;
+    var firstRun = true;
     var internalWatchFn = function (scope) {
-        debugger;
         newValue = watchFn(scope);
         if (_.isObject(newValue)) {
             //默认的lodash不支持判断包装类，所以此处使用自定义的包装类判断函数
-            if(_.isArrayLike(newValue)) {
+            if (_.isArrayLike(newValue)) {
                 //当检测的值从其他变为watch的时候
-                if(!_.isArray(oldValue)) {
-                    changeCount ++;
+                if (!_.isArray(oldValue)) {
+                    changeCount++;
                     oldValue = [];
                 };
-                if(newValue.length !== oldValue.length) {
-                    changeCount ++;
+                if (newValue.length !== oldValue.length) {
+                    changeCount++;
                     oldValue.length = newValue.length;
                 }
-                _.forEach(newValue, function(newItem, i) {
+                _.forEach(newValue, function (newItem, i) {
                     if (newItem != oldValue[i]) {
-                        changeCount ++;
+                        changeCount++;
                         oldValue[i] = newItem
                     }
                 })
             } else {
+                if (!_.isObject(oldValue) || _.isArrayLike(oldValue)) {
+                    changeCount++;
+                    oldValue = {};
+                }
+                for (key in newValue) {
+                    if (oldValue[key] !== newValue[key]) {
+                        changeCount++;
+                        oldValue[key] = newValue[key]
+                    }
+                }
 
+                for (key in oldValue) {
+                    if (!newValue.hasOwnProperty(key)) {
+                        changeCount++;
+                        delete oldValue[key];
+                    }
+                }
             }
         } else {
-            if (!self.$$areEqual(newValue, oldValue, false)) { 
+            if (!self.$$areEqual(newValue, oldValue, false)) {
                 changeCount++;
             }
             oldValue = newValue;
@@ -242,9 +262,41 @@ Scope.prototype.$watchCollection = function (watchFn, listenerFn) {
         return changeCount;
     };
     var internalListenerFn = function () {
-        listenerFn(newValue, oldValue, self)
+
+        if (firstRun) {
+            listenerFn(newValue, newValue, self);
+            firstRun = false;
+        } else {
+            listenerFn(newValue, veryOldValue, self);
+        }
+        //执行完listener函数后将newValue赋值给veryOldValue;
+        if (trackVeryOldValue) {
+            veryOldValue = _.clone(newValue);
+        }
     };
     return this.$watch(internalWatchFn, internalListenerFn);
 };
 
+Scope.prototype.$on = function (eventName, linstener) {
+    var listeners = this.$$listeners[eventName];
+    if (!listeners) {
+        this.$$listeners[eventName] = [];
+    }
+    this.$$listeners[eventName].push(linstener);
+}
+
+Scope.prototype.$emit = function (eventName) {
+    this.$$fireEventOnScope(eventName);
+};
+Scope.prototype.$broadcast = function (eventName) {
+    this.$$fireEventOnScope(eventName);
+};
+Scope.prototype.$$fireEventOnScope = function (eventName) {
+    //TODO: 每个event的执行都有一个对象，一定包含eventname
+    var event = {name: eventName};
+    var listeners = this.$$listeners[eventName] || [];
+    _.forEach(listeners, function (listener) {
+        listener(event);
+    });
+};
 module.exports = Scope;

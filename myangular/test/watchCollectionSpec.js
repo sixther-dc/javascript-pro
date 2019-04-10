@@ -84,5 +84,44 @@ describe("$watchCollection", function () {
         expect(scope.counter).to.be.equals(1);
         
     })
+
+    it("对于object类型的数据,  watchcollection的效果", function(){
+        scope.counter = 0;
+        scope.$watchCollection(
+            function(scope) {return scope.obj},
+            function(newValue, oldValue, scope) {
+                scope.counter ++
+            }
+        );
+        scope.$digest();
+        expect(scope.counter).to.be.equals(1);
+        scope.obj = {name: "dc"};
+        scope.$digest();
+        expect(scope.counter).to.be.equals(2);
+        scope.obj.age = 24;
+        scope.$digest();
+        expect(scope.counter).to.be.equals(3);
+        scope.obj.age = 25;
+        scope.$digest();
+        expect(scope.counter).to.be.equals(4);
+        delete scope.obj.age;
+        scope.$digest();
+        expect(scope.counter).to.be.equals(5);
+    })
+
+    it("watchcollection中的listener函数可以处理oldValue", function(){
+        scope.aValue = "one";
+        scope.$watchCollection(
+            function(scope) {return scope.aValue},
+            function(newValue, oldValue, scope) {
+                scope.watchValue = oldValue
+            }
+        );
+        scope.$digest();
+
+        scope.aValue = "two";
+        scope.$digest();
+        expect(scope.watchValue).to.be.equals("one");
+    })
 });
 
