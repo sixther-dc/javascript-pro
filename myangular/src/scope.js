@@ -1,4 +1,4 @@
-var _ = require('lodash/core');
+var _ = require('lodash');
 require("./Angular");
 
 function initWatchVal() {}
@@ -58,12 +58,14 @@ Scope.prototype.$new = function (isolated) {
 };
 
 Scope.prototype.$destory = function () {
+    this.$broadcast('$destroy');
     var siblings = this.$parent.$$children;
     var indexOfThis = siblings.indexOf(this);
     if (indexOfThis >= 0) {
         siblings.splice(indexOfThis, 1);
     }
     this.$$watchers = null;
+    this.$$listeners = {};
 }
 Scope.prototype.$watch = function (watchFn, listenerFn, valueEq) {
     let self = this;
@@ -283,20 +285,59 @@ Scope.prototype.$on = function (eventName, linstener) {
         this.$$listeners[eventName] = [];
     }
     this.$$listeners[eventName].push(linstener);
+    return (function () {
+        //TODO:闭包中的this指向了global
+        var index = self.$$listeners.indexOf(eventName);
+        if (index >= 0) {
+            self.$$listeners[index] = null;
+        }
+    })
 }
 
 Scope.prototype.$emit = function (eventName) {
-    this.$$fireEventOnScope(eventName);
+    // return this.$$fireEventOnScope(eventName);
+    //TODO: 每个event的执行都有一个对象，一定包含eventname
+    var event = {
+        name: eventName,
+        targetScope: this,
+        //可以设置emit的时候只有当前scope的事件可以触发
+        stopPropagation: function() {
+            propagationStopped = true; 
+        },
+        preventDefault: function() {
+             event.defaultPrevented = true;
+        }
+    };
+    var scope = this;
+    do {
+        //currentScope记录了当前watch到了哪个scope，类似于一个状态
+        event.currentScope = scope;
+        scope.$$fireEventOnScope(event);
+        scope = scope.$parent;
+    } while (scope && !event.propagationStopped);
+    //$emit, $broadcast执行完毕后currentScope则被置为null
+    event.currentScope = null;
+    return event
 };
 Scope.prototype.$broadcast = function (eventName) {
-    this.$$fireEventOnScope(eventName);
+    var event = {
+        name: eventName,
+        targetScope: this
+    };
+    this.$$everyScope(function(scope){
+        event.currentScope = scope;
+        scope.$$fireEventOnScope(event);
+        return true;
+    })
+    //$emit, $broadcast执行完毕后currentScope则被置为null
+    event.currentScope = null;
+    return event;
 };
-Scope.prototype.$$fireEventOnScope = function (eventName) {
-    //TODO: 每个event的执行都有一个对象，一定包含eventname
-    var event = {name: eventName};
-    var listeners = this.$$listeners[eventName] || [];
+Scope.prototype.$$fireEventOnScope = function (event) {
+    var listeners = this.$$listeners[event.name] || [];
     _.forEach(listeners, function (listener) {
         listener(event);
     });
+
 };
 module.exports = Scope;

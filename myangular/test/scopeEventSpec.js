@@ -34,4 +34,30 @@ describe("scope Event", function () {
         // })
 
      })
+
+     it("事件对象, 注册的每个函数都得参数都至少会有一个事件名的参数", function(){
+         var parentEvent = function(event){
+             console.log("parentEvent");
+             parent.parentEventObj = event.targetScope;
+         };
+         var scopeEvent1 = function(event){
+            console.log("scopeEvent")
+         };
+         var childEvent = function(){
+             console.log("childEvent")
+         };
+
+         scope.$on("scope", scopeEvent1);
+         parent.$on("scope", parentEvent);
+         child.$on("scope", childEvent);
+         //触发事件的时候可以传递参数
+         scope.$emit("scope", "add", "some", "arguments");
+        //  scope.$broadcast("scope");
+        expect(parent.parentEventObj).to.be.equals(scope);
+         
+     })
+
+     //$emit, $broadcast返回事件对象 event
+     //$emit是自上而下直线直线的 $broadcast是自下而上辐射执行的，因此$emit效率较高
+     //event.preventDefault  取消默认行为
 })
