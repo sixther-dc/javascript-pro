@@ -29,7 +29,7 @@ cat1.run = function(){
 //重写后新生成的对象调用run方法时不受影响
 var cat2 = new Cat("Jerry");
 cat2.run()
-
+cat1.run()
 Cat.walk()
 
 console.log(Cat.number)
