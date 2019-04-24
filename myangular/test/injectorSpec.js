@@ -10,10 +10,12 @@ var expect = require('chai').expect;
 describe("module系统测试用例", function () {
     var window;
     var injector;
+    var angular;
     beforeEach(function () {
         window = {};
         delete window.angular;
         loader(window);
+        angular = window.angular;
         injector = new Injector(window);
 
     });
@@ -23,5 +25,15 @@ describe("module系统测试用例", function () {
         var myInjector = injector.createInjector([module.name]);
         expect(myInjector.has('aConstant')).to.be.equals(true);
         expect(myInjector.get('aConstant')).to.be.equals(42);
-    })
+    });
+
+    it('有模块依赖的情况', function () {
+        var module1 = angular.module('myModule', []);
+        var module2 = angular.module('myOtherModule', ['myModule']);
+        module1.constant('aConstant', 42);
+        module2.constant('anotherConstant', 43);
+        var myInjector = injector.createInjector(['myOtherModule']);
+        expect(myInjector.has('aConstant')).to.be.equals(true);
+        expect(myInjector.has('anotherConstant')).to.be.equals(true);
+    });
 })

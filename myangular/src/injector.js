@@ -14,10 +14,11 @@ function Injector(window) {
     };
 
     this.createInjector = function (modulesToLoad) {
-        modulesToLoad.forEach(element => {
-            console.log(window.angular)
+        //保证所有的module只被处理一次，防止有module之间互相依赖的情况
+        modulesToLoad.forEach(fn = (element) => {
             var module = window.angular.module(element);
-            console.log(module);
+            //迭代处理有依赖的module的情况
+            module.requires.forEach(fn);
             module._invokeQueue.forEach(i => {
                 //i ["constant", ["name", "value"]]
                 var method = i[0];
