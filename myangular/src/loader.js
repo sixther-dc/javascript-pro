@@ -20,6 +20,9 @@ function setupModuleLoader(window){
             constant: function(name, value) {
                 invokeQueue.push(["constant", [name, value]])
             },
+            provider: function(name, obj){
+                invokeQueue.push(["provider", [name, obj]])
+            },
             _invokeQueue: invokeQueue
         };
         modules[name] = moduleInstance;
