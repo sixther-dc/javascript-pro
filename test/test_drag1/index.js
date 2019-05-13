@@ -73,4 +73,8 @@ $(document).ready(function() {
         document.selection.empty();
       }
     }
+
+    $(".remove-icon").click(function(){
+        $(this).parent().remove();
+    })
   });

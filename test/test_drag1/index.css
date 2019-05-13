@@ -1,7 +1,6 @@
 *, *:before, *:after {
     font-size: 16px;
     box-sizing: border-box;
-    font-family: sans-serif;
   }
   
   .cite {
@@ -12,7 +11,7 @@
   
   body {
     margin: 0;
-    background: #00a2eb;
+    /* background: #00a2eb; */
   }
   
   #box {
@@ -33,6 +32,7 @@
   }
   
   .item {
+    /* width: 300px; */
     z-index: 1;
     display: block;
     min-height: 2em;
@@ -40,6 +40,8 @@
     margin: 0 0 .4em;
     border-radius: .4em;
     list-style: none;
+    -webkit-transition: all .2s ease-out 0s;
+    transition: all .2s ease-out 0s
   }
   
   .drag-tab {
@@ -80,5 +82,9 @@
     padding: 0;
     color: black;
     font-weight: bold;
+  }
+  .remove-icon {
+      left: 10px;
+      position: relative;
   }
   
