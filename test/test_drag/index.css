@@ -1,0 +1,45 @@
+body {
+    background-color: lightgray;
+  }
+  
+  .group:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  ul {
+    max-width: 200px;
+    list-style: none;
+    margin: 20px auto;
+  }
+  
+  li {
+    background-color: white;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 2px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+  }
+  li img {
+    display: block;
+    float: left;
+  }
+  
+  .handle {
+    float: right;
+  }
+  .handle:after {
+    content: "\2261";
+    font-size: 35px;
+    line-height: 50px;
+    color: gray;
+  }
+  
+  .slip-reordering {
+    -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.03);
+  }
+  

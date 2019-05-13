@@ -1,0 +1,84 @@
+*, *:before, *:after {
+    font-size: 16px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  
+  .cite {
+    color: #e8f8ff;
+    padding: .5em;
+    display: block;
+  }
+  
+  body {
+    margin: 0;
+    background: #00a2eb;
+  }
+  
+  #box {
+    margin: 0 auto;
+    max-width: 20em;
+    border-radius: .4em;
+    background: #9be0ff;
+    padding: .5em;
+  }
+  
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .item, .drag-tab {
+    vertical-align: middle;
+  }
+  
+  .item {
+    z-index: 1;
+    display: block;
+    min-height: 2em;
+    background: #00a2eb;
+    margin: 0 0 .4em;
+    border-radius: .4em;
+    list-style: none;
+  }
+  
+  .drag-tab {
+    display: inline-block;
+    width: 2em;
+    background: #017ab1;
+    padding: .4em;
+    min-height: 2em;
+    height: 100%;
+    border-radius: .4em 0 0 .4em;
+    cursor: move;
+  }
+  .drag-tab div {
+    margin: .15em 0;
+    border-radius: 1em;
+    height: .25em;
+    background: #004B6E;
+  }
+  
+  #place-holder {
+    z-index: 0;
+    display: block;
+    min-height: 2em;
+    background: #00a2eb;
+    margin: 0 0 .4em;
+    border-radius: .4em;
+    list-style: none;
+    opacity: .7;
+  }
+  
+  .draggable {
+    position: fixed;
+    /* box-shadow: 0 0 0.2em 0.1em #017ab1; */
+  }
+  
+  .item .cite {
+    display: inline-block;
+    padding: 0;
+    color: black;
+    font-weight: bold;
+  }
+  
