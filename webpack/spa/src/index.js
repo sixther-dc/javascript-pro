@@ -8,8 +8,6 @@ import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import routing from './app.config';
 import aModule from "./amodule";
-import '@sixther/st/stcommon';
-import stdata from "@sixther/st/stdata";
 // console.log(func1);
 // mySync();
 
@@ -41,7 +39,7 @@ class homeController {
 homeController.$inject = ["$rootScope", "$scope"]
 
 //angularjs webapp sample
-angular.module('app', [aModule.name, uirouter, stdata.name])
+angular.module('app', [aModule.name, uirouter])
 	.config(routing)
 	.controller("homeController", homeController)
 	.directive("directive1", directive1)

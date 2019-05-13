@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+ 
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery后台左侧伸缩菜单代码</title>
+ 
+		<style type="text/css">
+			@charset "utf-8";
+			/* 以下实际使用若已初始化可删除 .nav height父级需逐级设置为100%*/
+			body,
+			html {
+				height: 100%;
+				background: #E2E2E2
+			}
+			body,
+			ul {
+				margin: 0;
+				padding: 0
+			}
+			
+			body {
+				font: 14px "微软雅黑", "宋体", "Arial Narrow", HELVETICA;
+				-webkit-text-size-adjust: 100%;
+			}
+			
+			li {
+				list-style: none
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			/* 以上实际使用若已初始化可删除 */
+			
+			#navn>div {
+				display: inline-block;
+				vertical-align: top;
+			}
+			/* nav */
+			
+			.nav-top {
+				border-bottom: 1px solid rgba(255, 255, 255, .1);
+			}
+			
+			.nav-top .nav-toptxt {
+				border-bottom: 1px solid rgba(255, 255, 255, .1);
+				color: #fff;
+				font-size: 30px;
+				width: 60px;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			.nav {
+				width: 220px;
+				height: 100%;
+				background: #144B85;
+				transition: all .3s;
+				overflow: auto;
+			}
+			
+			.nav a {
+				display: block;
+				overflow: hidden;
+				padding-left: 20px;
+				line-height: 46px;
+				max-height: 46px;
+				color: #fff;
+				transition: all .3s;
+			}
+			
+			.nav a span {
+				margin-left: 30px;
+			}
+			
+			.nav-item {
+				position: relative;
+			}
+			
+			.nav-item.nav-show {
+				border-bottom: none;
+			}
+			
+			.nav-item ul {
+				display: none;
+				background: rgba(0, 0, 0, .1);
+			}
+			
+			.nav-item.nav-show ul {
+				display: block;
+			}
+			.nav-show,
+			.nav-item>a:hover {
+				color: #2AF8CB;
+			}
+			
+            /* 这种写法是可以一次加载上去么 */
+			.nav-mini.nav {
+				width: 60px;
+			}
+			
+			.nav-mini.nav .nav-item>a span {
+				display: none;
+			}
+			
+			.nav-mini.nav .nav-more {
+				margin-right: -20px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="style/css/font-awesome.min.css">
+ 
+		<script type="text/javascript" src="./lib/jquery-3.3.1.js"></script>
+		<script>
+			$(function() {
+//				nav-mini切换
+				  $('#mini').on('click',function(){
+				      if (!$('.nav').hasClass('nav-mini')) {
+				          $('.nav').addClass('nav-mini');
+				      }else{
+				          $('.nav').removeClass('nav-mini');
+				      }
+				  });
+			});
+		</script>
+ 
+	</head>
+ 
+	<body>
+ 
+		<div class="nav">
+			<div class="nav-top">
+				<div id="mini" class="nav-toptxt">≡</div>
+			</div>
+			<ul id="aat">
+				<li class="nav-item">
+					<a href="javascript:;">
+						<i class="fa fa-camera-retro"></i><span>成都市</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="javascript:;">
+						<i class="fa fa-ambulance"></i><span>北京市</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+ 
+</html>
