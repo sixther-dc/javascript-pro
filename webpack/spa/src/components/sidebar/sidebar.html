@@ -31,13 +31,17 @@
             }
         })
 
-        // aaa.css({'transform': 'translate3d(0px, 200px, 0px)'})
         $(".cf-sidebar-drag").mousedown(function () {
-            // console.log($(this).parent().parent().parent());
             var ulEle = $(this).parent().parent().parent();
             ulEle[0].style.zIndex = 101;
-            // var ulEleTop = $(".cf-sidebar-collection-service").css("top")
             var eleTop = $(ulEle).offset().top;
+            var flag = [];
+            //获取li的元素集合
+            var liList = $($(".cf-sidebar-collection-service")[0]).children("li");
+            //获取当前li的序号
+            var currentEleIndex = liList.index(ulEle);
+            // console.log(liList.index(ulEle));
+            // var nextEleTransformY = $(ulEle).next().css("transform").replace(/[^0-9\-,]/g,'').split(',').pop();
             document.onmousemove = function (e) {
                 var event = e || window.event;
                 var pageY = event.pageY;
@@ -45,20 +49,40 @@
                 //     null).height) / 2 + "px";
                 $(ulEle).offset({
                     top: pageY - parseInt(getComputedStyle(ulEle[0],
-                     null).height) / 2
+                        null).height) / 2
                 })
-                var dragEleIndex = Math.round((parseInt(pageY) - (eleTop + 20)) / 40);
-                if (dragEleIndex == 1) {
-                    var nextEleTransformY = $(ulEle).next().css("transform").replace(/[^0-9\-,]/g,'').split(',').pop();
-                    console.log((ulEle).next().css("transform"));
-                    console.log(nextEleTransformY);
-
-                    console.log('translate3d(0px, ' + (parseInt(nextEleTransformY) - 40) +'px, 0px)');
-                    $(ulEle).next().css({
-                        'transform': 'translate3d(0px, ' + (parseInt(nextEleTransformY) - 40) + 'px, 0px)'
-                    })
-                    // console.log($(ulEle).next());
+                //计算需要位移的元素序列
+                var dragEleIndex = Math.round((parseInt(pageY) - (eleTop + 20)) / 40) +
+                    currentEleIndex;
+                if (!flag[dragEleIndex] && dragEleIndex !== currentEleIndex && dragEleIndex < liList
+                    .length) {
+                    var dragEle = $(liList[dragEleIndex]);
+                    console.log(dragEle);
+                    var nextEleTransformY = dragEle.css("transform").replace(/[^0-9\-,]/g, '')
+                        .split(',').pop();
+                    if (dragEleIndex > currentEleIndex) {
+                        dragEle.css({
+                            'transform': 'translate3d(0px, ' + (parseInt(
+                                nextEleTransformY) - 40) + 'px, 0px)'
+                        });
+                    } else {
+                        dragEle.css({
+                            'transform': 'translate3d(0px, ' + (parseInt(
+                                nextEleTransformY) + 40) + 'px, 0px)'
+                        });
+                    }
+                    flag[dragEleIndex] = true;
                 }
+                // if (dragEleIndex == 1) {
+                //     var nextEleTransformY = $(ulEle).next().css("transform").replace(/[^0-9\-,]/g,'').split(',').pop();
+                //     console.log((ulEle).next().css("transform"));
+                //     console.log(nextEleTransformY);
+                //     console.log('translate3d(0px, ' + (parseInt(nextEleTransformY) - 40) +'px, 0px)');
+                //     $(ulEle).next().css({
+                //         'transform': 'translate3d(0px, ' + (parseInt(nextEleTransformY) - 40) + 'px, 0px)'
+                //     })
+                //     // console.log($(ulEle).next());
+                // }
             };
             document.onmouseup = function () {
                 document.onmousemove = null;
@@ -82,9 +106,5 @@
         $(".cf-sidebar-remove").click(function () {
             cuteHide($(this).parent().parent().parent());
         })
-
-
-
-
     }, 100)
 </script>
