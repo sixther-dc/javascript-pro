@@ -1,0 +1,113 @@
+ * {
+     padding: 0;
+     margin: 0;
+ }
+ #cf-service-sidebar {
+     width: 240px;
+     height: 3000px;
+     font-size: 14px;
+     transition: all .4s ease-out 0s;
+ }
+
+ #cf-service-sidebar:hover {
+    background-color: #F7F9FC;
+ }
+
+ .cf-sidebar-mini {
+     width: 40px !important;
+ }
+ .cf-sidebar-service-wrapper {
+     height: 40px;
+     line-height: 40px;
+     background-color: #FFFFFF;
+     overflow: hidden;
+     position: relative;
+ }
+
+ .cf-sidebar-service-wrapper:hover {
+     cursor: pointer;
+ }
+
+ .cf-sidebar-collection-service {
+     display: block;
+     /* overflow: hidden; */
+     position: relative;
+     list-style: none
+ }
+
+ .cf-sidebar-collection-service:hover {
+     background-color: #F7F9FC;
+ }
+
+ .cf-sidebar-service-icon {
+     padding: 12px 15px;
+     font-size: 16px;
+     vertical-align: middle;
+ }
+
+ .cf-sidebar-service-row {
+     height: 40px;
+     position: absolute;
+     z-index: 100;
+     transition: all .2s ease-out 0s;
+ }
+
+ a.cf-sidebar-service-item {
+     display: inline-block;
+     height: 40px;
+     width: 100%;
+     /* overflow: hidden; */
+     text-decoration: none;
+     color: #252B3A;
+     white-space: nowrap;
+ }
+
+ a.cf-sidebar-service-item:hover {
+     color: #526ECC;
+     background-color: #cecbcb;
+     cursor: pointer;
+ }
+
+ .cf-sidebar-service-name {
+     display: inline-block;
+     height: 40px;
+     line-height: 40px;
+     width: 188px;
+     vertical-align: middle;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+ }
+
+ .cf-sidebar-service-right-icon {
+     position: absolute;
+     right: 15px;
+     top: 18px;
+     display: inline-block;
+     border-bottom: 4px solid transparent;
+     border-left: 6px solid #252B3A;
+     border-top: 4px solid transparent;
+     content: '';
+ }
+
+ .cf-sidebar-mini .cf-sidebar-service-right-icon {
+     display: none;
+ }
+
+ .cf-sidebar-toolbar {
+     height: 40px;
+     line-height: 40px;
+     vertical-align: middle;
+     position: absolute;
+     right: 5px;
+     background-color: #cecbcb;
+     display: none;
+ }
+
+ .cf-sidebar-mini .cf-sidebar-toolbar {
+     display: none;
+ }
+
+ .cf-sidebar-drag {
+     cursor: move;
+ }

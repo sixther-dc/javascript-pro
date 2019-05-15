@@ -1,5 +1,6 @@
 const path = require('path');
 const glob = require('glob');
+const webpack = require('webpack');
 const webpackDeepScopePlugin = require("webpack-deep-scope-plugin").default;
 //css的treeshaking
 const PurifyCSSPlugin = require('purifycss-webpack');
@@ -53,8 +54,7 @@ webpackConfig = {
         }
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.css$/,
                 use: [{
                         loader: MiniCssExtractPlugin.loader,
@@ -85,17 +85,30 @@ webpackConfig = {
             },
             {
                 test: /\.(html)$/,
-                use: [
-                    {
-                        loader: 'html-loader',
-                        options: {
-                            attrs: [':data-src']
-                        }
-                    },
-                    {
-                        loader: path.resolve("./src/lib/myloader/index")
+                use: [{
+                    loader: 'html-loader',
+                    options: {
+                        attrs: [':data-src']
                     }
-                ]
+                }, ]
+            },
+            {
+                test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        name: 'assets/fonts/[name]_[hash].[ext]'
+                    }
+                }]
+            }, {
+                test: /\.(jpe?g|png|gif)$/i,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        name: 'assets/images/[name]_[hash].[ext]',
+                        limit: 10000
+                    }
+                }]
             }
         ]
     },
@@ -120,7 +133,13 @@ webpackConfig = {
         new HtmlWebpackPlugin({
             filename: "index.html",
             template: "src/index.html"
-        })
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            'window.jquery': 'jquery',
+        }),
     ]
 }
 

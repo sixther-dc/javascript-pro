@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .drag-list {
+            list-style: none;
+            width: 400px;
+            margin: 0 auto;
+            margin-top: 50px;
+            text-align: center;
+            padding: 0;
+            font-family: Helvetica;
+            color: white;
+        }
+
+        .drag {
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background: lightgreen;
+            z-index: 99;
+            position: relative;
+            top: 0;
+            left: 0;
+            transition: all .2s ease;
+            border-radius: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <ul class='drag-list' id="theList">
+            <li class="drag">Bob</li>
+            <li class="drag">Giff</li>
+            <li class="drag">Jana</li>
+            <li class="drag">Sally</li>
+            <li class="drag">Frank</li>
+            <li class="drag">Pete</li>
+            <li class="drag">Kaitlin</li>
+            <li class="drag">Britany</li>
+            <li class="drag">Brian</li>
+            <li class="drag">Skankster</li>
+        </ul>
+    </div>
+</body>
+<script>
+    let clientX = 0;
+    let clientY = 0;
+    let startClientX = 0;
+    let startClientY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
+    let dragElem = null;
+    let mouseUp = true;
+    let lastClientStartY
+    let current
+    let lastElemUp
+    let lastElemDown
+    let items = document.getElementById('theList').getElementsByTagName('li')
+
+    let box = document.getElementById("theList")
+
+    box.onmousedown = (e) => {
+
+        mouseUp = false
+
+        if (e.target.classList.contains('drag')) {
+            dragElem = e.target
+
+            startClientX = e.clientX
+            startClientY = e.clientY
+            lastClientStartY = e.clientY
+            offsetX = e.target.style.left == '' ? 0 : parseInt(e.target.style.left)
+            offsetY = e.target.style.top == '' ? 0 : parseInt(e.target.style.top)
+        }
+        //stop text selection
+        return false;
+    }
+
+    document.onmousemove = (e) => {
+
+        if (mouseUp) return
+
+        clientX = e.clientX
+        clientY = e.clientY
+
+        //dragElem.style.left = (clientX - startClientX + offsetX) + 'px'
+        dragElem.style.top = (clientY - startClientY + offsetY) + 'px'
+        //console.log( "Location: ", ( clientY - startClientY + offsetY ) )
+        //so elem being dragged doesnt end up being the event instead of the one being moved over
+        //might not work with IE
+        dragElem.style.pointerEvents = 'none'
+
+        if (e.target !== dragElem && e.target.tagName !== 'UL') {
+            console.log('Target: ', e.target, 'Drag Elem: ', dragElem)
+            current = e.target.style.top == '' ? 0 : parseInt(e.target.style.top)
+
+            if (clientY > lastClientStartY && e.target !== lastElemUp) {
+                e.target.style.top = (current - 60) + 'px'
+                lastClientStartY = e.clientY
+                //stop item from moving two spots due to long animation
+                lastElemUp = e.target
+                lastElemDown = null
+
+            } else if (clientY < lastClientStartY && e.target !== lastElemDown) {
+                e.target.style.top = (current + 60) + 'px'
+                lastClientStartY = e.clientY
+                lastElemDown = e.target
+                lastElemUp = null
+            }
+        }
+        //console.log('Dragging Over: ', e.target)
+    }
+
+    box.onmouseup = (e) => {
+        mouseUp = true
+        console.log('Bounds: ', dragElem.getBoundingClientRect())
+        console.log('Round', roundTo60(clientY - startClientY + offsetY))
+        dragElem.style.top = roundTo60(clientY - startClientY + offsetY) + 'px'
+        dragElem.style.pointerEvents = 'auto'
+        dragElem = null
+    }
+
+
+    function roundTo60(num) {
+        let resto = num % 60
+        if (num > 0) {
+            if (resto <= (60 / 2)) {
+                return num - resto
+            } else {
+                return num + 60 - resto
+            }
+        } else if (num < 0) {
+            if (resto >= -(60 / 2)) {
+                return num - resto
+            } else {
+                return num - 60 - resto
+            }
+        }
+    }
+</script>
+
+</html>

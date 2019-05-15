@@ -4,6 +4,8 @@
 // import {
 // 	func1
 // } from "./lib/test";
+import $ from 'jquery'
+window.$ = $;
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import routing from './app.config';
@@ -12,10 +14,12 @@ import aModule from "./amodule";
 // mySync();
 
 import "./index.css";
+import "./style/css/font-awesome.css";
 // "dist/css/bootstrap.css"
 // import "bootstrap/dist/css/bootstrap.css";
 
 import directive1 from "./directive1";
+import sidebar from "./components/sidebar";
 
 class homeController {
 	constructor($rootScope, $scope) {
@@ -39,7 +43,7 @@ class homeController {
 homeController.$inject = ["$rootScope", "$scope"]
 
 //angularjs webapp sample
-angular.module('app', [aModule.name, uirouter])
+angular.module('app', [aModule.name, sidebar.name, uirouter])
 	.config(routing)
 	.controller("homeController", homeController)
 	.directive("directive1", directive1)

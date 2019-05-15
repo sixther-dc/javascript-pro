@@ -7,22 +7,6 @@
     <title>SPA</title>
 </head>
 <body>
-    <h1 class="test">Hello, world</h1>
-    <div id="app"></div>
-    <com1>
-        <p>{{ $root.version }}</p>
-    </com1>
-    <div ng-controller="homeController as home">
-        <h1>Hello, {{home.name}}</h1>
-        <button ng-click="home.myClick()">点我</button>
-
-        <directive1 title='title'>
-            我是正文
-        </directive1>
-    </div>
-    <h1>Hello, {{$root.test}}</h1>
-    <div ng-if="$root.flag">
-        测试flag
-    </div>
+    <sidebar></sidebar>
 </body>
 </html>

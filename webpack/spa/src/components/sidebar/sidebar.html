@@ -1,0 +1,90 @@
+<div id="cf-service-sidebar" class="cf-sidebar-service-wrapper">
+    <ul class="cf-sidebar-collection-service">
+        <li class="cf-sidebar-service-row" ng-style="{'transform': 'translate3d(0px,' + 40 * $index +'px, 0px)'}"
+            ng-repeat="favoriteEndpoint in $root.favoriteEndpoints" hws-href href="{{favoriteEndpoint.endpoint}}"
+            ng-attr-title="{{favoriteEndpoint.name}}">
+            <a class="cf-sidebar-service-item">
+                <!-- <span class="cf-sidebar-service-icon"
+                ng-class="'hwsicon-frame-service-'+favoriteEndpoint.serviceCss"></span> -->
+                <span class="cf-sidebar-service-icon fa fa-bath"></span>
+                <span class="cf-sidebar-service-name" id="{{favoriteEndpoint.name}}"
+                    ng-bind="favoriteEndpoint.name"></span>
+                <span class="cf-sidebar-toolbar">
+                    <span class="fa fa-remove cf-sidebar-remove"></span>
+                    <span class="fa fa-support cf-sidebar-drag"></span>
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    setTimeout(function () {
+        $(".cf-sidebar-service-item").hover(function () {
+            $(this).children(".cf-sidebar-toolbar").css("display", "inline-block");
+            if ($('#cf-service-sidebar').hasClass('cf-sidebar-mini')) {
+                $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
+            }
+        }, function () {
+            $(this).children(".cf-sidebar-toolbar").css("display", "none");
+            if (!$('#cf-service-sidebar').hasClass('cf-sidebar-mini')) {
+                // $('#cf-service-sidebar').addClass('cf-sidebar-mini');
+            }
+        })
+
+        // aaa.css({'transform': 'translate3d(0px, 200px, 0px)'})
+        $(".cf-sidebar-drag").mousedown(function () {
+            // console.log($(this).parent().parent().parent());
+            var ulEle = $(this).parent().parent().parent();
+            ulEle[0].style.zIndex = 101;
+            // var ulEleTop = $(".cf-sidebar-collection-service").css("top")
+            var eleTop = $(ulEle).offset().top;
+            document.onmousemove = function (e) {
+                var event = e || window.event;
+                var pageY = event.pageY;
+                // ulEle[0].style.top = pageY - parseInt(getComputedStyle(ulEle[0],
+                //     null).height) / 2 + "px";
+                $(ulEle).offset({
+                    top: pageY - parseInt(getComputedStyle(ulEle[0],
+                     null).height) / 2
+                })
+                var dragEleIndex = Math.round((parseInt(pageY) - (eleTop + 20)) / 40);
+                if (dragEleIndex == 1) {
+                    var nextEleTransformY = $(ulEle).next().css("transform").replace(/[^0-9\-,]/g,'').split(',').pop();
+                    console.log((ulEle).next().css("transform"));
+                    console.log(nextEleTransformY);
+
+                    console.log('translate3d(0px, ' + (parseInt(nextEleTransformY) - 40) +'px, 0px)');
+                    $(ulEle).next().css({
+                        'transform': 'translate3d(0px, ' + (parseInt(nextEleTransformY) - 40) + 'px, 0px)'
+                    })
+                    // console.log($(ulEle).next());
+                }
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                ulEle[0].style.zIndex = 100;
+            }
+
+        })
+
+        function cuteHide(el) {
+            el.animate({
+                opacity: '0'
+            }, 150, function () {
+                el.animate({
+                    height: '0px'
+                }, 150, function () {
+                    el.remove();
+                });
+            });
+        }
+
+        $(".cf-sidebar-remove").click(function () {
+            cuteHide($(this).parent().parent().parent());
+        })
+
+
+
+
+    }, 100)
+</script>
