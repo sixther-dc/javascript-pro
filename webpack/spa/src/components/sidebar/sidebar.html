@@ -87,6 +87,7 @@
             document.onmouseup = function () {
                 document.onmousemove = null;
                 ulEle[0].style.zIndex = 100;
+                //这里修改拖动元素的translate3d值以及做具体的位移， 同时需要清除top属性
             }
 
         })
