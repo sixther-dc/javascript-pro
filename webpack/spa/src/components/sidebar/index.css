@@ -32,7 +32,9 @@
      display: block;
      /* overflow: hidden; */
      position: relative;
-     list-style: none
+     list-style: none;
+     /* transform-style: preserve-3d;
+     perspective: 800px; */
  }
 
  .cf-sidebar-collection-service:hover {

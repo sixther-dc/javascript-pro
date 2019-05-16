@@ -59,8 +59,8 @@ function autoPlay() {
     // } else {
     //     curDisplay++;
     // }
-    curDisplay = curDisplay%imgLen;
-    curDisplay ++;
+    curDisplay = curDisplay % imgLen;
+    curDisplay++;
     // curDisplay = ++index%imgLen;
     move();
 }

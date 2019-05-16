@@ -13,6 +13,33 @@ class sidebarCtrl {
             {
                 name: "数据库"
             },
+            {
+                name: "虚拟私有云"
+            },
+            {
+                name: "DNS"
+            },
+            {
+                name: "数据库"
+            },
+            {
+                name: "虚拟私有云"
+            },
+            {
+                name: "DNS"
+            },
+            {
+                name: "数据库"
+            },
+            {
+                name: "虚拟私有云"
+            },
+            {
+                name: "DNS"
+            },
+            {
+                name: "数据库"
+            }
         ];
     }
 }
