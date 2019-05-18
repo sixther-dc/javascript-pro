@@ -33,16 +33,16 @@
 </div>
 <script>
     setTimeout(function () {
+        $("#cf-service-sidebar").hover(function () {
+            $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
+        }, function () {
+            $('#cf-service-sidebar').addClass('cf-sidebar-mini');
+        })
+
         $(".cf-sidebar-service-item").hover(function () {
             $(this).children(".cf-sidebar-toolbar").css("display", "inline-block");
-            if ($('#cf-service-sidebar').hasClass('cf-sidebar-mini')) {
-                $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
-            }
         }, function () {
             $(this).children(".cf-sidebar-toolbar").css("display", "none");
-            if (!$('#cf-service-sidebar').hasClass('cf-sidebar-mini')) {
-                $('#cf-service-sidebar').addClass('cf-sidebar-mini');
-            }
         })
 
         $(".cf-sidebar-drag").mousedown(function () {
