@@ -6,7 +6,8 @@
      width: 240px;
      height: 3000px;
      font-size: 14px;
-     transition: all .4s ease-out 0s;
+     overflow: hidden;
+     transition: all .2s ease-out 0s;
  }
 
  #cf-service-sidebar:hover {
@@ -18,10 +19,13 @@
  }
  .cf-sidebar-service-wrapper {
      height: 40px;
-     line-height: 40px;
-     background-color: #FFFFFF;
+     /* line-height: 40px; */
      overflow: hidden;
+     width: 100%;
+     background-color: #FFFFFF;
      position: relative;
+     white-space: nowrap;
+     border-bottom: 1px solid black;
  }
 
  .cf-sidebar-service-wrapper:hover {
@@ -48,12 +52,22 @@
  }
 
  .cf-sidebar-service-row {
+     width: 240px;
      height: 40px;
      position: absolute;
      z-index: 100;
      transition: all .2s ease-out 0s;
  }
 
+ .cf-sidebar-service-row:hover {
+    color: #526ECC;
+    background-color: #cecbcb;
+    cursor: pointer;
+}
+
+.cf-sidebar-service-row-drag {
+    background-color: #cecbcb !important;
+}
  a.cf-sidebar-service-item {
      display: inline-block;
      height: 40px;
@@ -62,12 +76,6 @@
      text-decoration: none;
      color: #252B3A;
      white-space: nowrap;
- }
-
- a.cf-sidebar-service-item:hover {
-     color: #526ECC;
-     background-color: #cecbcb;
-     cursor: pointer;
  }
 
  .cf-sidebar-service-name {
@@ -81,7 +89,7 @@
      white-space: nowrap;
  }
 
- .cf-sidebar-service-right-icon {
+ /* .cf-sidebar-service-right-icon {
      position: absolute;
      right: 15px;
      top: 18px;
@@ -94,7 +102,7 @@
 
  .cf-sidebar-mini .cf-sidebar-service-right-icon {
      display: none;
- }
+ } */
 
  .cf-sidebar-toolbar {
      height: 40px;
@@ -102,14 +110,35 @@
      vertical-align: middle;
      position: absolute;
      right: 5px;
-     background-color: #cecbcb;
+     /* background-color: #cecbcb; */
      display: none;
  }
 
+ .cf-sidebar-service-more-icon{
+    height: 40px;
+    line-height: 40px;
+    /* display: inline-block; */
+    position: absolute;
+    vertical-align: middle;
+    right: 5px;
+ }
+
+ .cf-sidebar-mini .cf-sidebar-service-more-icon {
+     display: none;
+ }
  .cf-sidebar-mini .cf-sidebar-toolbar {
      display: none;
  }
 
+ .cf-sidebar-service-row-drag .cf-sidebar-toolbar{
+    display: inline-block !important;
+ }
  .cf-sidebar-drag {
-     cursor: move;
+    display: inline-block; 
+    cursor: move;
+    height: 40px;
+ }
+ .cf-sidebar-remove {
+    display: inline-block; 
+    height: 40px;
  }

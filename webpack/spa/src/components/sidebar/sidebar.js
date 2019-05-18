@@ -14,13 +14,10 @@ class sidebarCtrl {
                 name: "数据库"
             },
             {
-                name: "虚拟私有云"
+                name: "边缘计算"
             },
             {
-                name: "DNS"
-            },
-            {
-                name: "数据库"
+                name: "人工智能"
             },
             {
                 name: "虚拟私有云"
@@ -32,6 +29,12 @@ class sidebarCtrl {
                 name: "数据库"
             },
             {
+                name: "边缘计算"
+            },
+            {
+                name: "人工智能"
+            },
+            {
                 name: "虚拟私有云"
             },
             {
@@ -39,6 +42,12 @@ class sidebarCtrl {
             },
             {
                 name: "数据库"
+            },
+            {
+                name: "边缘计算"
+            },
+            {
+                name: "人工智能"
             }
         ];
     }
