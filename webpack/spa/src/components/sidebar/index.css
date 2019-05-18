@@ -25,7 +25,6 @@
      background-color: #FFFFFF;
      position: relative;
      white-space: nowrap;
-     border-bottom: 1px solid black;
  }
 
  .cf-sidebar-service-wrapper:hover {
@@ -141,4 +140,15 @@
  .cf-sidebar-remove {
     display: inline-block; 
     height: 40px;
+ }
+
+ .cf-line {
+     height: 1px;
+     background-color: burlywood;
+     width: 100%;
+ }
+
+ .cf-sidebar-mini .cf-line {
+     margin-left: 6px;
+     margin-right: 6px;
  }
