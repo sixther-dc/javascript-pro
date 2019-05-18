@@ -13,6 +13,7 @@
 
  #cf-service-sidebar:hover {
     background-color: #F7F9FC;
+    cursor: pointer;
  }
 
  .cf-sidebar-mini {
@@ -28,9 +29,6 @@
      white-space: nowrap;
  }
 
- .cf-sidebar-service-wrapper:hover {
-     cursor: pointer;
- }
 
  .cf-sidebar-collection-service {
      display: block;
@@ -60,13 +58,13 @@
  }
 
  .cf-sidebar-service-row:hover {
-    color: #526ECC;
+    /* color: #526ECC; */
     background-color: #cecbcb;
-    cursor: pointer;
 }
 
 .cf-sidebar-service-row-drag {
     background-color: #cecbcb !important;
+    /* color: #526ECC; */
 }
  a.cf-sidebar-service-item {
      display: inline-block;
@@ -74,7 +72,7 @@
      width: 100%;
      /* overflow: hidden; */
      text-decoration: none;
-     color: #252B3A;
+     /* color: #252B3A; */
      white-space: nowrap;
  }
 

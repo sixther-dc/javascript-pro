@@ -35,6 +35,8 @@
 </div>
 <script>
     setTimeout(function () {
+        console.log("test");
+        var isMove;
         $("#cf-service-sidebar").hover(function () {
             $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
         }, function () {
@@ -53,6 +55,7 @@
         //     })
         // })
         $(".cf-sidebar-drag").mousedown(function () {
+            isMove = true;
             document.onselectstart = function () {
                 return false;
             }
@@ -74,6 +77,7 @@
             //记录基准点位置
             var currentIndex = liList.index(dragEle);
             document.onmousemove = function (e) {
+                $(".cf-sidebar-service-item").off('mouseenter').unbind('mouseleave');
                 $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
                 var event = e || window.event;
                 var pageY = event.pageY;
@@ -108,9 +112,11 @@
                 }
             };
             document.onmouseup = function (e) {
+                isMove = false;
                 dragEle[0].style.transform = 'translate3d(0px, ' + currentIndex * liHeight +
                     'px, 0px)';
-                positionTable.forEach(function(index){
+                //对拖拽后的li进行重排
+                positionTable.forEach(function (index) {
                     $(".cf-sidebar-collection-service").append(liList[index]);
                 });
                 document.onmousemove = null;
@@ -118,6 +124,11 @@
                 dragEle[0].style.top = 0;
                 document.onmouseup = null;
                 dragEle[0].classList.remove("cf-sidebar-service-row-drag");
+                $(".cf-sidebar-service-item").hover(function () {
+                    $(this).children(".cf-sidebar-toolbar").css("display", "inline-block");
+                }, function () {
+                    $(this).children(".cf-sidebar-toolbar").css("display", "none");
+                })
                 var event = e || window.event;
                 var pageX = event.pageX;
                 if (pageX > 240) {
