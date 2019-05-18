@@ -36,7 +36,7 @@
         $("#cf-service-sidebar").hover(function () {
             $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
         }, function () {
-            $('#cf-service-sidebar').addClass('cf-sidebar-mini');
+            // $('#cf-service-sidebar').addClass('cf-sidebar-mini');
         })
 
         $(".cf-sidebar-service-item").hover(function () {
@@ -68,10 +68,15 @@
             var currentIndex = liList.index(dragEle);
             var moveFlag;
             document.onmousemove = function (e) {
+                // $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
                 var event = e || window.event;
                 var pageY = event.pageY;
-                $(dragEle).offset({
-                    top: pageY - liHeight / 2
+                // $(dragEle).offset({
+                //     top: pageY - liHeight / 2
+                // });
+                $(dragEle).css({
+                    'transform': 'translate3d(0px, ' + (pageY - firstLiOffsetTop) +
+                        'px, 0px)'
                 });
                 //处理下移
                 if (((pageY - currentEleDisplayOffsetTop) > liHeight / 2) && (currentIndex <
