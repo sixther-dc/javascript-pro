@@ -8,6 +8,7 @@
      font-size: 14px;
      overflow: hidden;
      transition: all .2s ease-out 0s;
+     z-index: 95;
  }
 
  #cf-service-sidebar:hover {
@@ -151,4 +152,15 @@
  .cf-sidebar-mini .cf-line {
      margin-left: 6px;
      margin-right: 6px;
+ }
+
+ .cf-sidebar-service-list {
+     width: 960px;
+     height: 3000px;
+     background-color: antiquewhite;
+     position: absolute;
+     top: 0px;
+     left: -960px;
+     z-index: 90;
+     transition: all .3s cubic-bezier(0,0,.2,1);
  }

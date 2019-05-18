@@ -10,6 +10,7 @@
             </a>
         </span>
     </div>
+    <!-- <div class="cf-sidebar-service-list"></div> -->
     <div class="cf-line"></div>
     <ul class="cf-sidebar-collection-service">
         <li class="cf-sidebar-service-row" ng-style="{'transform': 'translate3d(0px,' + 40 * $index +'px, 0px)'}"
@@ -37,7 +38,7 @@
         $("#cf-service-sidebar").hover(function () {
             $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
         }, function () {
-            $('#cf-service-sidebar').addClass('cf-sidebar-mini');
+            // $('#cf-service-sidebar').addClass('cf-sidebar-mini');
         })
 
         $(".cf-sidebar-service-item").hover(function () {
@@ -46,6 +47,11 @@
             $(this).children(".cf-sidebar-toolbar").css("display", "none");
         })
 
+        // $(".cf-sidebar-service-wrapper").mouseover(function(){
+        //     $(".cf-sidebar-service-list").css({
+        //         left: "240px"
+        //     })
+        // })
         $(".cf-sidebar-drag").mousedown(function () {
             document.onselectstart = function () {
                 return false;
@@ -67,18 +73,12 @@
             var currentEleDisplayOffsetTop = eleTop + liHeight / 2;
             //记录基准点位置
             var currentIndex = liList.index(dragEle);
-            var moveFlag;
             document.onmousemove = function (e) {
                 $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
                 var event = e || window.event;
                 var pageY = event.pageY;
-                // $(dragEle).offset({
-                //     top: pageY - liHeight / 2
-                // });
-                $(dragEle).css({
-                    'transform': 'translate3d(0px, ' + (pageY - firstLiOffsetTop) +
-                        'px, 0px)'
-                });
+                dragEle[0].style.transform = 'translate3d(0px, ' + (pageY - firstLiOffsetTop) +
+                    'px, 0px)';
                 //处理下移
                 if (((pageY - currentEleDisplayOffsetTop) > liHeight / 2) && (currentIndex <
                         liLength - 1)) {
@@ -87,44 +87,32 @@
                     //计算当前基准点的位置
                     currentIndex = (currentEleDisplayOffsetTop - firstLiOffsetTop) / liHeight;
                     //移动当前基准点位置中的元素的Y轴坐标
-                    $(liList[positionTable[currentIndex]]).css({
-                        'transform': 'translate3d(0px, ' + ((currentIndex - 1) * liHeight) +
-                            'px, 0px)'
-                    });
+                    liList[positionTable[currentIndex]].style.transform = 'translate3d(0px, ' + ((
+                        currentIndex - 1) * liHeight) + 'px, 0px)';
                     //基准点的元素跟上一个元素换位
                     [positionTable[currentIndex], positionTable[currentIndex - 1]] = [
                         positionTable[currentIndex - 1],
                         positionTable[currentIndex]
                     ];
-                    moveFlag = 'down';
                 }
                 //处理上移
                 if (((currentEleDisplayOffsetTop - pageY) > liHeight / 2) && (currentIndex > 0)) {
                     currentEleDisplayOffsetTop -= liHeight;
                     currentIndex = (currentEleDisplayOffsetTop - firstLiOffsetTop) / liHeight;
-                    $(liList[positionTable[currentIndex]]).css({
-                        'transform': 'translate3d(0px, ' + ((currentIndex + 1) * liHeight) +
-                            'px, 0px)'
-                    });
+                    liList[positionTable[currentIndex]].style.transform = 'translate3d(0px, ' + ((
+                        currentIndex + 1) * liHeight) + 'px, 0px)';
                     [positionTable[currentIndex], positionTable[currentIndex + 1]] = [
                         positionTable[currentIndex + 1],
                         positionTable[currentIndex]
                     ];
-                    moveFlag = 'up';
                 }
             };
             document.onmouseup = function (e) {
-                $(dragEle).css({
-                    'transform': 'translate3d(0px, ' + currentIndex * liHeight +
-                        'px, 0px)'
-                })
-                if (currentIndex === 0) {
-                    $(dragEle).insertBefore($(liList[0]));
-                } else if (moveFlag === 'down') {
-                    $(dragEle).insertAfter($(liList[currentIndex]));
-                } else {
-                    $(dragEle).insertBefore($(liList[currentIndex]))
-                }
+                dragEle[0].style.transform = 'translate3d(0px, ' + currentIndex * liHeight +
+                    'px, 0px)';
+                positionTable.forEach(function(index){
+                    $(".cf-sidebar-collection-service").append(liList[index]);
+                });
                 document.onmousemove = null;
                 dragEle[0].style.zIndex = 100;
                 dragEle[0].style.top = 0;
@@ -133,7 +121,7 @@
                 var event = e || window.event;
                 var pageX = event.pageX;
                 if (pageX > 240) {
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $('#cf-service-sidebar').addClass('cf-sidebar-mini');
                     }, 800)
                 }
