@@ -57,14 +57,14 @@
      transition: all .2s ease-out 0s;
  }
 
- .cf-sidebar-service-row:hover {
-    /* color: #526ECC; */
+ .cf-sidebar-service-row-hover {
+    color: #526ECC;
     background-color: #cecbcb;
 }
 
 .cf-sidebar-service-row-drag {
     background-color: #cecbcb !important;
-    /* color: #526ECC; */
+    color: #526ECC;
 }
  a.cf-sidebar-service-item {
      display: inline-block;

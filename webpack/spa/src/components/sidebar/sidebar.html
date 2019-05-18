@@ -44,9 +44,11 @@
         })
 
         $(".cf-sidebar-service-item").hover(function () {
+            $(this).addClass("cf-sidebar-service-row-hover");
             $(this).children(".cf-sidebar-toolbar").css("display", "inline-block");
         }, function () {
             $(this).children(".cf-sidebar-toolbar").css("display", "none");
+            $(this).removeClass("cf-sidebar-service-row-hover");
         })
 
         // $(".cf-sidebar-service-wrapper").mouseover(function(){
@@ -125,10 +127,13 @@
                 document.onmouseup = null;
                 dragEle[0].classList.remove("cf-sidebar-service-row-drag");
                 $(".cf-sidebar-service-item").hover(function () {
+                    $(this).addClass("cf-sidebar-service-row-hover");
                     $(this).children(".cf-sidebar-toolbar").css("display", "inline-block");
                 }, function () {
                     $(this).children(".cf-sidebar-toolbar").css("display", "none");
+                    $(this).removeClass("cf-sidebar-service-row-hover");
                 })
+
                 var event = e || window.event;
                 var pageX = event.pageX;
                 if (pageX > 240) {
