@@ -40,7 +40,7 @@
         $("#cf-service-sidebar").hover(function () {
             $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
         }, function () {
-            // $('#cf-service-sidebar').addClass('cf-sidebar-mini');
+            $('#cf-service-sidebar').addClass('cf-sidebar-mini');
         })
 
         $(".cf-sidebar-service-item").hover(function () {
@@ -57,6 +57,7 @@
         //     })
         // })
         $(".cf-sidebar-drag").mousedown(function () {
+            $(".cf-sidebar-service-item").off('mouseenter').unbind('mouseleave');
             isMove = true;
             document.onselectstart = function () {
                 return false;
@@ -79,7 +80,6 @@
             //记录基准点位置
             var currentIndex = liList.index(dragEle);
             document.onmousemove = function (e) {
-                $(".cf-sidebar-service-item").off('mouseenter').unbind('mouseleave');
                 $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
                 var event = e || window.event;
                 var pageY = event.pageY;
@@ -132,8 +132,9 @@
                 }, function () {
                     $(this).children(".cf-sidebar-toolbar").css("display", "none");
                     $(this).removeClass("cf-sidebar-service-row-hover");
-                })
-
+                });
+                console.log($(dragEle).children(".cf-sidebar-toolbar"));
+                $(dragEle).children(".cf-sidebar-toolbar").css("display", "none");
                 var event = e || window.event;
                 var pageX = event.pageX;
                 if (pageX > 240) {
