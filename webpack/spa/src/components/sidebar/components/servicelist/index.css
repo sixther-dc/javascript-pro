@@ -20,3 +20,25 @@
     padding: 10px;
     cursor: pointer;
 }
+
+.cf-sidebar-search-icon {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 16px;
+    color: #d9d9d9
+}
+
+.cf-sidebar-search-input {
+    border: none;
+    border-bottom: 1px solid #ebebeb;
+    padding-left: 40px;
+    width: 710px;
+    color: #595959;
+    height: 32px;
+    background-color: #f7f7f7;
+    outline:none;
+    cursor: text;
+}
