@@ -4,7 +4,10 @@
  }
  #cf-service-sidebar {
      width: 240px;
-     height: 3000px;
+     position: absolute;
+     top: 0px;
+     bottom: 0px;
+     background-color: #FFFFFF;
      font-size: 14px;
      overflow: hidden;
      transition: all .2s ease-out 0s;
@@ -13,7 +16,6 @@
 
  #cf-service-sidebar:hover {
     background-color: #F7F9FC;
-    cursor: pointer;
  }
 
  .cf-sidebar-mini {
@@ -30,6 +32,10 @@
  }
 
 
+ .cf-sidebar-service-wrapper:hover {
+    cursor: pointer;
+ }   
+ 
  .cf-sidebar-collection-service {
      display: block;
      /* overflow: hidden; */
@@ -41,6 +47,7 @@
 
  .cf-sidebar-collection-service:hover {
      background-color: #F7F9FC;
+     cursor: pointer;
  }
 
  .cf-sidebar-service-icon {
@@ -155,10 +162,10 @@
  .cf-sidebar-service-list {
      width: 960px;
      height: 3000px;
-     background-color: antiquewhite;
+     background-color: #f7f7f7;
      position: absolute;
      top: 0px;
      left: -960px;
-     z-index: 90;
+     z-index: -10;
      transition: all .3s cubic-bezier(0,0,.2,1);
  }

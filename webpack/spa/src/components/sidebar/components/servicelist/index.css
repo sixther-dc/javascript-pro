@@ -1,0 +1,22 @@
+.cf-sidebar-service-list {
+    width: 960px;
+    /* height: 3000px; */
+    background-color: #f7f7f7;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    padding: 40px 30px;
+    padding-bottom: 0;
+    left: -960px;
+    z-index: 50;
+    box-sizing: border-box;
+    transition: all .2s cubic-bezier(0,0,.2,1);
+}
+
+.cf-sidebar-service-list-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 10px;
+    cursor: pointer;
+}

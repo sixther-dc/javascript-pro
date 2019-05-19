@@ -10,7 +10,6 @@
             </a>
         </span>
     </div>
-    <!-- <div class="cf-sidebar-service-list"></div> -->
     <div class="cf-line"></div>
     <ul class="cf-sidebar-collection-service">
         <li class="cf-sidebar-service-row" ng-style="{'transform': 'translate3d(0px,' + 40 * $index +'px, 0px)'}"
@@ -33,6 +32,7 @@
         </li>
     </ul>
 </div>
+<servicelist></servicelist>
 <script>
     setTimeout(function () {
         console.log("test");
@@ -40,7 +40,7 @@
         $("#cf-service-sidebar").hover(function () {
             $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
         }, function () {
-            $('#cf-service-sidebar').addClass('cf-sidebar-mini');
+            // $('#cf-service-sidebar').addClass('cf-sidebar-mini');
         })
 
         $(".cf-sidebar-service-item").hover(function () {
@@ -51,11 +51,11 @@
             $(this).removeClass("cf-sidebar-service-row-hover");
         })
 
-        // $(".cf-sidebar-service-wrapper").mouseover(function(){
-        //     $(".cf-sidebar-service-list").css({
-        //         left: "240px"
-        //     })
-        // })
+        $(".cf-sidebar-service-wrapper").mouseover(function(){
+            $(".cf-sidebar-service-list").css({
+                left: "120px"
+            })
+        })
         $(".cf-sidebar-drag").mousedown(function () {
             $(".cf-sidebar-service-item").off('mouseenter').unbind('mouseleave');
             isMove = true;
