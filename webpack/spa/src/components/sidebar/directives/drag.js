@@ -1,4 +1,4 @@
-function dragServiceName() {
+function dragServiceName($rootScope) {
     return {
         restrict: "A",
         link($scope, element) {
@@ -59,12 +59,19 @@ function dragServiceName() {
                     }
                 };
                 document.onmouseup = function (e) {
+                    // var a=$rootScope.favoriteEndpoints.sort(function(a,b){
+                    //     var aIndex = $rootScope.favoriteEndpoints.indexOf(a);
+                    //     var bIndex = $rootScope.favoriteEndpoints.indexOf(b);
+                    //     return (positionTable.indexOf(aIndex) - positionTable.indexOf(bIndex));
+                    // });
+                    $scope.$emit("test", positionTable);
+                    // $rootScope.favoriteEndpoints = a;
                     dragEle[0].style.transform = 'translate3d(0px, ' + currentIndex * liHeight +
                         'px, 0px)';
-                    //对拖拽后的li进行重排
-                    positionTable.forEach(function (index) {
-                        $(".cf-sidebar-collection-service").append(liList[index]);
-                    });
+                    // //对拖拽后的li进行重排
+                    // positionTable.forEach(function (index) {
+                    //     $(".cf-sidebar-collection-service").append(liList[index]);
+                    // });
                     document.onmousemove = null;
                     dragEle[0].style.zIndex = 100;
                     dragEle[0].style.top = 0;
@@ -77,7 +84,6 @@ function dragServiceName() {
                         $(this).children(".cf-sidebar-toolbar").css("display", "none");
                         $(this).removeClass("cf-sidebar-service-row-hover");
                     });
-                    console.log($(dragEle).children(".cf-sidebar-toolbar"));
                     $(dragEle).children(".cf-sidebar-toolbar").css("display", "none");
                     var event = e || window.event;
                     var pageX = event.pageX;
@@ -127,6 +133,8 @@ function cfDragRemoveService() {
         }
     }
 }
+
+dragServiceName.$inject = ["$rootScope"]
 export {
     dragServiceName,
     cfSidebarCollectionItem,
