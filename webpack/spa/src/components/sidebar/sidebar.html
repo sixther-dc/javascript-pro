@@ -13,7 +13,7 @@
     <div class="cf-line"></div>
     <ul class="cf-sidebar-collection-service">
         <li class="cf-sidebar-service-row" ng-style="{'transform': 'translate3d(0px,' + 40 * $index +'px, 0px)'}"
-            ng-repeat="favoriteEndpoint in $root.favoriteEndpoints track by favoriteEndpoint.name" ng-attr-title="{{favoriteEndpoint.name}}">
+            ng-repeat="favoriteEndpoint in $root.favoriteEndpoints" ng-attr-title="{{favoriteEndpoint.name}}">
             <a class="cf-sidebar-service-item" cf-sidebar-collection-item>
                 <!-- <span class="cf-sidebar-service-icon"
                 ng-class="'hwsicon-frame-service-'+favoriteEndpoint.serviceCss"></span> -->

@@ -22,7 +22,7 @@ class sidebarCtrl {
                 name: "人工智能"
             }
         ];
-
+//https://docs.angularjs.org/api/ng/service/$animate
         this.$scope.$on("test", (event, data) => {
             var aaa = angular.copy(this.$rootScope.favoriteEndpoints);
             this.$rootScope.favoriteEndpoints = [];
