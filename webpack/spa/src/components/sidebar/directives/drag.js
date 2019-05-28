@@ -4,6 +4,9 @@ function dragServiceName($rootScope) {
         link($scope, element) {
             $(element).mousedown(function () {
                 $(".cf-sidebar-service-item").off('mouseenter').unbind('mouseleave');
+                $(".cf-sidebar-service-row").css({
+                    "transition": "all .2s ease-out 0s"
+                })
                 document.onselectstart = function () {
                     return false;
                 }
@@ -15,9 +18,8 @@ function dragServiceName($rootScope) {
                 //获取li的元素集合
                 var liList = $($(".cf-sidebar-collection-service")[0]).children("li");
                 var liLength = liList.length;
-                var positionTable = Array.from({
-                    length: liLength
-                }, (v, k) => k);
+                var positionTable = [0, 1, 2, 3, 4, 5];
+                console.log(positionTable);
                 //记录第一个元素的高度
                 var firstLiOffsetTop = $(liList[0]).offset().top + liHeight / 2;
                 //记录基准点的高度
@@ -64,6 +66,9 @@ function dragServiceName($rootScope) {
                     //     var bIndex = $rootScope.favoriteEndpoints.indexOf(b);
                     //     return (positionTable.indexOf(aIndex) - positionTable.indexOf(bIndex));
                     // });
+                    $(".cf-sidebar-service-row").css({
+                        "transition": ""
+                    })
                     $scope.$emit("test", positionTable);
                     // $rootScope.favoriteEndpoints = a;
                     dragEle[0].style.transform = 'translate3d(0px, ' + currentIndex * liHeight +

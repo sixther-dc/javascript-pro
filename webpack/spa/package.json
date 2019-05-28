@@ -37,6 +37,11 @@
     "yargs-parser": "^13.0.0"
   },
   "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "webpack": "^4.29.5",
     "webpack-deep-scope-plugin": "^1.6.0"
   }

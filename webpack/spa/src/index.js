@@ -4,6 +4,7 @@
 // import {
 // 	func1
 // } from "./lib/test";
+import "babel-polyfill";
 import $ from 'jquery'
 window.$ = $;
 import angular from 'angular';

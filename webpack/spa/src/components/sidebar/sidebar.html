@@ -11,7 +11,7 @@
         </span>
     </div>
     <div class="cf-line"></div>
-    <ul class="cf-sidebar-collection-service">
+    <ul class="cf-sidebar-collection-service" ng-cloak>
         <li class="cf-sidebar-service-row" ng-style="{'transform': 'translate3d(0px,' + 40 * $index +'px, 0px)'}"
             ng-repeat="favoriteEndpoint in $root.favoriteEndpoints" ng-attr-title="{{favoriteEndpoint.name}}">
             <a class="cf-sidebar-service-item" cf-sidebar-collection-item>
