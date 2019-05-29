@@ -1,10 +1,12 @@
 import sidebarTpl from './sidebar.html';
 class sidebarCtrl {
-    constructor($rootScope, $scope, $animate, $element) {
+    constructor($rootScope, $scope, $animate, $element, $timeout, $q) {
         this.$rootScope = $rootScope;
         this.$scope = $scope;
         this.$animate = $animate;
         this.$element = $element;
+        this.$timeout = $timeout;
+        this.$q = $q;
         $rootScope.favoriteEndpoints = [{
                 name: "弹性云计算器"
             },
@@ -24,37 +26,33 @@ class sidebarCtrl {
                 name: "人工智能"
             }
         ];
-//https://docs.angularjs.org/api/ng/service/$animate
-//https://blog.csdn.net/Bryans/article/details/81003350
         this.$scope.$on("test", (event, data) => {
             var aaa = angular.copy(this.$rootScope.favoriteEndpoints);
             this.$rootScope.favoriteEndpoints = [];
-            // data.forEach((item)=>{
-            //     this.$rootScope.favoriteEndpoints.push(aaa[item]);
-            // })
-            this.$scope.$evalAsync(()=> {
-                data.forEach((item)=>{
+            this.$scope.$evalAsync(() => {
+                data.forEach((item) => {
+                    aaa[item].flag = false;
                     this.$rootScope.favoriteEndpoints.push(aaa[item]);
                 })
             });
-            // this.$scope.$apply();
-        })
+        });
+
+        this.$scope.$on("removeItem", (event, index) => {
+            this.$scope.$evalAsync(() => {
+                this.$rootScope.favoriteEndpoints.splice(index, 1)
+            });
+        });
+
     }
     addService() {
         this.$rootScope.favoriteEndpoints.push({
-            name: "新服务"
-        })
-    }
-
-    removeService(index) {
-        console.log(index);
-        console.log($(this.$element.find("ul")));
-        this.$rootScope.favoriteEndpoints.splice(index, 1)
-        console.log(this.$rootScope.favoriteEndpoints);
+            name: "新服务",
+            flag: true
+        });
     }
 }
 
-sidebarCtrl.$inject = ['$rootScope', '$scope', '$animate', '$element']
+sidebarCtrl.$inject = ['$rootScope', '$scope', '$animate', '$element', '$timeout', '$q']
 const sidebar = {
     controller: sidebarCtrl,
     template: sidebarTpl

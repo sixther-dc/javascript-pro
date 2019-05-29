@@ -11,17 +11,15 @@
         </span>
     </div>
     <div class="cf-line"></div>
-    <ul class="cf-sidebar-collection-service" ng-cloak>
-        <li class="cf-sidebar-service-row" ng-style="{'transform': 'translate3d(0px,' + 40 * $index +'px, 0px)'}"
+    <ul class="cf-sidebar-collection-service">
+        <li ng-class="{'cf-sidebar-service-row-enter': favoriteEndpoint.flag}" class="cf-sidebar-service-row" ng-style="{'transform': 'translate(0px,' + 40 * $index +'px)'}"
             ng-repeat="favoriteEndpoint in $root.favoriteEndpoints" ng-attr-title="{{favoriteEndpoint.name}}">
             <a class="cf-sidebar-service-item" cf-sidebar-collection-item>
-                <!-- <span class="cf-sidebar-service-icon"
-                ng-class="'hwsicon-frame-service-'+favoriteEndpoint.serviceCss"></span> -->
                 <span class="cf-sidebar-service-icon fa fa-bath"></span>
                 <span class="cf-sidebar-service-name" id="{{favoriteEndpoint.name}}"
                     ng-bind="favoriteEndpoint.name"></span>
                 <span class="cf-sidebar-toolbar">
-                    <span class="cf-sidebar-remove" ng-click="$ctrl.removeService($index)">
+                    <span class="cf-sidebar-remove" rrr>
                         <i class="fa fa-remove"></i>
                     </span>
                     <span class="cf-sidebar-drag" drag-service-name>

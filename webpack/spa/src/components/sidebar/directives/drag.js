@@ -1,4 +1,4 @@
-function dragServiceName($rootScope) {
+function dragServiceName() {
     return {
         restrict: "A",
         link($scope, element) {
@@ -18,7 +18,9 @@ function dragServiceName($rootScope) {
                 //获取li的元素集合
                 var liList = $($(".cf-sidebar-collection-service")[0]).children("li");
                 var liLength = liList.length;
-                var positionTable = [0, 1, 2, 3, 4, 5];
+                var positionTable = Array.from({
+                    length: liLength
+                }, (v, k) => k);
                 console.log(positionTable);
                 //记录第一个元素的高度
                 var firstLiOffsetTop = $(liList[0]).offset().top + liHeight / 2;
@@ -30,8 +32,8 @@ function dragServiceName($rootScope) {
                     $('#cf-service-sidebar').removeClass('cf-sidebar-mini');
                     var event = e || window.event;
                     var pageY = event.pageY;
-                    dragEle[0].style.transform = 'translate3d(0px, ' + (pageY - firstLiOffsetTop) +
-                        'px, 0px)';
+                    dragEle[0].style.transform = 'translate(0px, ' + (pageY - firstLiOffsetTop) +
+                        'px)';
                     //处理下移
                     if (((pageY - currentEleDisplayOffsetTop) > liHeight / 2) && (currentIndex <
                             liLength - 1)) {
@@ -40,8 +42,8 @@ function dragServiceName($rootScope) {
                         //计算当前基准点的位置
                         currentIndex = (currentEleDisplayOffsetTop - firstLiOffsetTop) / liHeight;
                         //移动当前基准点位置中的元素的Y轴坐标
-                        liList[positionTable[currentIndex]].style.transform = 'translate3d(0px, ' + ((
-                            currentIndex - 1) * liHeight) + 'px, 0px)';
+                        liList[positionTable[currentIndex]].style.transform = 'translate(0px, ' + ((
+                            currentIndex - 1) * liHeight) + 'px)';
                         //基准点的元素跟上一个元素换位
                         [positionTable[currentIndex], positionTable[currentIndex - 1]] = [
                             positionTable[currentIndex - 1],
@@ -52,8 +54,8 @@ function dragServiceName($rootScope) {
                     if (((currentEleDisplayOffsetTop - pageY) > liHeight / 2) && (currentIndex > 0)) {
                         currentEleDisplayOffsetTop -= liHeight;
                         currentIndex = (currentEleDisplayOffsetTop - firstLiOffsetTop) / liHeight;
-                        liList[positionTable[currentIndex]].style.transform = 'translate3d(0px, ' + ((
-                            currentIndex + 1) * liHeight) + 'px, 0px)';
+                        liList[positionTable[currentIndex]].style.transform = 'translate(0px, ' + ((
+                            currentIndex + 1) * liHeight) + 'px)';
                         [positionTable[currentIndex], positionTable[currentIndex + 1]] = [
                             positionTable[currentIndex + 1],
                             positionTable[currentIndex]
@@ -71,8 +73,8 @@ function dragServiceName($rootScope) {
                     })
                     $scope.$emit("test", positionTable);
                     // $rootScope.favoriteEndpoints = a;
-                    dragEle[0].style.transform = 'translate3d(0px, ' + currentIndex * liHeight +
-                        'px, 0px)';
+                    dragEle[0].style.transform = 'translate(0px, ' + currentIndex * liHeight +
+                        'px)';
                     // //对拖拽后的li进行重排
                     // positionTable.forEach(function (index) {
                     //     $(".cf-sidebar-collection-service").append(liList[index]);
@@ -122,16 +124,17 @@ function cfSidebarCollectionItem() {
 function cfDragRemoveService() {
     return {
         restrict: "A",
-        link($scope, element) {
-            $(element).click(function () {
+        link($scope, element, attrs) {
+            console.log("remove");
+            $(element).click(function () { 
                 var liEle = $(this).parent().parent().parent();
-                liEle.animate({
-                    opacity: '0'
-                }, 150, function () {
+                liEle.stop().animate({
+                    opacity: '1'
+                }, 100, function () {
                     liEle.animate({
-                        height: '0px'
-                    }, 150, function () {
-                        liEle.remove();
+                        left: '-240px'
+                    }, 100, function () {
+                        $scope.$emit("removeItem", 2);
                     });
                 });
             })
@@ -139,7 +142,6 @@ function cfDragRemoveService() {
     }
 }
 
-dragServiceName.$inject = ["$rootScope"]
 export {
     dragServiceName,
     cfSidebarCollectionItem,

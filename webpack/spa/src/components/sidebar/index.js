@@ -11,7 +11,7 @@ export default angular.module('sidebar', [servicelist.name])
     .component('sidebar', sidebar)
     .directive('dragServiceName', dragServiceName)
     .directive('cfSidebarCollectionItem', cfSidebarCollectionItem)
-    .directive('cfDragRemoveService', cfDragRemoveService)
+    .directive('rrr', cfDragRemoveService)
     .run(["$templateCache", function (c) {
         c.put('src/components/sidebar/sidebar.html', './sidebar.html');
     }])
