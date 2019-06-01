@@ -4,15 +4,13 @@ function dragServiceName() {
         link($scope, element) {
             $(element).mousedown(function () {
                 $(".cf-sidebar-service-item").off('mouseenter').unbind('mouseleave');
-                $(".cf-sidebar-service-row").css({
-                    "transition": "all .2s ease-out 0s"
-                })
                 document.onselectstart = function () {
                     return false;
                 }
                 var dragEle = $(this).parent().parent().parent();
                 dragEle[0].style.zIndex = 101;
-                dragEle[0].classList.add("cf-sidebar-service-row-drag");
+                dragEle.addClass("cf-sidebar-service-row-drag");
+                // dragEle[0].classList.add("cf-sidebar-service-row-drag");
                 var liHeight = parseInt(getComputedStyle(dragEle[0], null).height);
                 var eleTop = $(dragEle).offset().top;
                 //获取li的元素集合
@@ -63,22 +61,10 @@ function dragServiceName() {
                     }
                 };
                 document.onmouseup = function (e) {
-                    // var a=$rootScope.favoriteEndpoints.sort(function(a,b){
-                    //     var aIndex = $rootScope.favoriteEndpoints.indexOf(a);
-                    //     var bIndex = $rootScope.favoriteEndpoints.indexOf(b);
-                    //     return (positionTable.indexOf(aIndex) - positionTable.indexOf(bIndex));
-                    // });
-                    $(".cf-sidebar-service-row").css({
-                        "transition": ""
-                    })
                     $scope.$emit("test", positionTable);
                     // $rootScope.favoriteEndpoints = a;
                     dragEle[0].style.transform = 'translate(0px, ' + currentIndex * liHeight +
                         'px)';
-                    // //对拖拽后的li进行重排
-                    // positionTable.forEach(function (index) {
-                    //     $(".cf-sidebar-collection-service").append(liList[index]);
-                    // });
                     document.onmousemove = null;
                     dragEle[0].style.zIndex = 100;
                     dragEle[0].style.top = 0;
@@ -121,27 +107,39 @@ function cfSidebarCollectionItem() {
     }
 }
 
-function cfDragRemoveService() {
+function cfDragRemoveService($rootScope, $timeout) {
     return {
         restrict: "A",
         link($scope, element, attrs) {
-            console.log("remove");
-            $(element).click(function () { 
-                var liEle = $(this).parent().parent().parent();
+            var liEle = element.parent().parent().parent();
+            $timeout(() => {
+                liEle.css({
+                    "transition": "all .2s ease-out 0s"
+                });
+            })
+            // liEle.removeClass("cf-sidebar-service-row-enter");
+            $(element).click(function () {
+                // $(".cf-sidebar-service-row").css({
+                //     "transition": "all .2s ease-out 0s"
+                // });
+                let index = parseInt(attrs.index);
                 liEle.stop().animate({
-                    opacity: '1'
-                }, 100, function () {
-                    liEle.animate({
-                        left: '-240px'
-                    }, 100, function () {
-                        $scope.$emit("removeItem", 2);
-                    });
+                    opacity: '0',
+                    left: '-240px'
+                }, 200, function () {
+                    // $scope.$evalAsync(() => {
+                    //     $rootScope.favoriteEndpoints.splice(index, 1)
+                    // })
+                    $timeout(() => {
+                        $rootScope.favoriteEndpoints.splice(index, 1)
+                    }, 200)
                 });
             })
         }
     }
 }
 
+cfDragRemoveService.$inject = ["$rootScope", "$timeout"]
 export {
     dragServiceName,
     cfSidebarCollectionItem,

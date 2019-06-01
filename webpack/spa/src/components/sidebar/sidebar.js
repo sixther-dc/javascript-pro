@@ -46,7 +46,7 @@ class sidebarCtrl {
     }
     addService() {
         this.$rootScope.favoriteEndpoints.push({
-            name: "新服务",
+            name: "新服务" + Math.random(),
             flag: true
         });
     }

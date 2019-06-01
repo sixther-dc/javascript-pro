@@ -64,20 +64,32 @@
      position: absolute;
      z-index: 100;
      /* -webkit-animation: fadeIn .2s both; */
-     transition: all .2s ease-out 0s;
+     /* -webkit-transition: all .2s ease-out 0s;
+     -o-transition: all .2s ease-out 0s;
+     transition: all .2s ease-out 0s; */
+     /* transition: transform .2s ease-out 0s; */
  }
 
  @keyframes fadeIn {
      from {
          left: 120px;
      }
+
      to {
          left: 0px;
      }
  }
 
- .cf-sidebar-service-row-enter{
-    -webkit-animation: fadeIn .2s both;
+ .cf-sidebar-service-row-enter {
+     -webkit-animation: fadeIn .2s both;
+     -moz-animation: fadeIn .2s both;
+     -o-animation: fadeIn .2s both;
+     animation: fadeIn .2s both;
+     transition: left .2s ease-out 0s;
+ }
+
+ .cf-sidebar-service-row-transition {
+    transition: all .2s ease-out 0s;
  }
 
  .cf-sidebar-service-row-hover {
