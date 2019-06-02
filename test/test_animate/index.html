@@ -7,32 +7,100 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        ul {
-            list-style: none;
+        .svg1 {
+            position: absolute;
+            top: 0px;
         }
 
-        li {
-            /* display: block; */
-            height: 40px;
-            width: 300px;
-            line-height: 40px;
-            border: 1px solid black;
+        .svg2 {
             position: absolute;
-            -webkit-transition: all .2s ease-out 0s;
-            -o-transition: all .2s ease-out 0s;
-            transition: all .2s ease-out 0s;
+            top: 300px;
+        }
+
+        .svg1:hover {
+            animation: lineAnimate 2s;
+        }
+
+        @keyframes lineAnimate {
+            to {
+                stroke-linecap: square;
+            }
+        }
+
+        svg line {
+            stroke-dasharray: 10, 10;
+            stroke-dashoffset: 10;
         }
     </style>
 </head>
 
 <body>
-    <ul>
-        <li style="transform: translate(0px, 0px)">index 1</li>
-        <li style="transform: translate(0px, 40px)">index 2</li>
-        <li style="transform: translate(0px, 80px)">index 3</li>
-        <li style="transform: translate(0px, 120px)">index 4</li>
-        <li style="transform: translate(0px, 160px)">index 5</li>
-    </ul>
+    <div class="svg1">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" viewBox="0 0 300 300"
+            border="1px solid black">
+            <circle cx="100" cy="50" r="20" stroke-lineca="round" stroke="black" fill="red" id="circle" />
+            <!-- <animateTransform xlink:href="#animateObject"
+                attributeName="transform"
+                type="scale"
+                begin="0s"
+                dur="3s"
+                from="1"
+                to="2"
+                repeatCount="indefinite" /> -->
+            <line x1="0" y1="200" x2="200" y2="200" stroke="black">
+        </svg>
+    </div>
+
+    <div class="svg2">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" viewBox="0 0 300 300"
+            border="1px solid black">
+            <circle class="svg2_circle" cx="100" cy="50" r="25" stroke-lineca="round" stroke="black" fill="none" />
+            <path class="svg2_path" fill="red" d="M14.1 27.217.1 7.2 16.7-16.8">
+        </svg>
+    </div>
+    <style>
+        .svg2_circle {
+            stroke-dasharray: 166, 166;
+            stroke-dashoffset: 166;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            /* animation: fill 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; */
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                fill: green;
+            }
+        }
+    </style>
+
+    <div class="svg3">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" viewBox="0 0 300 300"
+            border="1px solid black">
+            <rect class="" x="0" y="80" width="20" height="20" fill="green" >
+                <animate
+                    attributeName="x"
+                    from="0"
+                    to="300"
+                    dur="1s"
+                    repeatCount="1"
+                >
+            </rect>
+        </svg>
+    </div>
+
+    <style> 
+        .svg3 {
+            position: absolute;
+            top: 0px;
+            left: 300px;
+        }
+    </style>
 </body>
 
 </html>

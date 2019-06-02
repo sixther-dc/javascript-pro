@@ -69,7 +69,7 @@ function dragServiceName() {
                     dragEle[0].style.zIndex = 100;
                     dragEle[0].style.top = 0;
                     document.onmouseup = null;
-                    dragEle[0].classList.remove("cf-sidebar-service-row-drag");
+                    dragEle.removeClass("cf-sidebar-service-row-drag");
                     $(".cf-sidebar-service-item").hover(function () {
                         $(this).addClass("cf-sidebar-service-row-hover");
                         $(this).children(".cf-sidebar-toolbar").css("display", "inline-block");
