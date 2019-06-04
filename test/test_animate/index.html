@@ -33,6 +33,7 @@
         }
     </style>
 </head>
+<script src="../lib/jquery-3.3.1.js"></script>
 
 <body>
     <div class="svg1">
@@ -66,6 +67,10 @@
             /* animation: fill 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; */
         }
 
+        .animate1 {
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
         @keyframes stroke {
             100% {
                 stroke-dashoffset: 0;
@@ -79,28 +84,62 @@
         }
     </style>
 
+
     <div class="svg3">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" viewBox="0 0 300 300"
             border="1px solid black">
-            <rect class="" x="0" y="80" width="20" height="20" fill="green" >
-                <animate
-                    attributeName="x"
-                    from="0"
-                    to="300"
-                    dur="1s"
-                    repeatCount="1"
-                >
+            <rect class="xxx" x="0" y="80" width="40" height="40" fill="rgba(255,255,255,0)" stroke="black">
+                <!-- <animate attributeName="x" values="0;150;0" dur="1s" repeatCount="1"> -->
+                <!-- <animate attributeName="fill" from="rgba(255,255,255,0)" to="green" dur="1s" repeatCount="1"> -->
+            </rect>
+            <rect class="ttt" x="0" y="80" width="40" height="40" fill="green" stroke="black">
+                    <!-- <animate attributeName="x" values="0;150;0" dur="1s" repeatCount="1"> -->
+                    <!-- <animate attributeName="fill" from="rgba(255,255,255,0)" to="green" dur="1s" repeatCount="1"> -->
             </rect>
         </svg>
     </div>
 
-    <style> 
+    <style>
         .svg3 {
             position: absolute;
             top: 0px;
             left: 300px;
+            
+        }
+
+        .svg-rect {
+            animation: fill .4s ease-in
+        }
+
+        @keyframes fill {
+            100% {
+                height: 0
+            }
+        }
+
+        .svg-rect-reverse {
+            animation: fill-reverse 1s ease-in-out 1s forwards
+        }
+
+        @keyframes fill-reverse {
+            100% {
+                height: 40;
+            }
         }
     </style>
+
+    <script>
+        $(".ttt").click(function () {
+            if ($(this).hasClass("svg-rect")) {
+                $(this).removeClass("svg-rect");
+                $(this).addClass("svg-rect-reverse");
+
+            } else {
+                $(this).addClass("svg-rect");
+                $(this).removeClass("svg-rect-reverse");
+            }
+        })
+    </script>
 </body>
 
 </html>
