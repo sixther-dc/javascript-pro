@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .svg-rect {
+            transition: all .5s;
+        }
+
+        svg {
+            transition: all .2s;
+            fill: #575D6C !important
+        }
+
+        .test1 {
+            font-size: 50px;
+        }
+    </style>
+    <link rel="stylesheet" href="../style/css/collect-style.css">
+</head>
+<script src="../lib/jquery-3.3.1.js"></script>
+
+<body>
+    <svg id="svg" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>icon-未收藏</title>
+        <desc>Created with Sketch.</desc>
+        <!-- <g id="cf" stroke="none" stroke-width="1">
+            <g id="s17"> -->
+                <path
+                    d="M8.9432035,10.8035161 L8.9432035,15.1596167 C8.9432035,15.6237476 8.5900306,16 8.15436974,16 C7.71870889,16 7.36553599,15.6237476 7.36553599,15.1596167 L7.36553599,10.8035161 L3.57142857,10.8035161 C3.25583729,10.8035161 3,10.5476789 3,10.2320876 C3,10.0871929 3.05504331,9.94770873 3.15399135,9.84186101 L4.77085156,8.11225647 L5.46237152,1.87830823 L4.68397943,0.71072009 C4.54393259,0.500649832 4.60069779,0.216823847 4.81076805,0.0767770083 C4.88586177,0.0267145268 4.97409386,-1.42108547e-14 5.06434528,-1.42108547e-14 L11.2443243,-1.42108547e-14 C11.4967974,-1.42108547e-14 11.7014672,0.204669829 11.7014672,0.457142857 C11.7014672,0.547394279 11.6747527,0.635626368 11.6246902,0.71072009 L10.8452829,1.87983103 L11.5216989,8.09502244 L13.1546698,9.84186101 C13.370186,10.0724052 13.3580033,10.4340086 13.1274591,10.6495248 C13.0216114,10.7484728 12.8821272,10.8035161 12.7372325,10.8035161 L8.9432035,10.8035161 Z M9.98877663,8.79817006 L9.20538039,1.6 L7.10305766,1.6 L6.3025176,8.81674795 L9.98877663,8.79817006 Z"
+                    id="icon-未收藏"></path>
+                <rect class="svg-rect" x="6" y="9" width="4" height="0">
+                </rect>
+    </svg>
+    <!-- <span class="icon-collect test1"></span> -->
+</body>
+
+<script>
+    $("#svg").click(function () {
+        if ($(".svg-rect").height() === 9) {
+            $(this)[0].setAttribute('viewBox', '0 0 16 16');
+            $(".svg-rect").css({
+                height: "0px",
+                y: 9
+            })
+        } else {
+            $(this)[0].setAttribute('viewBox', '0 -2 16 16');
+            $(".svg-rect").css({
+                height: "9px",
+                y: 0
+            })
+        }
+    })
+</script>
+
+</html>
