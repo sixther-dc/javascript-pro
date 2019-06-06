@@ -79,3 +79,661 @@ template
 
 
 https://codepen.io/IndieDevAustin/pen/GOrzRr
+
+
+<div class="cf-sidebar-service-list">
+    <div class="cf-sidebar-service-box">
+        <div class="cf-sidebar-service-list-close" ng-click="$ctrl.serviceListBoxHide()">
+            <i class="hwsicon-frame-service-close-window"></i>
+        </div>
+        <div class="cf-sidebar-service-search">
+            <input class="cf-sidebar-search-input" type="text"
+                placeholder="{{$root.i18n.console_term_searchServiceKeyword_label}}" ng-model="$ctrl.searchInputModel"
+                ng-change="$ctrl.searchServiceEndpointListData()">
+
+            <span ng-if="$ctrl.searchInputModel" class="cf-sidebar-search-input-empty icon-cloud-action-cross" style=""
+                ng-click="$ctrl.emptySearchInputModel()"></span>
+
+            <span class=cf-sidebar-search-icon>
+                <i class="hwsicon-frame-service-search"
+                    ng-class="{'cf-sidebar-search-active-icon': $ctrl.searchInputModel}"></i>
+            </span>
+        </div>
+
+        <div class="cf-sidebar-recent-service" ng-if="$ctrl.showRecentServicesFlag">
+            <div ng-if="$root.rencentServiceList.length === 0">
+                <span>
+                    {{$root.i18n.console_term_emptyRecentlyVisitedServices_label}}
+                </span>
+            </div>
+            <div ng-if="$root.rencentServiceList.length !== 0">
+                <div style="display: inline-block">
+                    <span>
+                        {{$root.i18n.console_term_recentlyVisitedServices_label}}
+                    </span>
+                </div>
+                <div class="cf-sidebar-recent-service-list">
+                    <a class="cf-sidebar-recent-service-item"
+                        ng-repeat="service in $root.rencentServiceList track by $index" ng-if="service.name" hws-href
+                        ng-href="{{service.links['dashboard'].href || service.endpoint}}"
+                        ng-click="$ctrl.recentServicesClickToService(service.links['dashboard'].href || service.endpoint, service.id, service.name, $index, 'javascript:void(0)')"
+                        ng-mouseenter="$ctrl.mouseEnterListener(service.links['dashboard'].href || service.endpoint, $index)"
+                        title="{{service.name}}"
+                        class="framework-content-recent-service-list-service recent-service-item{{$index}}">
+                        <div style="display: inline-block">{{service.name}}</div>
+                        <div ng-if="!$last" class="cf-sidebar-vertical-line"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="cf-sidebar-recent-service" ng-if="!$ctrl.showRecentServicesFlag">
+            <div>
+                <span class="cf-sidebar-search-empty-label-title" ng-bind-html="$ctrl.searchInputTip"></span>
+            </div>
+        </div>
+
+        <div class="cf-sidebar-all-service" cf-new-service-list-waterfall>
+            <section class="cf-sidebar-catalog-block" ng-class="" ng-repeat="catalog in $root.searchServiceEndpointList"
+                cf-new-service-list-repeat-finished>
+                <div class="" style="width: 100%">
+                    <legend class="cf-sidebar-nav-item-title" ng-bind="catalog.catalog"></legend>
+                    <ul>
+                        <li ng-repeat="endpoint in catalog.endpoints"
+                            ng-click="$ctrl.currentSelectedService(endpoint.endpoint,endpoint.id,endpoint.name +'_cfServiceList')"
+                            ng-class="{'cf-sidebar-nav-item-disable':endpoint.nonsupportCurrentRegionDisable,'cf-sidebar-nav-item':!endpoint.nonsupportCurrentRegionDisable}"
+                            meta-data-uba="www_v1_framework.click.{{endpoint.name}}_all">
+                            <a hws-href href="{{endpoint.endpoint}}" data-stopPropagation="true"
+                                class="cf-sidebar-nav-item-name">
+                                <span class="cf-sidebar-nav-item-name-info" title={{endpoint.name}}
+                                    ng-bind="endpoint.name" class=""
+                                    ng-class="{ 'cf-sidebar-nav-item-name-info-text-width': endpoint.nonsupportCurrentRegionDisable}"></span>
+                                <!--不支持的服务提示 -->
+                                <span ng-if="endpoint.nonsupportCurrentRegionDisable"
+                                    class="icon-cloud-action-disable cf-sidebar-icon-service-disable"
+                                    ti-tip="endpoint.nonSupportServiceDisableTip">
+                                    <span class=""></span>
+                                </span>
+                                <span class="cf-sidebar-nav-item-icon"
+                                    ng-style="{'display':  endpoint.isFavorite?  'inline-block': 'none'}"
+                                    ng-click="$ctrl.handleFavorites($event,endpoint)">
+                                    <!-- <i
+                                        ng-class="{'hwsicon-frame-service-cancel-collection':!endpoint.isFavorite,'hwsicon-frame-service-collection':endpoint.isFavorite}"></i> -->
+                                    <span class="cf-siderbar-collection-icon">
+                                        <svg ng-class="{'cf-sidebar-collection-svg':endpoint.isFavorite,'cf-sidebar-uncollection-svg':!endpoint.isFavorite}"
+                                            width="14px" height="14px" viewBox="0 0 14 14" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <path
+                                                d="M8.70030306,10.4530766 L8.70030306,14.2646646 C8.70030306,14.6707791 8.39127677,15 8.01007353,15 C7.62887028,15 7.31984399,14.6707791 7.31984399,14.2646646 L7.31984399,10.4530766 L4,10.4530766 C3.72385763,10.4530766 3.5,10.229219 3.5,9.95307663 C3.5,9.82629382 3.54816289,9.70424514 3.63474243,9.61162838 L5.04949512,8.09822441 L5.65457508,2.6435197 L4.973482,1.62188008 C4.85094102,1.4380686 4.90061057,1.18972087 5.08442204,1.06717988 C5.15012905,1.02337521 5.22733213,1 5.30630212,1 L10.7137838,1 C10.9346977,1 11.1137838,1.1790861 11.1137838,1.4 C11.1137838,1.47896999 11.0904086,1.55617307 11.0466039,1.62188008 L10.3646225,2.64485215 L10.9564866,8.08314463 L12.3853361,9.61162838 C12.5739127,9.81335457 12.5632529,10.1297575 12.3615267,10.3183342 C12.26891,10.4049137 12.1468613,10.4530766 12.0200785,10.4530766 L8.70030306,10.4530766 Z M9.61517955,8.6983988 L8.92970784,2.4 L7.09017545,2.4 L6.3897029,8.71465445 L9.61517955,8.6983988 Z">
+                                            </path>
+                                        </svg>
+                                        <span
+                                             ng-class="{'cf-sidebar-collection-fill':endpoint.isFavorite,'cf-sidebar-uncollection-fill':!endpoint.isFavorite}">
+                                        </span>
+                                    </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+.cf-sidebar-service-wrapper {
+    height: 40px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+    /* padding: 4px 4px; */
+}
+
+.cf-sidebar-service-wrapper:hover {
+    cursor: pointer;
+}
+
+.cf-sidebar-collection-service {
+    display: block;
+    overflow-x: hidden;
+    position: relative;
+    height: calc(100% - 84px - 40px);
+    background-color: #F7F9FC;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none
+}
+
+.cf-sidebar-mini .cf-sidebar-collection-service {
+    background-color: #FFFFFF;
+}
+
+.cf-sidebar-collection-service::-webkit-scrollbar {
+    display: none;
+}
+
+.cf-sidebar-collection-service:hover {
+    cursor: pointer;
+    background-color: #FFFFFF;
+}
+
+.cf-sidebar-service-icon {
+    padding: 12px 15px;
+    /* font-size: 16px;
+    vertical-align: middle; */
+    color: #252B3A;
+    width: 46px;
+    display: inline-block;
+}
+
+.cf-sidebar-service-icon svg {
+    height: 16px;
+    width: 16px;
+    fill: #252B3A;
+    vertical-align: middle;
+    display: inline-block !important;
+}
+
+.cf-sidebar-service-icon i {
+    font-size: 16px;
+    color: #252B3A;
+    vertical-align: middle;
+}
+
+.cf-sidebar-service-row-hover .cf-sidebar-service-icon i {
+    color: #526ECC;
+    fill: #526ECC;
+}
+
+.cf-sidebar-service-row-hover .cf-sidebar-service-icon svg {
+    color: #526ECC;
+    fill: #526ECC;
+}
+
+.cf-sidebar-service-row {
+    position: absolute;
+    height: 40px;
+    z-index: 100;
+    left: 0px;
+    top: 0px;
+    width: 240px;
+}
+
+
+@keyframes fadeIn {
+    from {
+        left: 120px;
+        opacity: 0;
+    }
+
+    to {
+        left: 0px;
+        opacity: 1;
+    }
+}
+
+.cf-sidebar-service-row-enter {
+    -webkit-animation: fadeIn .2s both;
+    -moz-animation: fadeIn .2s both;
+    -o-animation: fadeIn .2s both;
+    animation: fadeIn .2s both;
+    transition: left .2s ease-out 0s;
+}
+
+.cf-sidebar-more-service-row {
+    position: absolute;
+    height: 40px;
+    z-index: 100;
+    width: 240px;
+}
+
+.cf-sidebar-more-service-item:hover span {
+    color: #526ECC !important;
+}
+
+.cf-sidebar-more-service-item:hover span svg {
+    fill: #526ECC !important;
+}
+
+.cf-sidebar-more-service-item:hover span i {
+    fill: #526ECC !important;
+}
+
+.cf-sidebar-service-row-hover {
+    color: #526ECC !important;
+    background-color: #cecbcb;
+}
+
+.cf-sidebar-service-row-drag {
+    background-color: #cecbcb !important;
+    color: #526ECC;
+}
+
+a.cf-sidebar-service-item {
+    display: inline-block;
+    height: 40px;
+    width: 100%;
+    text-decoration: none;
+    color: #252B3A;
+    white-space: nowrap;
+}
+
+a.cf-sidebar-service-item-disable {
+    display: inline-block;
+    height: 40px;
+    width: 100%;
+    text-decoration: none;
+    color: #ADB0B8 !important;
+    white-space: nowrap;
+}
+
+a.cf-sidebar-service-item-disable .cf-sidebar-service-icon i {
+    color: #ADB0B8 !important;
+}
+
+a.cf-sidebar-service-item-disable .cf-sidebar-service-icon svg {
+    fill: #ADB0B8 !important;
+}
+
+a.cf-sidebar-more-service-item {
+    display: inline-block;
+    height: 40px;
+    width: 100%;
+    text-decoration: none;
+    color: #252B3A;
+    white-space: nowrap;
+}
+
+.cf-sidebar-service-name {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    width: 188px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cf-sidebar-toolbar {
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    position: absolute;
+    right: 5px;
+    display: none;
+    background-color: #cecbcb
+}
+
+.cf-sidebar-toolbar .cf-siderbar-collection-icon {
+    bottom: -1px;
+    fill: #8A8E99
+}
+
+.cf-sidebar-toolbar .cf-siderbar-collection-icon span {
+    background-color: #8A8E99
+}
+
+.cf-sidebar-toolbar .cf-siderbar-collection-icon:hover {
+    fill: #526ECC
+}
+
+.cf-sidebar-toolbar .cf-siderbar-collection-icon:hover span{
+    background-color: #526ECC
+}
+
+.cf-sidebar-service-more-icon {
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    right: 5px;
+    font-size: 20px;
+}
+
+.cf-sidebar-mini .cf-sidebar-service-more-icon {
+    display: none;
+}
+
+.cf-sidebar-mini .cf-sidebar-toolbar {
+    display: none;
+}
+
+.cf-sidebar-drag {
+    cursor: move !important;
+    color: #8A8E99;
+    padding-left: 5px;
+}
+
+/* .cf-sidebar-remove {
+    color: #8A8E99;
+    padding-left: 5px;
+}
+
+.cf-sidebar-remove:hover {
+    color: #526ECC;
+} */
+
+.cf-sidebar-line {
+    height: 1px;
+    background-color: #DFE1E6;
+    width: auto;
+}
+
+.cf-sidebar-mini .cf-sidebar-line {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+
+/* 服务列表样式 */
+.cf-sidebar-service-list {
+    width: 1172px;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    padding: 0px 32px;
+    left: -1172px;
+    z-index: -50 !important;
+    /* box-sizing: border-box; */
+    transition: all .2s cubic-bezier(0, 0, .2, 1);
+}
+
+.html-font-family-zh-cn .cf-sidebar-service-list {
+    width: 1032px !important;
+}
+
+@media screen and (max-width: 1399px) {
+    .cf-sidebar-service-list {
+        width: 887px;
+    }
+}
+
+.cf-sidebar-service-box {
+    margin-top: 18px;
+    overflow: auto;
+    height: 100%;
+    position: relative;
+    height: calc(100% - 84px - 18px - 10px);
+    -ms-overflow-style: none;
+    scrollbar-width: none
+}
+
+.cf-sidebar-service-box::-webkit-scrollbar {
+    display: none;
+}
+
+.cf-sidebar-service-list-close {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cf-sidebar-service-search {
+    width: 692px;
+    height: 28px;
+    line-height: 28px;
+    position: relative;
+    top: 0px;
+    border: 1px solid #5E7CE0;
+    vertical-align: middle;
+}
+
+.html-font-family-zh-cn .cf-sidebar-service-search {
+    width: 692px !important;
+}
+
+@media screen and (max-width: 1399px) {
+    .cf-sidebar-service-search {
+        width: 450px;
+    }
+}
+
+.cf-sidebar-search-icon {
+    height: 26px;
+    position: absolute;
+    right: 10px;
+    font-size: 16px;
+    color: #C0C4CC;
+    display: inline-block;
+}
+
+.cf-sidebar-search-active-icon {
+    border-left: 1px solid;
+    padding-left: 10px;
+}
+
+.cf-sidebar-search-input {
+    height: 26px;
+    display: inline-block;
+    border: none;
+    position: absolute;
+    padding-left: 11px;
+    width: 100%;
+    color: #252B3A;
+    background-color: #FFFFFF;
+    outline: none;
+    cursor: text;
+}
+
+.cf-sidebar-search-input-empty {
+    position: absolute;
+    right: 50px;
+    font-size: 14px;
+    cursor: pointer
+}
+
+.cf-sidebar-recent-service {
+    color: #575D6C;
+    font-size: 12px;
+    margin-top: 12px;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.cf-sidebar-recent-service-item {
+    color: #575D6C;
+    text-decoration: none;
+}
+
+.cf-sidebar-recent-service-item:hover {
+    color: #526ECC;
+    text-decoration: none;
+}
+
+.cf-sidebar-recent-service-list {
+    display: inline-block;
+    white-space: pre-line;
+    width: 700px;
+    vertical-align: top;
+    text-indent: 0;
+}
+
+.cf-sidebar-vertical-line {
+    border-left: 1px solid #DFE1E6;
+    height: 12px;
+    margin: 0px 10px 0px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.cf-sidebar-catalog-block {
+    width: 218px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 40px;
+
+}
+
+.cf-sidebar-nav-item-title {
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: none;
+    margin-top: 32px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cf-sidebar-nav-item-disable {
+    position: relative;
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+    width: 100%;
+}
+
+.cf-sidebar-nav-item {
+    position: relative;
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+    width: 100%;
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;*/
+}
+
+.cf-sidebar-nav-item-name-info {
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 30px;
+    height: 30px;
+    display: inline-block;
+}
+
+.cf-sidebar-nav-item-disable .cf-sidebar-nav-item-name-info {
+    color: #ADB0B8 !important
+}
+
+.cf-sidebar-nav-item-name-info-text-width {
+    max-width: 86%;
+}
+
+.cf-sidebar-nav-item:hover {
+    border-bottom: 1px solid #526ECC;
+}
+
+.cf-sidebar-nav-item:hover a {
+    color: #526ECC !important;
+}
+
+.cf-sidebar-nav-item-name {
+    color: #575D6C;
+}
+
+.cf-sidebar-nav-item-name:hover {
+    text-decoration: none;
+    color: #575D6C
+}
+
+.cf-sidebar-nav-item-icon {
+    position: absolute;
+    right: 0px;
+    background-color: #FFFFFF;
+    top: 2px;
+    display: none;
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.cf-sidebar-nav-item:hover .cf-sidebar-nav-item-icon {
+    display: inline-block !important;
+}
+
+.cf-sidebar-nav-item-disable:hover .cf-sidebar-nav-item-icon {
+    display: inline-block !important;
+}
+
+.cf-sidebar-search-empty-label-title>span {
+    color: red;
+}
+
+/*瀑布流样式*/
+.cf-sidebar-all-service {
+    position: relative;
+    top: 20px;
+    width: 100%;
+}
+
+.cf-sidebar-all-service * {
+    margin: 0;
+    padding: 0;
+}
+
+.cf-sidebar-all-service section {
+    float: left;
+    display: flex;
+    position: absolute;
+    width: 253px;
+}
+
+.html-font-family-zh-cn .cf-sidebar-all-service section {
+    width: 218px;
+}
+
+.cf-sidebar-all-service .cf-sidebar-nav-item-name {
+    width: 253px;
+}
+
+.html-font-family-zh-cn .cf-sidebar-all-service .cf-sidebar-nav-item-name {
+    width: 218px;
+}
+
+.cf-sidebar-icon-service-disable {
+    position: absolute;
+    padding-left: 8px;
+    color: #ADB0B8
+}
+
+
+.cf-siderbar-collection-icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-size: 100%;
+    position: relative;
+    bottom: 0;
+    fill: #526ECC;
+    overflow: hidden;
+}
+
+.cf-sidebar-uncollection-svg {
+    position: absolute;
+    bottom: 0px;
+    transition: bottom .3s;
+}
+
+.cf-sidebar-collection-svg {
+    position: absolute;
+    bottom: 0px;
+    transition: bottom .3s;
+    bottom: -2px;
+}
+
+.cf-sidebar-uncollection-fill {
+    display: inline-block;
+    width: 4px;
+    height: 0px;
+    background-color: #526ECC;
+    position: absolute;
+    left: 6px;
+    bottom: 5px;
+    transition: height .3s, bottom .3s;
+}
+
+.cf-sidebar-collection-fill {
+    display: inline-block;
+    width: 4px;
+    height: 7px;
+    background-color: #526ECC;
+    position: absolute;
+    left: 6px;
+    bottom: 3px;
+    transition: height .3s, bottom .3s;
+}
+
