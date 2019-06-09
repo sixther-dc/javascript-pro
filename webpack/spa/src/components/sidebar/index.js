@@ -5,7 +5,8 @@ import servicelist from './components/servicelist'
 import {
     dragServiceName,
     cfSidebarCollectionItem,
-    cfDragRemoveService
+    cfDragRemoveService,
+    cfSearchInput
 } from './directives/drag';
 export default angular.module('sidebar', [servicelist.name])
     .component('sidebar', sidebar)

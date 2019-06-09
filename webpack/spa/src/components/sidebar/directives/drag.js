@@ -139,9 +139,33 @@ function cfDragRemoveService($rootScope, $timeout) {
     }
 }
 
+function cfSearchInput() {
+    return {
+        restrict: "A",
+        link($scope, element, attrs) {
+            $(element).on("input", function () {
+                let inputText = $(element).val();
+                console.log(inputText);
+                let sensor = $('<span>' + inputText + '</span>').css({
+                    "display": 'none',
+                    "font-size": $(element).css("font-size"),
+                    "font-family": $(element).css("font-family")
+                });
+                $(element).parent().append(sensor);
+                let inputTextWidth = sensor.width();
+                console.log(inputTextWidth);
+                sensor.remove();
+                let underLineEle = $(".cf-sidebar-input-underline");
+                $(underLineEle).width(inputTextWidth);
+            })
+        }
+    }
+}
+
 cfDragRemoveService.$inject = ["$rootScope", "$timeout"]
 export {
     dragServiceName,
     cfSidebarCollectionItem,
-    cfDragRemoveService
+    cfDragRemoveService,
+    cfSearchInput
 };

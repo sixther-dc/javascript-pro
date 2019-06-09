@@ -1,11 +1,15 @@
 <div class="cf-sidebar-service-list">
-    <div class="cf-sidebar-service-list-close">
-        <i class="fa fa-remove"></i>
-    </div>
     <div class="cf-sidebar-service-search">
-            <span class=cf-sidebar-search-icon>
-            <i class="fa fa-search"></i>
-            </span>
-            <input class="cf-sidebar-search-input" type="text" placeholder="请输入关键字">
+        <input class="cf-sidebar-search-input" type="text" placeholder="请输出" ng-model="$ctrl.searchInputModel"
+            ng-change="$ctrl.test()" cf-search-input>
+
+        <span ng-if="$ctrl.searchInputModel" class="cf-sidebar-search-input-empty fa fa-close" style=""
+            ng-click="$ctrl.emptySearchInputModel()"></span>
+
+        <span class=cf-sidebar-search-icon>
+            <i class="fa fa-search" ng-class="{'cf-sidebar-search-active-icon': $ctrl.searchInputModel}"></i>
+        </span>
+        <div class="cf-sidebar-input-underline"></div>
     </div>
 </div>
+
