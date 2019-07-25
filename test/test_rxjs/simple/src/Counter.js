@@ -98,6 +98,7 @@ const observe = (WrappedComponent, observableFactory, defaultState) => {
             this.subscription = this.props$.subscribe(value => {
                 this.setState(value);
             });
+            this.props$.next(0);
         }
     }
 }
@@ -105,7 +106,10 @@ const observe = (WrappedComponent, observableFactory, defaultState) => {
 export default observe(
     CounterView,
     () => {
-        const counter = new BehaviorSubject(0);
+        //BehaviorSubject每次都能拿到最新的数据
+        // const counter = new BehaviorSubject(0);
+        //Subject需要先subscribe, 然后执行next才能获取到数据;
+        const counter = new Subject();
         return counter.pipe(
             scan((result, inc) => result + inc, 0),
             map( value => ({
