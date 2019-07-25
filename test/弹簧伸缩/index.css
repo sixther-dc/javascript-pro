@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    background-color: black;
+    overflow-x: hidden;
+}
+
+#wrap ul{
+    width: 1050px;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    transform-style: preserve-3d;
+    transform: translateY(-15%) rotateX(45deg) rotateZ(45deg);
+}
+
+#wrap li{
+    width: 330px;
+    height: 230px;
+    margin-bottom: 30px;
+    position: relative;
+    background-color: rgba(255, 255, 255, .5);
+    /* 兼容firefox, 貌似只能在直接父级添加3d效果 */
+    transform-style: preserve-3d;
+}
+
+#wrap li img, #wrap li div{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: .3s;
+}
+
+#wrap li img {
+    z-index: 2;
+}
+
+#wrap li div:nth-of-type(1) {
+    background-color: #ac5cf5;
+    opacity: .5;
+}
+#wrap li div:nth-of-type(2) {
+    background-color: #5db4eb;
+    opacity: .5;
+}
+#wrap li div:nth-of-type(3) {
+    background-color: #5debb4;
+    opacity: .5;
+}
+
+/* hover上去的效果 */
+#wrap li:hover{
+    box-shadow: 0px 0px 30px #fff;
+}
+#wrap li:hover img{
+    transform: translateZ(100px);
+}
+#wrap li:hover div:nth-of-type(3){
+    transform: translateZ(75px);
+}
+#wrap li:hover div:nth-of-type(2){
+    transform: translateZ(50px);
+}
+#wrap li:hover div:nth-of-type(1){
+    transform: translateZ(25px);
+}
