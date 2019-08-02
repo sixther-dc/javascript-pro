@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //方法一： 访问作用域里面的变量
+    // var innerFn = null;
+    // function father() {
+    //     var n = 10;
+    //     function son() {
+    //         n++;
+    //         console.log(n);
+    //     }
+
+    //     innerFn = son;
+    // }
+
+    // father();
+    // innerFn();
+    //缺点，是使用了全局变量
+
+    //闭包的表面现象:   由父函数和子函数组成，子函数调用的时候使用了父函数的变量，就产生了闭包
+
+    //方法二:
+    //将内部的方法返回
+    function father() {
+        debugger;  //打上一个断点，用来调试
+        var n = 10;
+        function son() {
+            // debugger;
+            n++;
+            console.log(n);
+        }
+
+        return son
+    };
+    var result = father();
+    //执行完之后father没有被回收，所有n依然是会被访问
+    result();
+    result();
+
+
+    //闭包的底层原理
+    //闭包实际上是父级函数的作用域被保存在了子函数中， 所以即使父函数执行完后，父函数里的局部变量还是会被子函数访问到
+    //是不是闭包，看debugger之后scope里面有没有closure    closure指的就是父级函数
+    //闭包是在函数的创建过程产生的
+
+    /*
+        1, 变量的生命周期
+            局部变量函数执行完毕后就回收
+            全局变量在页面关闭后回收, 全局变量的检索效低。
+        2, 垃圾回收机制
+            a, 内存地址的引用计数
+            b, 标记清除
+        3, 执行上下文  EC (子函数保存了父函数的执行上下文)
+            
+        4, 执行上下文栈  ECS
+
+
+
+        函数执行流程
+            创建EC
+                fatherEC = {
+                    VO: {      变量对象， arguments var function声明的东西, 寻找作用域链之后的结果
+                        n: undefined,
+                        son: function (在内存中的引用地址)
+                    },
+                    scope: [   //存储作用域链
+                        Global.AO
+                        {}
+                    ],
+
+                    this: window   独立调用的是this指向window
+                }
+
+                sonEC = {
+                    VO: {
+                    },
+                    scope: {
+                        father.AO,
+                        Global.AO
+                    },
+                    this: window
+                }
+            创建阶段
+            代码执行阶段
+    */
+
+
+    //闭包的作用
+    //jquery的$就是闭包出来的
+</script>
+</html>
