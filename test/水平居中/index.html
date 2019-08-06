@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>水平垂直居中</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .wrapper {
+            border: solid 1px black;
+            width: 300px;
+            height:300px;
+        }
+
+        .box {
+            background: green;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* 方法一  二分之一偏移*/
+        /* .wrapper {
+            position: relative;
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+        } */
+        
+        /* 方法二 无处可逃法 absolute margin auto */
+        /* .wrapper {
+            position: relative;
+        }
+
+        .box {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        } */
+
+        /* 方法三 absolute + calc */
+        /* .wrapper {
+            position: relative;
+        }
+
+        .box {
+            position: absolute;
+            top: calc(50% - 50px);
+            left: calc(50% - 50px);
+        } */
+
+        /* 方法四 使用transform */ 
+        /* .wrapper {
+            position: relative;
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        } */
+
+        /* 方法五  flex */
+        /* .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } */
+
+        /* 方法六 使用grid  */ 
+        .wrapper {
+            display: grid;
+        }
+
+        .box {
+            align-self: center;
+            justify-self: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="box">123123</div>
+    </div>
+
+    <div class="red blue">123</div>
+<div class="blue red">123</div>
+</body>
+</html>

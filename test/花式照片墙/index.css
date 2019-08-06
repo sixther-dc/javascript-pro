@@ -1,0 +1,36 @@
+* {
+    padding: 0;
+    margin: 0;
+    background: #333;
+}
+
+.wrapper {
+    position: relative;
+}
+.wrapper .box {
+    width: 300px;
+    height: 200px;
+    margin: 50px auto;
+    font-size: 0;
+    /* transform-style: preserve-3d; */
+    perspective: 700px;
+}
+
+.wrapper .box img {
+    width: 50px;
+    height: 50px;
+    /* 利用浮动可以去掉垂直间的距离，脱离文档流，紧挨着上一个浮动元素 */
+    /* float: left; */
+}
+
+.btn {
+    margin: 20px auto;
+    background-color: aqua;
+    width: 100px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+}
