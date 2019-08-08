@@ -1,17 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>官网demo</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./style/css/font-awesome.css">
     <link rel="stylesheet" href="./index.css">
 </head>
+
 <body>
-    <div class="firstPage"></div>
-    <div class="topbar"></div>
-    <div class="secondPage"></div>
-    <div class="thirdPage"></div>
+    <div class="firstPage">
+        <div class="topbar">
+            <ul class="otherPage">
+                <li>
+                    <span><i class="fa fa-twitter"></i></span>
+                </li>
+                <li>
+                    <span><i class="fa fa-skype"></i></span>
+                </li>
+                <li>
+                    <span><i class="fa fa-github-alt"></i></span>
+                </li>
+            </ul>
+
+            <ul class="action">
+                <li>
+                    <span><i class="fa fa-language"></i></span>
+                    <span>ENGLISH</span>
+                </li>
+                <li>
+                    <span><i class="fa fa-paper-plane"></i></span>
+                    <span>HIRE ME</span>
+                </li>
+                <li>
+                    <span><i class="fa fa-download"></i></span>
+                    <span>DOWNLOAD MY RESUME</span>
+                </li>
+            </ul>
+            <img src="./images/0.jpeg" alt="">
+        </div>
+        <div class="content">
+            <div class="intro">
+                <h1>百里玄策 男</h1>
+                <span>运维开发 前端开发</span>
+                <div class="profile">
+                    <p>鄙人自小对科学、物理、数学等学科有独特的兴趣，初中时期开始接触电脑，开启了自己的计算机学习生涯。高中时期开始自学编程，并在高考时果断放弃了自己最擅长的中文专业，选择了计算机专业。2011年于天龙八部学院计算机科学与技术系毕业之后，一直主攻JAVA领域的开发和研究工作。本人做事勤恳、细心，富有工作责任心，喜欢与人交流。善于思考，学习理解和适应能力强。爱好户外爬山、跑步、篮球、羽毛球、游泳等。计算机方面专业基础扎实，项目实践经验丰富，思维反应快速敏捷，学习适应能力过硬，具备从事软件开发工作所需要的细心和耐心。我始终坚信唯有付出，方有收获，天道酬勤，想要成功，就得脚踏实地，比别人努力再努力。</p>
+                </div>
+            </div>
+        </div>
+        <div class="footbar">
+            <ul class="contact">
+                <li>
+                    <span><i class="fa fa-envelope"></i></span>
+                    <a href="mailto:382998946@qq.com">382998946@qq.com</a>
+                </li>
+                <li>
+                    <span><i class="fa fa-phone"></i></span>
+                    <a href="tel:18911871934">18911871943</a>
+                </li>
+                <li>
+                    <span><i class="fa fa-globe"></i></span>
+                    <a href="http://page.onesbook.cn" target="_blank">page.onesbook.cn</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="topbar">
+        <ul> 
+            <li>专业技能</li>
+            <li>工作经验</li>
+            <li>项目经验</li>
+            <li>作品展示</li>
+            <li>教育经历</li>
+            <li>联系方式</li>
+        </ul>
+    </div>
+    <div class="secondPage">
+        <div class="skill item">
+            <p>专业技能</p>
+            <div class="graph">
+                <div>
+                    <canvas id='a' height="400" width="400"></canvas>
+                    <span>业务运维</span>
+                </div>
+                <div>
+                    <canvas id='b' height="400" width="400"></canvas>
+                    <span>运维开发</span>
+                </div>
+                <div>
+                    <canvas id='c' height="400" width="400"></canvas>
+                    <span>云平台</span>
+                </div>
+                <div>
+                    <canvas id='d' height="400" width="400"></canvas>
+                    <span>前端开发</span>
+                </div>
+            </div>
+            <ul>
+                <li><span><i class="fa fa-space-shuttle"></i>具备游戏，web，windows，cloud 类业务的运维经验，擅长使用 shell，python，powershell 对日常运维工作进行自动化，熟练运用 LB 类软件(nginx，apache，haproxy，lvs， keepalived)构建高可用的 web 类应用。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>擅长构建监控系统(nagios，zabbix， graphna)，具备从零到一建设 zabbix 监控系统经验， 覆盖 os 基础监控，DB 监控，业务数据监控，具备二次开发能力以及对监控系统的性能调优能 力。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>熟悉各大云平台(aws，阿里云，华为云)及其 API，了解 openstack 宏观调度原理。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>具备前后端全栈开发能力(django + mysql + js)构建运维自动化平台，实现运维资源的可视化，运维工作的白屏化。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>具备较强的前端开发能力(兴趣)，熟练使用 angular，react，rxjs 等前端框架构建页面以及 具备对网站访问速度的性能调优经验。</li>
+            </ul>
+        </div>
+        <div class="experience item">
+            <p>工作经验</p>
+        </div>
+
+        <div class="project item" item">
+            <p>工作经验</p>
+        </div>
+
+        <div class="education item" item">
+            <p>教育经验</p>
+        </div>
+
+        <div class="contact item" item">
+            <p>联系方式</p>
+        </div>
+    </div>
 </body>
 <script src="./index.js"></script>
+
 </html>
