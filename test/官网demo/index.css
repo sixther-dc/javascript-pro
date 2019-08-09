@@ -34,6 +34,11 @@ body {
     margin-right: 30px;
 }
 
+#topbar ul li {
+    float: left;
+    margin-right: 30px;
+}
+
 #topbar ul li:hover {
     color: rgba(255, 255, 255, 1);
     cursor: pointer;
@@ -176,10 +181,14 @@ body {
     margin-left: 10%;
     padding: 10px 30px;
     text-align: center;
+    line-height: 1.6;
+    color: rgb(68, 68, 68);
+    font-weight: 300;
 }
 
 .secondPage .item p {
     font-size: 20px;
+    font-weight: 800;
     text-align: center;
 }
 
@@ -208,4 +217,80 @@ body {
     display: inline-block;
     text-align: center;
     font-size: 12px;
+}
+
+.secondPage .item .timeline {
+    border-left: 3px solid #00BCD4;
+    margin-left: 280px;
+    text-align: left;
+    padding: 0 30px;
+}
+
+.secondPage .item .timeline .element {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.secondPage .item .timeline .element:before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: -43px;
+    height: 16px;
+    width: 16px;
+    border: 3px solid #00BCD4;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.secondPage .item .timeline .element:after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 6px;
+    left: -37px;
+    height: 10px;
+    width: 10px;
+    background-color: #00BCD4;
+    border-radius: 50%;
+}
+
+.secondPage .item .timeline .leftpart {
+    position: absolute;
+    margin-left: -280px;
+}
+
+.secondPage .item .timeline .leftpart .title {
+    font-size: 18px;
+    color: #00BCD4;
+}
+
+.secondPage .item .timeline .leftpart .time {
+    font-size: 15px;
+    color: #8a8a8a;
+}
+
+.secondPage .item .timeline .rightpart .company {
+    font-size: 20px;
+}
+
+.secondPage .item .timeline .rightpart .address {
+    position: absolute;
+    right: 0;
+}
+.secondPage .item .timeline .rightpart .address i {
+    margin-right: 5px;
+}
+
+.secondPage .item .timeline .rightpart .content {
+    margin-top: 10px;
+}
+
+.secondPage .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #8a8a8a;
+    margin-top: 50px;
+    height: 30px;
 }

@@ -1,23 +1,42 @@
+var topbar  = document.querySelector("#topbar");
+var firstPage = document.querySelector(".firstPage");
+var topbarUl = document.querySelector("#topbar ul");
+//添加滚动事件
 document.onscroll = function() {
-    var topbar  = document.querySelector("#topbar");
-    var firstPage = document.querySelector(".firstPage");
     var topbarPosition = topbar.getBoundingClientRect();
     var firstPagePosition = firstPage.getBoundingClientRect();
     var firstPageHeight = firstPage.offsetHeight;
     if (topbarPosition.y <= 0) {
         topbar.classList.add("fixed");
     }
-
     if(firstPagePosition.y >= -firstPageHeight ) {
         topbar.classList.remove("fixed");
     }
 }
 
 function init() {
-    drawSkillGraph()
+    //绘制技能树
+    drawSkillGraph();
+    //添加topbar上的点击事件
+    addTopbarClickEvent();
 }
 
 init();
+
+function addTopbarClickEvent(){
+    topbarUl.onclick = function(e) {
+        var topbar  = document.querySelector("#topbar");
+        var itemName = e.target.id;
+        if (itemName) {
+            var itemOffsetTop = document.querySelector("." + itemName).offsetTop;
+            if (topbar.classList.contains("fixed")) {
+                document.documentElement.scrollTop = itemOffsetTop - 30;
+            } else {
+                document.documentElement.scrollTop = itemOffsetTop - 30 - 50;
+            }
+        }
+    }
+}
 function drawSkillGraph(){
     var a = document.getElementById("a").getContext("2d");
     var b = document.getElementById("b").getContext("2d");

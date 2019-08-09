@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>官网demo</title>
-    <link rel="shortcut icon" href="./favicon.ico"/>
+    <title>Page</title>
+    <link rel="shortcut icon" href="./favicon.ico" />
     <link rel="stylesheet" href="./style/css/font-awesome.css">
     <link rel="stylesheet" href="./index.css">
 </head>
@@ -47,7 +47,8 @@
                 <h1>百里玄策 男</h1>
                 <span>运维开发 前端开发</span>
                 <div class="profile">
-                    <p>鄙人自小对科学、物理、数学等学科有独特的兴趣，初中时期开始接触电脑，开启了自己的计算机学习生涯。高中时期开始自学编程，并在高考时果断放弃了自己最擅长的中文专业，选择了计算机专业。2011年于天龙八部学院计算机科学与技术系毕业之后，一直主攻JAVA领域的开发和研究工作。本人做事勤恳、细心，富有工作责任心，喜欢与人交流。善于思考，学习理解和适应能力强。爱好户外爬山、跑步、篮球、羽毛球、游泳等。计算机方面专业基础扎实，项目实践经验丰富，思维反应快速敏捷，学习适应能力过硬，具备从事软件开发工作所需要的细心和耐心。我始终坚信唯有付出，方有收获，天道酬勤，想要成功，就得脚踏实地，比别人努力再努力。</p>
+                    <p>鄙人自小对科学、物理、数学等学科有独特的兴趣，初中时期开始接触电脑，开启了自己的计算机学习生涯。高中时期开始自学编程，并在高考时果断放弃了自己最擅长的中文专业，选择了计算机专业。2011年于天龙八部学院计算机科学与技术系毕业之后，一直主攻JAVA领域的开发和研究工作。本人做事勤恳、细心，富有工作责任心，喜欢与人交流。善于思考，学习理解和适应能力强。爱好户外爬山、跑步、篮球、羽毛球、游泳等。计算机方面专业基础扎实，项目实践经验丰富，思维反应快速敏捷，学习适应能力过硬，具备从事软件开发工作所需要的细心和耐心。我始终坚信唯有付出，方有收获，天道酬勤，想要成功，就得脚踏实地，比别人努力再努力。
+                    </p>
                 </div>
             </div>
         </div>
@@ -69,13 +70,12 @@
         </div>
     </div>
     <div id="topbar">
-        <ul> 
-            <li>专业技能</li>
-            <li>工作经验</li>
-            <li>项目经验</li>
+        <ul>
+            <li id="skill">专业技能</li>
+            <li id="experience">工作经验</li>
+            <li id="project">项目经验</li>
             <li>作品展示</li>
-            <li>教育经历</li>
-            <li>联系方式</li>
+            <li id="education">教育经历</li>
         </ul>
     </div>
     <div class="secondPage">
@@ -100,27 +100,204 @@
                 </div>
             </div>
             <ul>
-                <li><span><i class="fa fa-space-shuttle"></i>具备游戏，web，windows，cloud 类业务的运维经验，擅长使用 shell，python，powershell 对日常运维工作进行自动化，熟练运用 LB 类软件(nginx，apache，haproxy，lvs， keepalived)构建高可用的 web 类应用。</li>
-                <li><span><i class="fa fa-space-shuttle"></i>擅长构建监控系统(nagios，zabbix， graphna)，具备从零到一建设 zabbix 监控系统经验， 覆盖 os 基础监控，DB 监控，业务数据监控，具备二次开发能力以及对监控系统的性能调优能 力。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>具备游戏，web，windows，cloud 类业务的运维经验，擅长使用
+                        shell，python，powershell 对日常运维工作进行自动化，熟练运用 LB 类软件(nginx，apache，haproxy，lvs， keepalived)构建高可用的 web
+                        类应用。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>擅长构建监控系统(nagios，zabbix， graphna)，具备从零到一建设 zabbix 监控系统经验， 覆盖
+                        os 基础监控，DB 监控，业务数据监控，具备二次开发能力以及对监控系统的性能调优能 力。</li>
                 <li><span><i class="fa fa-space-shuttle"></i>熟悉各大云平台(aws，阿里云，华为云)及其 API，了解 openstack 宏观调度原理。</li>
-                <li><span><i class="fa fa-space-shuttle"></i>具备前后端全栈开发能力(django + mysql + js)构建运维自动化平台，实现运维资源的可视化，运维工作的白屏化。</li>
-                <li><span><i class="fa fa-space-shuttle"></i>具备较强的前端开发能力(兴趣)，熟练使用 angular，react，rxjs 等前端框架构建页面以及 具备对网站访问速度的性能调优经验。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>具备前后端全栈开发能力(django + mysql +
+                        js)构建运维自动化平台，实现运维资源的可视化，运维工作的白屏化。</li>
+                <li><span><i class="fa fa-space-shuttle"></i>具备较强的前端开发能力(兴趣)，熟练使用 angular，react，rxjs 等前端框架构建页面以及
+                        具备对网站访问速度的性能调优经验。</li>
             </ul>
         </div>
         <div class="experience item">
             <p>工作经验</p>
+            <div class="timeline">
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>开发</span>
+                        </div>
+                        <div class="time">2017.07 ~ 至今</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">华为云</span>
+                        <span class="address"><i class="fa fa-globe"></i>杭州</span>
+                        <div class="content">负责华为云 Console 控制台的开发以及技术演进; 负责华为云计算集群的自动化扩容工具的开发 以及落地。</div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>运维开发</span>
+                        </div>
+                        <div class="time">2016.06 ~ 2017.07</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">阿里云</span>
+                        <span class="address"><i class="fa fa-globe"></i>北京 杭州</span>
+                        <div class="content">负责部门 DevOPS 转型的运维平台的开发以及落地工作;负责万网主机，云监控，天基三个云产品的稳定性，运维架构设计，资源协调等工作</div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>运维</span>
+                        </div>
+                        <div class="time">2014.07 ~ 2016.06</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">兰亭集势</span>
+                        <span class="address"><i class="fa fa-globe"></i>北京</span>
+                        <div class="content">负责兰亭集势跨境电商网站的运维工作;负责兰亭监控系统(zabbix)含二次开发)的建设与维护;负责兰亭 AWS 自动化运维系统建设。</div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>运维</span>
+                        </div>
+                        <div class="time">2012.02 ~ 2014.07</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">搜狐畅游</span>
+                        <span class="address"><i class="fa fa-globe"></i>北京</span>
+                        <div class="content">
+                            主要负责海外《天龙八部》的版本更新以及故障处理，负责《桃园》在海外地区的运维工作，负责实习生的培养工作;负责畅游海外监控系统的维护与建设，负责海外某机房的管理工作，负责畅游桌面的运维工作。
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="project item" item">
-            <p>工作经验</p>
+        <div class="project item">
+            <p>项目经验</p>
+            <div class="timeline">
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>华为云</span>
+                        </div>
+                        <div class="time">2018.09 ~ 至今</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">华为云控制台框架 2.0 版本演进</span>
+                        <span class="address"><i class="fa fa-globe"></i>杭州</span>
+                        <div class="content">
+                            <span>从“页面访问速度提升到用户体验优化”在追赶友商的路上艰苦前进。<span>
+                                    <ul>
+                                        <li>建立npm仓库，基于webpack将华为云console框架改造为npm包的发布形式，做到各个服务不依赖 console 框架可以独立发布;</li>
+                                        <li>基于 es6 + angularjs1.7
+                                            引入组件化开发理念，对console框架进行重构，并赋能其他云服务，提高华为云console业务的开发效率，通过路由懒加载，框架懒加载，代码混淆等方法优化华为云控制台的访问效率;
+                                        </li>
+                                        <li>改造 mocker-api
+                                            开源库，使其兼容华为云历史使用的fixtrure数据结构，同时引入puppteer模拟用户登录实现本地代码可以对接线上数据的功能，提高本地调试效率;
+                                        </li>
+                                        <li>基于 yeoman 建设华为云 console 业务的脚手架，具备一键生成 console 项目能力，内置 webpack 配置，eslint
+                                            语法检查，打包上线脚本等，使新项目启动时间降低为秒级;</li>
+                                        <li>负责华为云风格改版，负责过滤 UED 相关的“过渡设计”，分解需求，制定开发计划， 分配开
+                                            发任务，承担项目中的“拟物化设计”，“动态拖拽”等超越体验类的开发工作。</li>
+                                    </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>华为云</span>
+                        </div>
+                        <div class="time">2017.11 ~ 2018.08</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">华为云 IAAS 扩容工具</span>
+                        <span class="address"><i class="fa fa-globe"></i>杭州</span>
+                        <div class="content">
+                            <span>借助公司内部平台实现计算集群的自动化扩容，并推广其在现网使用。</span>
+                            <ul>
+                                <li>作为项目负责人，梳理华为云14款flavor的上线步骤，基于内部平台对上线步骤进行编 排，实现华为云计算节点的一键上线能力，扩容时长缩短为小时级。</li>
+                                <li>结合扩容场景推动并落地内部工具实现“异步任务”，“任务动态分批”，“动态任务配置”等多 项优化措施。</li>
+                                <li>当前该工具已作为华为云常规扩容工具使用。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>阿里云</span>
+                        </div>
+                        <div class="time">2016.06 ~ 2017.07</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">应用运维平台建设</span>
+                        <span class="address"><i class="fa fa-globe"></i>北京</span>
+                        <div class="content">
+                            <ul>
+                                <li>在 DevOPS 的大背景下探索并开发适用于阿里云的应用运维平台(PaaS)，旨在将所有的运维操
+                                    作工具化，白屏化，提供一整套的应用运维解决方案;目前系统涵盖从机器的申请(ECS Open
+                                    API)到环境的初始化，应用的扩容，日志白屏化，域名的申请以及容灾一键切换，应用的配置 文件管理，可实现 80%的运维操作不用登陆服务器。</li>
+                                <li>作为项目负责人负责需求的收集，前后端全栈开发(Django + Mysql + JavaScript)，以及使用 ODPS 对系统功能使用情况做数据报表分析。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>兰亭集势</span>
+                        </div>
+                        <div class="time">2014.07 ~ 2016.06</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">兰亭运维体系建设</span>
+                        <span class="address"><i class="fa fa-globe"></i>北京</span>
+                        <div class="content">
+                            <ul>
+                                <li>作为项目负责人负责兰亭 AWS自动化运维的设计以及实施，由于需要在AWS建设备机房，快速开机器与系统部署成为刚需，采用定制AMI+AWS api
+                                    的方式实现命令行一键开启实例，采用 cloud-init+zabbix auto
+                                    register功能实现实例开启后的系统初始化以及监控部署，采用git+shell的方式实现针对不同服务(nginx/php/mysql/redis/solr)实现环境的一键部署，采用ansible实现服务的配置管理。
+                                </li>
+                                <li>作为项目负责人负负责兰亭监控系统的搭建，采用zabbix对海外500+台服务器部署监控，并配置短信报警功能，制定业务监控模版
+                                    20+个，监控系统处理能力100+nvps，基于 zabbix表结构开发资产管理模块，实现资产管理与监控系统的有机结合。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="leftpart">
+                        <div class="title">
+                            <span>搜狐畅游</span>
+                        </div>
+                        <div class="time">2013.05 ~ 2014.06</div>
+                    </div>
+                    <div class="rightpart">
+                        <span class="company">安卓桌面(WEB 平台)运维</span>
+                        <span class="address"><i class="fa fa-globe"></i>北京</span>
+                        <div class="content">
+                            <ul>
+                                <li>负责安卓桌面项目在东南亚地区(日活跃 500000+)的上线工作，主要负责资源的配置选型， 程序的部署，监控系统的搭建，针对资源使用情况进行服务器配置的调整，以及用户访问速度的不断优化;</li>
+                                <li>网站架构设计:采用 ELB+nginx 作为负载均衡策略支撑网站的整体架构,消除单点，采用cdn+nginx缓存策略，对静态资源进行加速，采用redis对数据库操作进行缓存。采用 mfs 分布式 文件系统实现各应用之间的文件共享;</li>
+                                <li>监控:采用 nagios对网站进行业务层面的监控报警，采用ganglia对系统性能数据，nginx连接数，http返回值，各域名的请求量等进行数据收集。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="education item" item">
-            <p>教育经验</p>
+        <div class="education item">
+            <p>教育经历</p>
+            <div class="school">
+                <span style="margin-right: 100px">西安邮电大学</span>
+                <span style="margin-right: 100px">信息安全专业</span>
+                <span style="margin-right: 100px">CET4</span>
+                <span>2008 ~ 2012</span>
+            </div>
         </div>
-
-        <div class="contact item" item">
-            <p>联系方式</p>
+        <div class="footer">
+            <span>Copyright © 2019.Onesbook All rights reserved. </span>
         </div>
     </div>
 </body>
