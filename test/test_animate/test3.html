@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>canvas环形比例图</title>
+<style></style>
+</head>
+
+<body>
+<canvas class="process" width="68px" height="68px">61%</canvas>  
+<canvas class="process" width="68px" height="68px">21%</canvas> 
+<canvas class="process" width="68px" height="68px">31%</canvas>
+<canvas class="process" width="68px" height="68px">100%</canvas> 
+<canvas class="process" width="68px" height="68px">0%</canvas> 
+<script> 
+    var scale = scale||{};
+    scale = {
+        circ : Math.PI * 2,
+        quart : Math.PI / 2,
+        draw : function(obj) {
+            var _me = this,
+                obj = Array.prototype.slice.call(obj,0);
+
+            obj.forEach(function(element, index, array){
+
+                var txt = element.innerHTML,
+                    ratio = txt.substring(0, txt.length-1),
+                    canvas = element,
+                    ctx = canvas.getContext('2d');
+
+                // 将绘图区域清空,如果是第一次在这个画布上画图,画布上没有东西,这步就不需要了
+                ctx.clearRect(0, 0, 68, 68);
+
+                // 画一个浅蓝色的圆
+                ctx.beginPath();
+                // 坐标移动到圆心
+                ctx.moveTo(34, 34);
+                // 画圆,圆心是34,34,半径34,从角度0开始,画到2PI结束,最后一个参数是方向顺时针还是逆时针
+                ctx.arc(34, 34, 34, 0, Math.PI * 2, false);
+                ctx.closePath();
+                // 填充颜色
+                ctx.fillStyle = '#86b9e8';
+                ctx.fill();
+                // 浅蓝色的圆画完
+
+                // 画比例
+                ctx.beginPath();
+                ctx.moveTo(34, 34);
+                // 跟上面的圆唯一的区别在这里,不画满圆,画个扇形,起始角度不一样
+                ctx.arc(34, 34, 34, -(_me.quart), (_me.circ * ratio / 100) - _me.quart, false);
+                ctx.closePath();
+                ctx.fillStyle = '#0c72d1';
+                ctx.fill();
+
+                // 画内部空白
+                ctx.beginPath();
+                ctx.moveTo(34, 34);
+                ctx.arc(34, 34, 30, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(255,255,255,1)';
+                ctx.fill();
+
+                // 画一条线
+                ctx.beginPath();
+                ctx.arc(34, 34, 18.5, 0, Math.PI * 2, true);
+                ctx.closePath();
+                // 与画实心圆的区别,fill是填充,stroke是画线
+                ctx.strokeStyle = '#ddd';
+                ctx.stroke();
+
+                //在中间写字
+                ctx.font = "bold 14px Arial";
+                ctx.fillStyle = '#000';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.moveTo(34, 34);
+                ctx.fillText(txt, 34, 34);
+            })
+        }
+    }
+    scale.draw(document.getElementsByClassName('process'));
+</script>
+</body>
+</html>
