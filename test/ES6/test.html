@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let fib = (n) => {
+        if (n <= 1) {
+            debugger;
+            return n;
+        } else {
+            //不会被优化，因为执行了fib() 后汗执行了加法
+            return n + fib(n - 1)
+        }
+    }
+    console.log(fib(1000000));
+    // 优化后的方法
+    let fibb = (n, p) => {
+        "use strict";
+        p = (typeof (p) == 'undefined') ? 0 : p;
+        if (n <= 1) {
+            debugger
+            return n + p
+        } else {
+            let result = n + p;
+            return fibb(n - 1, result)
+        }
+    }
+    //n: 1    return 1
+    //n: 2    return fibb(1, 2) -->  3
+    //n: 3    return fibb(2, 3) --> fibb(1, 5) --> 6
+    //n: 4    return fibb(3, 4) --> fibb(2, 7) --> fibb(1, 9) --> 10
+    //n: 5    return fibb(4, 5) --> fibb(3, 9) --> fibb(2, 12) --> fibb(1, 14) --> 15
+</script>
+
+</html>

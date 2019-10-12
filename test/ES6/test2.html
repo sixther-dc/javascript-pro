@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>处理大量数组的优化</title>
+</head>
+<body>
+</body>
+<script>
+    let f = length => Array.from({length}).map((v,k) => k);
+    let a = f(1000);
+    let nextItem = () => {
+        let item = a.pop();
+        if (item == 1) {
+            debugger;
+        }
+        if (item) {
+            console.log(item);
+            //放到下一个事件处理周期内，减少call stack的大小
+            setTimeout(nextItem, 0)
+        }
+    };
+    nextItem();
+    //使用for循环，callstak上永远只有一个栈帧
+    // for (let item of a) {
+    //     if (item == 9999) {
+    //         debugger;
+    //     }
+    //     console.log(item)
+    // }
+
+
+</script>
+</html>
