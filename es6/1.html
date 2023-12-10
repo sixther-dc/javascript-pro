@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6</title>
+</head>
+<body>
+    <script>
+        let obj = {
+            name: "dc",
+            age: 15,
+            sex: "man"
+        }
+
+        let {name, sex} = obj
+        console.log(name, sex)
+
+        let str = `sdfasfasf
+                    ${name}
+                safddsaf`
+        console.log(str)
+
+        //对象的简化写法
+        let pepole = {
+            name,
+            sex,
+            change: function() {
+                console.log("I am change function.")
+            },
+            fly() {
+                console.log("I am fly funcion.")
+            },
+            cry: () => {
+                console.log("invoke cry function in people object", this)
+            }
+        }
+
+        pepole.cry()
+        //箭头函数
+        //箭头函数的 this 始终指向函数的声明时所在作用域下的 this 的值
+        let fn = () => {
+            console.log("I am arrow funcion")
+            console.log(this)
+        }
+
+        let fn1 = function() {
+            console.log("I am a normal funcion")
+            console.log(this)
+        }
+
+        fn1()
+        //call 可以改变函数执行的作用域
+        fn1.call(pepole)
+        fn.call(pepole)
+
+        //构造函数只能使用普通写法，因为箭头函数的 this 就是声明函数时候的 this
+        let createObj = function () {
+            this.name = "dx"
+            this.age = 1
+        }
+
+        let p = new createObj()
+        console.log(p)
+        //new 也可以理解成是一个函数的语法糖
+
+        let ob = {}
+        createObj.call(ob)
+        console.log(ob)
+
+        let pow = n => n * n 
+        console.log(pow(9))
+
+
+        let div = {}
+        div.addFn = function(name, fn) {
+            div[name] = fn
+        }
+        div.addFn("click", function(){
+            console.log("this", this)
+        })
+        div.click()
+
+
+        let div1 = {
+            name: "div",
+            fn() {
+                console.log("div1 this", this)
+            },
+            fn1: function() {
+                console.log("div fn1 this", this)
+            }
+        }
+
+        div1.fn()
+        div1.fn1()
+
+
+        //函数的参数默认值, 一般位置要靠后
+        function add(a, b, c=10) {
+            return a + b + c
+        }
+        console.log(add(1,2))
+        console.log(add(1,2,3))
+ 
+        function connect({host = "127.0.0.1", port, username, password}) {
+            console.log(host)
+            console.log(port)
+            console.log(username)
+            console.log(password)
+        }
+
+        connect({
+            port: 3306,
+            username: "root",
+            password: "root"
+        })
+
+        function testargument() {
+            console.log(arguments.length)
+            console.log(arguments[0])
+            console.log(arguments)
+            console.log(...arguments)
+        }
+        testargument(1,2,3,4)
+
+        function testrest(...args) {
+            console.log(args)
+        }
+        testrest(1,2,3,4)
+
+        let tfboys = ['yi', 'wang', 'wag']
+        console.log(...tfboys)
+
+        //Symbol 表示独一无二的值
+        let s = Symbol("some");
+        
+        //场景1：给对象添加属性跟方法
+
+        let hero = {
+            up: "up",
+            down: "down"
+        }
+
+        let i = {
+            up: Symbol(),
+            down: Symbol()
+        }
+
+        hero[i.up] = "new up"
+        hero[i.down] = "new down"
+        hero[s] = "new something"
+        console.log(hero)
+        console.log(hero[s])
+        console.log(hero[i.up])
+
+        //场景2: 通过内置属性来控制对象在特定场景下的表现
+
+        //函数对象
+        let ss = function() {
+            console.log("I am ss funciotn", ss.a)
+        }
+        ss.a = "df f"
+        ss()
+
+        //迭代器
+        //有 Symbol.iterator的对象都可以使用迭代起来便利
+        let aa = [1,2,3,4,5]
+        for (let i=0; i<aa.length; i++) {
+            console.log(aa[i])
+        }
+
+        for (v of aa) {
+            console.log(v)
+        }
+
+        let iter = aa[Symbol.iterator]()
+
+        //iterator 的方法每次调用都返回数组的下一个元素，以及一个是否完成的便利的标记
+        console.log("arr`s iterator ", iter.next())
+        console.log("arr`s iterator ", iter.next())
+
+        let banji = {
+            name: "3-1",
+            students: [
+                "pangzi",
+                "38",
+                "langwang"
+            ]
+        }
+
+        banji[Symbol.iterator] = function () {
+            console.log(this)
+            console.log("custom iterator")
+            let index = 0
+            //普通函数，是谁调用它，this 就是谁，所以这里的 this 是 return 的这个对象
+
+            //箭头函数的 this 始终指向声明该函数时候的上下文
+            return {
+                next: () => {
+                    if (index < this.students.length) {
+                        console.log(this)
+                        index ++
+                        return { value: this.students[index-1], done: false}
+                    } else {
+                        return { value: undefined, done: true }
+                    }
+                }
+            }
+        }
+        for (v of banji) {
+            console.log(v)
+        }
+        //for - in 用来遍历对象的每个元素
+        for (v in banji) {
+            console.log(v)
+        }
+    </script>
+</body>
+</html>

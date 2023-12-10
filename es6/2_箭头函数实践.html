@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>箭头函数实践</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        let div = document.getElementsByClassName("box")[0]
+        console.log(div)
+        div.addEventListener("click", function() {
+            console.log(this)
+            //该箭头函数是在 div 的作用域中声明的, 所以 this 就是 该 div
+            //如果使用普通函数的写法，则 this 是 window
+            setTimeout(() => {
+                console.log(this)
+                this.style.background = "red"
+            }, 2000)
+        })
+
+        let arr = [1,4,6,100,400,501]
+        let arrr = arr.filter(function(item){
+            if (item % 2 ==0) {
+                return true
+            } else {
+                return false
+            }
+        })
+        //箭头函数的简写形式
+        let arrrr = arr.filter(item => item % 2 === 0 )
+        console.log(arrr)
+        console.log(arrrr)
+    </script>
+</body>
+</html>
