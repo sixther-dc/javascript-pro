@@ -20,15 +20,61 @@
         //这里的函数调用就不是在 a 的对象上来调用函数了，而是在 window 对象上调用函数，因为a.fn()返回的函数返回到了 window 的上下文中。
         a.fn1()()
 
+        sayThis = () => {
+            //这里的 this 在函数声明的时候就一定决定好了
+            console.log(this)
+        }
         let DC = function () {
             this.name = "dc"
             this.age = 34
             console.log(this.hasOwnProperty())
+            this.say = function() {
+                console.log(this)
+            },
+            this.sayArrow = () => {
+                console.log(this)
+            }
+            this.sayThis = sayThis
         }
 
         //如此看来 js 中的Arguments，Array 的这些数据类型都是使用构造函数来创建的
         dd = new DC()
         console.log(dd)
+        dd.say()
+        dd.sayArrow()
+        dd.sayThis()
+
+        //生成器
+        //js 中的定时器就是异步
+        function one() {
+            setTimeout(()=>{
+                console.log(1111)
+                iterator.next(2)
+            }, 1000)
+        }
+        function two(n) {
+            setTimeout(()=>{
+                console.log(n)
+                iterator.next()
+            }, 2000)
+        }
+        function three() {
+            setTimeout(()=>{
+                console.log(3333)
+            }, 3000)
+        }
+
+        function * get() {
+            let n = yield one()
+            yield two(n)
+            yield three()
+        }
+
+        let iterator = get()
+        console.log(iterator)
+        iterator.next()
+         
+        //Promise
     </script>
     
 </body>
