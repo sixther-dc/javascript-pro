@@ -74,8 +74,87 @@
         console.log(iterator)
         iterator.next()
          
-        //Promise
-    </script>
+        //set
+        let arr = [1,2,3,4,5]
+        let s = new Set(arr)
+        console.log(s, typeof s)
+        //数组求交集
+        let arr1 = [4,5,6,7,9]
+        let s1= new Set(arr1)
+        let result = [...s].filter((item) => s1.has(item))
+        console.log(result)
+        //数组求并集
+        let bingji = [...new Set([...s, ...s1])]
+        console.log(bingji)
+
+        //map
+        //跟 object 不一样的是map 的 key 可以是任意的数据类型
+        let m = new Map()
+        m.set("name", "dx")
+        console.log(m)
+
+
+        //class
+        function Parent() {
+            
+        }
+        let p = new Parent()
+        console.log(p)
+
+        class Phone {
+            //类的静态方法，不会被实例所继承，只能有类静态调用
+            static lang = "en"
+            constructor(size, price) {
+                this.size = size
+                this.price = price
+            }
+        
+            call(msg) {
+                console.log("我可以打电话...", msg)
+            }
+        }
+
+
+        class SmartPhone extends Phone {
+            constructor(size, price, os) {
+                super(size, price)
+                this.os = os
+            }
+
+            call() {
+                //子类调用父类的方法
+                super.call("form iphone")
+                console.log("我可以打视频电话...")
+            }
+
+            game() {
+                console.log("我可以拨打视频电话")
+            }
+
+            get os() {
+                //Maximum call stack size  可以使用数据代理的方式来避免无限调用栈的问题
+                return this._os
+                console.log("os属性被读取了")
+            }
+
+            set os(v) {
+                this._os = v
+                console.log("os属性被设置了")
+            }
+        }
+        console.log(Phone.lang)
+        let nokia = new Phone(6, 1999)
+        console.log(nokia)
+        nokia.call()
+
+        iphone = new SmartPhone(6, 4999, "ios")
+        console.log(iphone)
+        iphone.call()
+        iphone.os = "andriod"
+        console.log(iphone.os)
+
+
+</script>
     
 </body>
 </html>
